@@ -6,4 +6,139 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_top_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:padding="6dp"
+            android:src="@drawable/icon_default_user"
+            app:civ_border_color="@color/brown"
+            app:civ_border_width="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_nav_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/days_one"
+            android:text="SETTINGS"
+            android:textColor="@color/brown"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ib_settings"
+            app:layout_constraintStart_toEndOf="@+id/iv_profile"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/ib_settings"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:cropToPadding="true"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_settings_selected"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/ll_bottom_nav_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_top_nav_bar"
+        app:layout_constraintVertical_bias="0.0"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom_nav_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/pink"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/ib_home"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight=".25"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:cropToPadding="true"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_home"
+            app:tint="@color/brown"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/ib_tracker"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight=".25"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:cropToPadding="true"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_tracker"
+            app:tint="@color/brown"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/ib_notifications"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight=".25"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:cropToPadding="true"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_notification"
+            tools:ignore="SpeakableTextPresentCheck"
+            app:tint="@color/brown" />
+
+        <ImageButton
+            android:id="@+id/ib_messages"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight=".25"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:cropToPadding="true"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_messages"
+            tools:ignore="SpeakableTextPresentCheck"
+            app:tint="@color/brown" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

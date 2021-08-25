@@ -11,7 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private ImageButton ibHome, ibTracker, ibNotification, ibMessage, ibSettings;
+    private ImageButton ibTracker, ibNotification, ibMessage, ibSettings;
     private FloatingActionButton fabPost;
 
     @Override
@@ -19,14 +19,18 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         this.initComponents();
+
+        if(!"activity_main".equals(getIntent().getStringExtra("from"))){
+            overridePendingTransition(0,0);
+            getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        }
+
     }
 
     //Initialize objects
     public void initComponents(){
-        this.ibHome = findViewById(R.id.ib_home);
         this.ibTracker = findViewById(R.id.ib_tracker);
         this.ibNotification = findViewById(R.id.ib_notifications);
-        this.ibTracker = findViewById(R.id.ib_tracker);
         this.ibSettings = findViewById(R.id.ib_settings);
         this.fabPost = findViewById(R.id.fab_create_post);
 
@@ -43,6 +47,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, TrackerActivity.class);
                 startActivity(intent);
+
             }
         });
 

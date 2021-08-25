@@ -68,7 +68,9 @@
             android:inputType="textEmailAddress"
             android:padding="8dp"
             android:textColor="@color/black"
-            android:textColorHint="@color/gray" />
+            android:textColorHint="@color/gray"
+            tools:ignore="TextContrastCheck,TextContrastCheck"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/et_password"
@@ -84,7 +86,8 @@
             android:inputType="textPassword"
             android:padding="8dp"
             android:textColor="@color/black"
-            android:textColorHint="@color/gray" />
+            android:textColorHint="@color/gray"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/tv_invalid_email"
@@ -120,7 +123,9 @@
             android:fontFamily="@font/karla"
             android:foregroundGravity="center_vertical|center|center_horizontal|fill"
             android:text="LOGIN"
-            android:textSize="16sp" />
+            android:textColor="#212121"
+            android:textSize="16sp"
+            tools:ignore="TextContrastCheck,TextContrastCheck" />
 
         <LinearLayout
             android:id="@+id/ll_link_signup"
@@ -138,10 +143,11 @@
                 android:layout_marginRight="8dp"
                 android:fontFamily="@font/karla"
                 android:gravity="center"
-                android:shadowColor="#000000"
                 android:text="Do not have an account?"
+                android:textColor="@color/white"
                 android:textSize="16sp"
-                android:textStyle="normal" />
+                android:textStyle="normal"
+                tools:ignore="TextContrastCheck" />
 
             <TextView
                 android:id="@+id/tv_signup_link"
@@ -149,8 +155,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:linksClickable="true"
-                android:shadowColor="#000000"
-                android:text="Sign Up!"
+                android:text="Sign Up"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
