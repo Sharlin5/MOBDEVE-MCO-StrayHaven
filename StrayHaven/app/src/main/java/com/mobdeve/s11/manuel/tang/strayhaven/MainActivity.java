@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = etEmail.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
-                signIn(email, password);
+                if(checkValidLogin(email, password)){
+                    signIn(email, password);
+                }
             }
         });
 
@@ -76,11 +79,19 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }
+                        else {
+                            pbLogin.setVisibility(View.GONE);
+                            failedLogin();
+                        }
                     }
                 });
     }
 
-    private boolean checkValid(String email, String password){
+    private void failedLogin(){
+        Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean checkValidLogin(String email, String password){
         boolean isValid = true;
         if(email.isEmpty()){
             this.etEmail.setError("Required Field");
