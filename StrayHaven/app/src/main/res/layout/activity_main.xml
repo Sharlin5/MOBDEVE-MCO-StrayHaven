@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D8AFB3"
+    android:background="@color/pink"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -48,27 +48,34 @@
             android:layout_width="270dp"
             android:layout_height="55dp"
             android:layout_marginTop="24dp"
+            android:background="@color/white"
             android:ems="10"
             android:fontFamily="@font/karla"
             android:foregroundGravity="center_vertical|center|center_horizontal|fill"
             android:hint="Email Address"
             android:inputType="textEmailAddress"
-            android:textColor="@android:color/white" />
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
 
         <EditText
             android:id="@+id/et_password"
             android:layout_width="270dp"
             android:layout_height="55dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/white"
             android:ems="10"
             android:fontFamily="@font/karla"
             android:foregroundGravity="center_vertical|center|center_horizontal|fill"
             android:hint="Password"
             android:inputType="textPassword"
-            android:textColor="@android:color/white" />
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tv_invalid_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/karla"
@@ -81,7 +88,7 @@
             tools:visibility="visible" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tv_incorrect_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/karla"
@@ -104,6 +111,7 @@
             android:textSize="16sp" />
 
         <LinearLayout
+            android:id="@+id/ll_link_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|top"
@@ -112,7 +120,7 @@
             android:weightSum="1">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tv_account_prompt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
@@ -124,7 +132,7 @@
                 android:textStyle="normal" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/tv_signup_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
