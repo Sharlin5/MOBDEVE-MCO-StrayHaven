@@ -67,7 +67,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/cl_bottom_nav_bar"
+        app:layout_constraintBottom_toTopOf="@+id/ll_bottom_nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,18 +82,19 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
-        android:tint="@color/brown"
+        app:tint="@color/brown"
         app:backgroundTint="@color/dark_pink"
         app:layout_constraintBottom_toBottomOf="@+id/rv_home_feed"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/icon_create_post"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_bottom_nav_bar"
+    <LinearLayout
+        android:id="@+id/ll_bottom_nav_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/pink"
+        android:weightSum="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -102,72 +103,58 @@
             android:id="@+id/ib_home"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="40dp"
+            android:layout_weight=".25"
             android:adjustViewBounds="true"
             android:background="@null"
-            android:backgroundTint="@color/brown"
             android:cropToPadding="true"
             android:padding="8dp"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_home_selected"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:src="@drawable/icon_home_selected"
+            tools:ignore="SpeakableTextPresentCheck"
+            app:tint="@color/brown" />
 
         <ImageButton
             android:id="@+id/ib_tracker"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_weight=".25"
             android:adjustViewBounds="true"
             android:background="@null"
-            android:backgroundTint="@color/brown"
             android:cropToPadding="true"
             android:padding="8dp"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ib_notifications"
-            app:layout_constraintStart_toEndOf="@+id/ib_home"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_tracker"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:src="@drawable/icon_tracker"
+            tools:ignore="SpeakableTextPresentCheck"
+            app:tint="@color/brown" />
 
         <ImageButton
             android:id="@+id/ib_notifications"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="40dp"
+            android:layout_weight=".25"
             android:adjustViewBounds="true"
             android:background="@null"
-            android:backgroundTint="@color/brown"
             android:cropToPadding="true"
             android:padding="8dp"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ib_messages"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/icon_notification"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:src="@drawable/icon_notification"
+            tools:ignore="SpeakableTextPresentCheck"
+            app:tint="@color/brown" />
 
         <ImageButton
             android:id="@+id/ib_messages"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="40dp"
+            android:layout_weight=".25"
             android:adjustViewBounds="true"
             android:background="@null"
-            android:backgroundTint="@color/brown"
             android:cropToPadding="true"
             android:padding="8dp"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/icon_messages"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:src="@drawable/icon_messages"
+            tools:ignore="SpeakableTextPresentCheck"
+            app:tint="@color/brown" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
