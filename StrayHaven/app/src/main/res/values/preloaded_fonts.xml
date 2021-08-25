@@ -3,6 +3,5 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/days_one</item>
         <item>@font/karla</item>
-        <item>@font/syncopate_bold</item>
     </array>
 </resources>
