@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 public class HomeRequestActivity extends AppCompatActivity {
 
     private ImageView ivProfile;
+    private TextView tvUpdates;
     private FloatingActionButton fabPost;
     private ImageButton ibSettings,ibTracker, ibNotifications, ibMessages;
     private RecyclerView rvFeed;
@@ -58,7 +60,6 @@ public class HomeRequestActivity extends AppCompatActivity {
 
     private void initRecyclerView(){
         this.dataFeed = new FeedDataHelper().loadFeedData();
-
         this.rvFeed = findViewById(R.id.rv_home_req_feed);
         this.rvFeed.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         this.rvFeed.setAdapter(new FeedAdapter(this.dataFeed));
@@ -73,6 +74,7 @@ public class HomeRequestActivity extends AppCompatActivity {
     //Initialize objects
     private void initComponents(){
         this.ivProfile = findViewById(R.id.iv_home_req_user_pic);
+        this.tvUpdates = findViewById(R.id.tv_home_req_update_tab);
         this.ibSettings = findViewById(R.id.ib_home_req_settings);
         this.fabPost = findViewById(R.id.fab_home_req_create_post);
         this.ibTracker = findViewById(R.id.ib_home_req_tracker);
@@ -83,6 +85,14 @@ public class HomeRequestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeRequestActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvUpdates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeRequestActivity.this, HomeUpdateActivity.class);
                 startActivity(intent);
             }
         });
