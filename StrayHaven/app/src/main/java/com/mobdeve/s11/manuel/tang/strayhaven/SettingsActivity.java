@@ -22,9 +22,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     //Initialize objects
     public void initComponents(){
-        this.ibHome = findViewById(R.id.ib_home);
-        this.ibTracker = findViewById(R.id.ib_tracker);
-        this.ibNotification = findViewById(R.id.ib_notifications);
+        this.ibHome = findViewById(R.id.ib_home_home);
+        this.ibTracker = findViewById(R.id.ib_home_tracker);
+        this.ibNotification = findViewById(R.id.ib_home_notifications);
 
         ibHome.setOnClickListener(new View.OnClickListener() {
             @Override

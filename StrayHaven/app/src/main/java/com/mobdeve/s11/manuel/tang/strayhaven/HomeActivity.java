@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private ImageView ivProfile;
     private ImageButton ibTracker, ibNotification, ibMessage, ibSettings;
     private FloatingActionButton fabPost;
 
@@ -29,10 +31,19 @@ public class HomeActivity extends AppCompatActivity {
 
     //Initialize objects
     public void initComponents(){
-        this.ibTracker = findViewById(R.id.ib_tracker);
-        this.ibNotification = findViewById(R.id.ib_notifications);
-        this.ibSettings = findViewById(R.id.ib_settings);
-        this.fabPost = findViewById(R.id.fab_create_post);
+        this.ibTracker = findViewById(R.id.ib_home_tracker);
+        this.ibNotification = findViewById(R.id.ib_home_notifications);
+        this.ibSettings = findViewById(R.id.ib_home_settings);
+        this.fabPost = findViewById(R.id.fab_home_create_post);
+        this.ivProfile = findViewById(R.id.iv_home_user_pic);
+
+        ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         fabPost.setOnClickListener(new View.OnClickListener() {
             @Override

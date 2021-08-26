@@ -7,7 +7,7 @@
     tools:context=".HomeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_top_nav_bar"
+        android:id="@+id/cl_home_top_nav_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/pink"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_profile"
+            android:id="@+id/iv_home_user_pic"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -32,7 +32,7 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/tv_nav_text"
+            android:id="@+id/tv_home_nav_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -42,12 +42,12 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ib_settings"
-            app:layout_constraintStart_toEndOf="@+id/iv_profile"
+            app:layout_constraintEnd_toStartOf="@+id/ib_home_settings"
+            app:layout_constraintStart_toEndOf="@+id/iv_home_user_pic"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/ib_settings"
+            android:id="@+id/ib_home_settings"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:adjustViewBounds="true"
@@ -67,16 +67,16 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/ll_bottom_nav_bar"
+        app:layout_constraintBottom_toTopOf="@+id/ll_home_bottom_nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_top_nav_bar">
+        app:layout_constraintTop_toBottomOf="@+id/cl_home_top_nav_bar">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_create_post"
+        android:id="@+id/fab_home_create_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -90,7 +90,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <LinearLayout
-        android:id="@+id/ll_bottom_nav_bar"
+        android:id="@+id/ll_home_bottom_nav_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/pink"
@@ -100,7 +100,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/ib_home"
+            android:id="@+id/ib_home_home"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight=".25"
@@ -114,7 +114,7 @@
             app:tint="@color/brown" />
 
         <ImageButton
-            android:id="@+id/ib_tracker"
+            android:id="@+id/ib_home_tracker"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight=".25"
@@ -128,7 +128,7 @@
             app:tint="@color/brown" />
 
         <ImageButton
-            android:id="@+id/ib_notifications"
+            android:id="@+id/ib_home_notifications"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight=".25"
@@ -142,7 +142,7 @@
             app:tint="@color/brown" />
 
         <ImageButton
-            android:id="@+id/ib_messages"
+            android:id="@+id/ib_home_messages"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight=".25"

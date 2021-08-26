@@ -40,9 +40,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initComponents(){
-        etEmail = findViewById(R.id.et_email_register);
-        etUsername = findViewById(R.id.et_username_register);
-        etPassword = findViewById(R.id.et_password_register);
+        etEmail = findViewById(R.id.et_register_email);
+        etUsername = findViewById(R.id.et_register_username);
+        etPassword = findViewById(R.id.et_register_password);
         pbRegister = findViewById(R.id.pb_register);
 
         btnRegister = findViewById(R.id.btn_register);

@@ -25,10 +25,10 @@ public class NotificationActivity extends AppCompatActivity {
 
     //Initialize objects
     public void initComponents(){
-        this.ibHome = findViewById(R.id.ib_home);
-        this.ibTracker = findViewById(R.id.ib_tracker);
-        this.ibSettings = findViewById(R.id.ib_settings);
-        this.fabPost = findViewById(R.id.fab_create_post);
+        this.ibHome = findViewById(R.id.ib_home_home);
+        this.ibTracker = findViewById(R.id.ib_home_tracker);
+        this.ibSettings = findViewById(R.id.ib_home_settings);
+        this.fabPost = findViewById(R.id.fab_home_create_post);
 
         fabPost.setOnClickListener(new View.OnClickListener() {
             @Override
