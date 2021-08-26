@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 public class SettingsActivity extends AppCompatActivity {
 
     private ImageButton ibBack, ibHome, ibTracker, ibNotifications, ibMessages;
+    private Button btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
         this.ibTracker = findViewById(R.id.ib_settings_tracker);
         this.ibNotifications = findViewById(R.id.ib_settings_notifications);
         this.ibMessages = findViewById(R.id.ib_settings_messages);
+        this.btnLogout = findViewById(R.id.btn_settings_logout);
 
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +73,15 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsActivity.this, MessagesActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
