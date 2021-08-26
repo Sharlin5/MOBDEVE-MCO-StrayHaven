@@ -20,7 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeRequestActivity extends AppCompatActivity {
 
     private ImageView ivProfile;
     private FloatingActionButton fabPost;
@@ -44,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home_request);
 
         this.initComponents();
         this.initRecyclerView();
@@ -59,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
     private void initRecyclerView(){
         this.dataFeed = new FeedDataHelper().loadFeedData();
 
-        this.rvFeed = findViewById(R.id.rv_home_feed);
+        this.rvFeed = findViewById(R.id.rv_home_req_feed);
         this.rvFeed.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         this.rvFeed.setAdapter(new FeedAdapter(this.dataFeed));
     }
@@ -72,17 +72,17 @@ public class HomeActivity extends AppCompatActivity {
 
     //Initialize objects
     private void initComponents(){
-        this.ivProfile = findViewById(R.id.iv_home_user_pic);
-        this.ibSettings = findViewById(R.id.ib_home_settings);
-        this.fabPost = findViewById(R.id.fab_home_create_post);
-        this.ibTracker = findViewById(R.id.ib_home_tracker);
-        this.ibNotifications = findViewById(R.id.ib_home_notifications);
-        this.ibMessages = findViewById(R.id.ib_home_messages);
+        this.ivProfile = findViewById(R.id.iv_home_req_user_pic);
+        this.ibSettings = findViewById(R.id.ib_home_req_settings);
+        this.fabPost = findViewById(R.id.fab_home_req_create_post);
+        this.ibTracker = findViewById(R.id.ib_home_req_tracker);
+        this.ibNotifications = findViewById(R.id.ib_home_req_notifications);
+        this.ibMessages = findViewById(R.id.ib_home_req_messages);
 
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                Intent intent = new Intent(HomeRequestActivity.this, ProfileActivity.class);
                 startActivity(intent);
             }
         });
@@ -90,7 +90,7 @@ public class HomeActivity extends AppCompatActivity {
         ibSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+                Intent intent = new Intent(HomeRequestActivity.this, SettingsActivity.class);
                 startActivity(intent);
             }
         });
@@ -98,7 +98,7 @@ public class HomeActivity extends AppCompatActivity {
         fabPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, PostActivity.class);
+                Intent intent = new Intent(HomeRequestActivity.this, PostActivity.class);
                 startActivity(intent);
             }
         });
@@ -106,7 +106,7 @@ public class HomeActivity extends AppCompatActivity {
         ibTracker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, TrackerActivity.class);
+                Intent intent = new Intent(HomeRequestActivity.this, TrackerActivity.class);
                 startActivity(intent);
 
             }
@@ -115,7 +115,7 @@ public class HomeActivity extends AppCompatActivity {
         ibNotifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, NotificationActivity.class);
+                Intent intent = new Intent(HomeRequestActivity.this, NotificationActivity.class);
                 startActivity(intent);
             }
         });
@@ -123,7 +123,7 @@ public class HomeActivity extends AppCompatActivity {
         ibMessages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, MessagesActivity.class);
+                Intent intent = new Intent(HomeRequestActivity.this, MessagesActivity.class);
                 startActivity(intent);
             }
         });
