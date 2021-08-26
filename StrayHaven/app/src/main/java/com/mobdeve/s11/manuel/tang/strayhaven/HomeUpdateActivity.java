@@ -35,13 +35,13 @@ public class HomeUpdateActivity extends AppCompatActivity {
 
     //Initialize objects
     public void initComponents(){
-        this.ivProfile = findViewById(R.id.iv_home_req_user_pic);
-        this.tvRequests = findViewById(R.id.tv_home_req_update_tab);
-        this.ibSettings = findViewById(R.id.ib_home_req_settings);
-        this.fabPost = findViewById(R.id.fab_home_req_create_post);
-        this.ibTracker = findViewById(R.id.ib_home_req_tracker);
-        this.ibNotifications = findViewById(R.id.ib_home_req_notifications);
-        this.ibMessages = findViewById(R.id.ib_home_req_messages);
+        this.ivProfile = findViewById(R.id.iv_home_upd_user_pic);
+        this.tvRequests = findViewById(R.id.tv_home_upd_request_tab);
+        this.ibSettings = findViewById(R.id.ib_home_upd_settings);
+        this.fabPost = findViewById(R.id.fab_home_upd_create_post);
+        this.ibTracker = findViewById(R.id.ib_home_upd_tracker);
+        this.ibNotifications = findViewById(R.id.ib_home_upd_notifications);
+        this.ibMessages = findViewById(R.id.ib_home_upd_messages);
 
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
