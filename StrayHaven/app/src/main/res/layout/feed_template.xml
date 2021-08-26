@@ -1,6 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_feed_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp">
+
+        <LinearLayout
+            android:id="@+id/ll_feed_user_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_feed_user_pic"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginRight="8dp"
+                android:clickable="true"
+                android:padding="6dp"
+                android:src="@drawable/icon_default_user"
+                app:civ_border_color="@color/brown"
+                app:civ_border_width="2dp"
+                tools:ignore="SpeakableTextPresentCheck"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <LinearLayout
+                android:id="@+id/ll_feed_text_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_feed_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:fontFamily="@font/karla"
+                    android:text="Username"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <LinearLayout
+                    android:id="@+id/ll_feed_loc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_feed_loc_iconi"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/icon_location" />
+
+                    <TextView
+                        android:id="@+id/tv_feed_user_loc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/karla"
+                        android:text="Location"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_feed_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_feed_user_details"
+            app:srcCompat="@drawable/picture_request1"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/tv_feed_request_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/dark_pink"
+            android:fontFamily="@font/days_one"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Request Type"
+            android:textSize="34sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_feed_user_details" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
