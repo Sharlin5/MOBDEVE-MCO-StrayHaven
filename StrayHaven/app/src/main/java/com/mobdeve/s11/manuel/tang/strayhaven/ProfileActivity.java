@@ -1,5 +1,6 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,19 +8,36 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private FloatingActionButton fabPost;
     private ImageButton ibBack, ibSettings, ibHome, ibTracker, ibNotifications, ibMessages;
+    private TextView tvUsername, tvLocation, tvCaption;
+
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private FirebaseDatabase database;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
         this.initComponents();
+        this.initFirebase();
+
         overridePendingTransition(0,0);
         getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
     }
@@ -31,6 +49,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void initComponents(){
+        this.tvUsername = findViewById(R.id.tv_profile_username);
         this.fabPost = findViewById(R.id.fab_profile_create_post);
         this.ibBack = findViewById(R.id.ib_profile_back);
         this.ibSettings = findViewById(R.id.ib_profile_settings);
@@ -93,5 +112,28 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void initFirebase(){
+        this.mAuth = FirebaseAuth.getInstance();
+        this.user = this.mAuth.getCurrentUser();
+        this.userId = this.user.getUid();
+        this.database = FirebaseDatabase.getInstance();
+
+        DatabaseReference reference = database.getReference(Collections.users.name());
+
+        reference.child(this.userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String username = snapshot.child("username").getValue().toString();
+                tvUsername.setText("@" + username);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }
