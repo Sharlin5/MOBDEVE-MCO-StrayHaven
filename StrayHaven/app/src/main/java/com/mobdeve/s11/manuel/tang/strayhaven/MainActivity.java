@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Intent intent = new Intent(MainActivity.this, HomeActivity.class).putExtra("from", "activity_main");
+                            Intent intent = new Intent(MainActivity.this, HomeRequestActivity.class).putExtra("from", "activity_main");
                             startActivity(intent);
                             finish();
                         }

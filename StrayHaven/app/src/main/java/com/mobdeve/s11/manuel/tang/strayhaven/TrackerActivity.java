@@ -67,7 +67,7 @@ public class TrackerActivity extends AppCompatActivity {
         ibHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TrackerActivity.this, HomeActivity.class);
+                Intent intent = new Intent(TrackerActivity.this, HomeRequestActivity.class);
                 startActivity(intent);
             }
         });

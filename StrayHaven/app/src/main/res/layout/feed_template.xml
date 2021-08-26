@@ -63,7 +63,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/iv_feed_loc_iconi"
+                        android:id="@+id/iv_feed_loc_icon"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:scaleType="fitCenter"
@@ -105,8 +105,8 @@
             android:paddingRight="10dp"
             android:text="Request Type"
             android:textSize="34sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_feed_user_details" />
+            app:layout_constraintBottom_toBottomOf="@+id/iv_feed_picture"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

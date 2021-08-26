@@ -31,7 +31,7 @@
             app:tint="@color/brown" />
 
         <TextView
-            android:id="@+id/tv_home_nav_text"
+            android:id="@+id/tv_home_req_nav_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
