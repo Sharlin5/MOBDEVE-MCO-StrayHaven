@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private ImageButton ibHome, ibTracker, ibNotification, ibMessage;
+    private ImageButton ibBack, ibHome, ibTracker, ibNotifications, ibMessages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +28,18 @@ public class SettingsActivity extends AppCompatActivity {
 
     //Initialize objects
     public void initComponents(){
+        this.ibBack = findViewById(R.id.ib_settings_back);
         this.ibHome = findViewById(R.id.ib_settings_home);
         this.ibTracker = findViewById(R.id.ib_settings_tracker);
-        this.ibNotification = findViewById(R.id.ib_settings_notifications);
+        this.ibNotifications = findViewById(R.id.ib_settings_notifications);
+        this.ibMessages = findViewById(R.id.ib_settings_messages);
+
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         ibHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,10 +57,18 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        ibNotification.setOnClickListener(new View.OnClickListener() {
+        ibNotifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsActivity.this, NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ibMessages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, MessagesActivity.class);
                 startActivity(intent);
             }
         });

@@ -15,21 +15,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_settings_user_pic"
+        <ImageButton
+            android:id="@+id/ib_settings_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:padding="6dp"
-            android:src="@drawable/icon_default_user"
-            app:civ_border_color="@color/brown"
-            app:civ_border_width="2dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:cropToPadding="true"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:srcCompat="@drawable/icon_back"
+            app:tint="@color/brown" />
 
         <TextView
             android:id="@+id/tv_home_nav_text"
@@ -43,7 +42,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/ib_settings_settings"
-            app:layout_constraintStart_toEndOf="@+id/iv_settings_user_pic"
+            app:layout_constraintStart_toEndOf="@+id/ib_settings_back"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
@@ -58,20 +57,264 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/icon_settings_selected"
             tools:ignore="SpeakableTextPresentCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ScrollView
+        android:id="@+id/sv_settings_activity"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/white"
-        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/ll_settings_bottom_nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl_settings_top_nav_bar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:id="@+id/ll_settings_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_settings_user_pic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:padding="6dp"
+                android:src="@drawable/icon_default_user"
+                app:civ_border_color="@color/brown"
+                app:civ_border_width="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.027"
+                tools:ignore="SpeakableTextPresentCheck"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tv_settings_edit_user_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:text="Edit Profile Photo"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/ll_settings_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/tv_settings_label_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="50dp"
+                    android:fontFamily="@font/karla"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_settings_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/pink"
+                    android:ems="10"
+                    android:fontFamily="@font/karla"
+                    android:hint="Profile Name"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_settings_pass"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/tv_settings_label_pass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="23dp"
+                    android:fontFamily="@font/karla"
+                    android:text="Password"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_settings_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/pink"
+                    android:ems="10"
+                    android:fontFamily="@font/karla"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:padding="8dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_settings_desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/tv_settings_label_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:fontFamily="@font/karla"
+                    android:text="Description"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_settings_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/pink"
+                    android:ems="10"
+                    android:fontFamily="@font/karla"
+                    android:hint="Description"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:id="@+id/sv_settings_featured"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/ll_setitngs_featured"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/iv_settings_featured_1"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight=".2"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/picture_feature3" />
+
+                    <ImageView
+                        android:id="@+id/iv_settings_featured_2"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight=".2"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/picture_feature1" />
+
+                    <ImageView
+                        android:id="@+id/iv_settings_featured_3"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight=".2"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/picture_feature2" />
+
+                    <ImageView
+                        android:id="@+id/iv_settings_featured_4"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight=".2"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/picture_feature5" />
+
+                    <ImageView
+                        android:id="@+id/iv_settings_featured_5"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_weight=".2"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/picture_feature4" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/tv_settings_edit_featured"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:text="Edit Featured Photos"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_settings_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:backgroundTint="#A3CA7161"
+                android:text="Save Changes" />
+
+            <Button
+                android:id="@+id/btn_settings_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
+                android:backgroundTint="#A3CA7161"
+                android:text="Logout" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/ll_settings_bottom_nav_bar"
