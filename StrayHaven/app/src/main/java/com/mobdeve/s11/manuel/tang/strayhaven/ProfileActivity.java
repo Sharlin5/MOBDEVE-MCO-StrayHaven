@@ -23,7 +23,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private FloatingActionButton fabPost;
     private ImageButton ibBack, ibSettings, ibHome, ibTracker, ibNotifications, ibMessages;
-    private TextView tvUsername, tvLocation, tvCaption;
+    private TextView tvUsername, tvLocation, tvDescription, tvProfilename;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -50,6 +50,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void initComponents(){
         this.tvUsername = findViewById(R.id.tv_profile_username);
+        this.tvDescription = findViewById(R.id.tv_profile_user_desc);
+        this.tvLocation = findViewById(R.id.tv_profile_user_loc);
+        this.tvProfilename = findViewById(R.id.tv_profile_name);
         this.fabPost = findViewById(R.id.fab_profile_create_post);
         this.ibBack = findViewById(R.id.ib_profile_back);
         this.ibSettings = findViewById(R.id.ib_profile_settings);
@@ -127,6 +130,12 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String username = snapshot.child("username").getValue().toString();
                 tvUsername.setText("@" + username);
+                String profilename = snapshot.child("profilename").getValue().toString();
+                tvProfilename.setText(profilename);
+                String description = snapshot.child("description").getValue().toString();
+                tvDescription.setText(description);
+                String location = snapshot.child("location").getValue().toString();
+                tvLocation.setText(location);
             }
 
             @Override
