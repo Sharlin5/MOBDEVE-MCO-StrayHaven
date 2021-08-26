@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StrayHaven">
         <activity
+            android:name=".MessagesActivity"
+            android:exported="true" />
+        <activity
             android:name=".NotificationActivity"
             android:exported="true" />
         <activity

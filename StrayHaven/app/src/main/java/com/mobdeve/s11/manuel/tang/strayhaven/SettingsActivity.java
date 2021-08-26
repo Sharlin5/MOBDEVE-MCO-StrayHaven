@@ -20,11 +20,17 @@ public class SettingsActivity extends AppCompatActivity {
         getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
+
     //Initialize objects
     public void initComponents(){
-        this.ibHome = findViewById(R.id.ib_home_home);
-        this.ibTracker = findViewById(R.id.ib_home_tracker);
-        this.ibNotification = findViewById(R.id.ib_home_notifications);
+        this.ibHome = findViewById(R.id.ib_settings_home);
+        this.ibTracker = findViewById(R.id.ib_settings_tracker);
+        this.ibNotification = findViewById(R.id.ib_settings_notifications);
 
         ibHome.setOnClickListener(new View.OnClickListener() {
             @Override

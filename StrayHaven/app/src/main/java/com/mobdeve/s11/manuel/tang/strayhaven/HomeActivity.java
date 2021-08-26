@@ -13,8 +13,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class HomeActivity extends AppCompatActivity {
 
     private ImageView ivProfile;
-    private ImageButton ibTracker, ibNotification, ibMessage, ibSettings;
     private FloatingActionButton fabPost;
+    private ImageButton ibSettings,ibTracker, ibNotifications, ibMessages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,18 +29,33 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
+
     //Initialize objects
     public void initComponents(){
-        this.ibTracker = findViewById(R.id.ib_home_tracker);
-        this.ibNotification = findViewById(R.id.ib_home_notifications);
+        this.ivProfile = findViewById(R.id.iv_home_user_pic);
         this.ibSettings = findViewById(R.id.ib_home_settings);
         this.fabPost = findViewById(R.id.fab_home_create_post);
-        this.ivProfile = findViewById(R.id.iv_home_user_pic);
+        this.ibTracker = findViewById(R.id.ib_home_tracker);
+        this.ibNotifications = findViewById(R.id.ib_home_notifications);
+        this.ibMessages = findViewById(R.id.ib_home_messages);
 
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ibSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
                 startActivity(intent);
             }
         });
@@ -62,18 +77,18 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        ibSettings.setOnClickListener(new View.OnClickListener() {
+        ibNotifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+                Intent intent = new Intent(HomeActivity.this, NotificationActivity.class);
                 startActivity(intent);
             }
         });
 
-        ibNotification.setOnClickListener(new View.OnClickListener() {
+        ibMessages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, NotificationActivity.class);
+                Intent intent = new Intent(HomeActivity.this, MessagesActivity.class);
                 startActivity(intent);
             }
         });
