@@ -1,5 +1,6 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
+import android.media.Image;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
     public TextView tvFeedUser;
     public TextView tvFeedType;
     public ConstraintLayout clFeed;
-
+    public ImageView ivFeedProfile;
 
 
     public FeedViewHolder(@NonNull View itemView) {
@@ -25,6 +26,7 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
         this.tvFeedType = itemView.findViewById(R.id.tv_feed_request_type);
         this.tvFeedLocation = itemView.findViewById(R.id.tv_feed_user_loc);
         this.clFeed = itemView.findViewById(R.id.cl_feed_post);
+        this.ivFeedProfile = itemView.findViewById(R.id.iv_feed_user_pic);
     }
 
     public void setIvFeedPicture(int picture) {
@@ -43,7 +45,19 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
         this.tvFeedType.setText(feedType);
     }
 
+    public void setIvFeedProfile(int feedProfile){
+        this.ivFeedProfile.setImageResource(feedProfile);
+    }
+
     public ConstraintLayout getClFeed(){
         return this.clFeed;
+    }
+
+    public TextView getTvFeedUser(){
+        return this.tvFeedUser;
+    }
+
+    public ImageView getIvFeedProfile(){
+        return this.ivFeedProfile;
     }
 }
