@@ -62,31 +62,43 @@
             tools:ignore="SpeakableTextPresentCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_tracker_feed"
+    <ScrollView
+        android:id="@+id/sv_tracker_tracker"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/ll_tracker_bottom_nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl_tracker_top_nav_bar">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <LinearLayout
+            android:id="@+id/ll_tracker_tracker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_tracker_feed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_tracker_create_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
         android:clickable="true"
-        app:tint="@color/brown"
         app:backgroundTint="@color/dark_pink"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_tracker_feed"
+        app:layout_constraintBottom_toBottomOf="@+id/sv_tracker_tracker"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/icon_create_post"
+        app:tint="@color/brown"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <LinearLayout
@@ -138,8 +150,8 @@
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_notification"
-            tools:ignore="SpeakableTextPresentCheck"
-            app:tint="@color/brown" />
+            app:tint="@color/brown"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/ib_tracker_messages"
@@ -152,8 +164,8 @@
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_messages"
-            tools:ignore="SpeakableTextPresentCheck"
-            app:tint="@color/brown" />
+            app:tint="@color/brown"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 

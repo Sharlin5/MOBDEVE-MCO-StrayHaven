@@ -62,31 +62,44 @@
             tools:ignore="SpeakableTextPresentCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_notif_feed"
+    <ScrollView
+        android:id="@+id/sv_notif_notifications"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/ll_notif_bottom_nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl_notif_top_nav_bar">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <LinearLayout
+            android:id="@+id/ll_notif_notifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_notif_feed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_notif_create_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
         android:clickable="true"
-        app:tint="@color/brown"
         app:backgroundTint="@color/dark_pink"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_notif_feed"
+        app:layout_constraintBottom_toBottomOf="@+id/sv_notif_notifications"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/icon_create_post"
+        app:tint="@color/brown"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <LinearLayout

@@ -7,12 +7,13 @@
     tools:context=".ViewPostActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_view_view_post"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_feed_user_pic"
+            android:id="@+id/iv_view_user_pic"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
@@ -26,23 +27,8 @@
             tools:ignore="SpeakableTextPresentCheck"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/tv_feed_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:fontFamily="@font/karla"
-            android:text="Username"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_feed_user_pic"
-            tools:ignore="TouchTargetSizeCheck" />
-
         <ImageButton
-            android:id="@+id/ib_profile_back"
+            android:id="@+id/ib_view_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="4dp"
@@ -55,24 +41,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/icon_back"
-            app:tint="@color/dark_pink" />
-
-        <ImageView
-            android:id="@+id/iv_feed_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="#B1B1B1"
-            android:clickable="true"
-            android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_feed_username"
-            app:srcCompat="@drawable/picture_request2"
+            app:tint="@color/dark_pink"
             tools:ignore="SpeakableTextPresentCheck" />
 
+        <TextView
+            android:id="@+id/tv_view_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:fontFamily="@font/karla"
+            android:text="Username"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_view_user_pic"
+            tools:ignore="TouchTargetSizeCheck" />
+
         <ImageButton
-            android:id="@+id/ib_profile_settings2"
+            android:id="@+id/ib_view_delete"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="4dp"
@@ -85,10 +73,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/icon_delete"
-            app:tint="@color/dark_pink" />
+            app:tint="@color/red"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageView
+            android:id="@+id/iv_view_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#B1B1B1"
+            android:clickable="true"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_view_username"
+            app:srcCompat="@drawable/picture_request2"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/tv_feed_request_type"
+            android:id="@+id/tv_view_request_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/dark_pink"
@@ -98,8 +101,9 @@
             android:text="Request Type"
             android:textColor="@color/white"
             android:textSize="34sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_feed_picture" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_view_picture"
+            tools:ignore="TextContrastCheck" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_view_heart"
@@ -111,23 +115,24 @@
             android:visibility="gone"
             app:backgroundTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_feed_request_type"
+            app:layout_constraintTop_toBottomOf="@+id/tv_view_request_type"
             app:srcCompat="@drawable/icon_heart_off"
             app:tint="@color/dark_pink"
+            tools:ignore="SpeakableTextPresentCheck"
             tools:visibility="visible" />
 
         <LinearLayout
-            android:id="@+id/ll_feed_loc"
+            android:id="@+id/ll_view_loc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="20dp"
             android:paddingTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_feed_picture">
+            app:layout_constraintTop_toBottomOf="@+id/iv_view_picture">
 
             <ImageView
-                android:id="@+id/iv_feed_loc_icon"
+                android:id="@+id/iv_view_loc_icon"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:scaleType="fitCenter"
@@ -135,7 +140,7 @@
                 app:tint="@color/red" />
 
             <TextView
-                android:id="@+id/tv_feed_user_loc"
+                android:id="@+id/tv_view_user_loc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/karla"
@@ -146,7 +151,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv_view_caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
@@ -156,10 +161,10 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_feed_loc" />
+            app:layout_constraintTop_toBottomOf="@+id/ll_view_loc" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tv_view_date_posted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -167,10 +172,10 @@
             android:text="DATE"
             android:textColor="@color/gray"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_view_caption" />
 
         <LinearLayout
-            android:id="@+id/ll_profile_bottom_nav_bar"
+            android:id="@+id/ll_view_bottom_nav_bar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/pink"
@@ -180,7 +185,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageButton
-                android:id="@+id/ib_profile_home"
+                android:id="@+id/ib_view_home"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_weight=".25"
@@ -194,7 +199,7 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageButton
-                android:id="@+id/ib_profile_tracker"
+                android:id="@+id/ib_view_tracker"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_weight=".25"
@@ -208,7 +213,7 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageButton
-                android:id="@+id/ib_profile_notifications"
+                android:id="@+id/ib_view_notifications"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_weight=".25"
@@ -222,7 +227,7 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageButton
-                android:id="@+id/ib_profile_messages"
+                android:id="@+id/ib_view_messages"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_weight=".25"
