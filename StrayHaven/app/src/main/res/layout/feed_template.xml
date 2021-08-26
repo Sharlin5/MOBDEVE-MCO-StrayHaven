@@ -10,7 +10,7 @@
         android:id="@+id/cl_feed_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border"
+        android:background="@drawable/border_bottom"
         android:paddingTop="10dp"
         android:paddingBottom="20dp">
 

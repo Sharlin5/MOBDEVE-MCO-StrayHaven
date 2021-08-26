@@ -33,7 +33,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.027"
+            app:layout_constraintVertical_bias="0.07"
             tools:ignore="SpeakableTextPresentCheck"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -192,9 +192,11 @@
             android:id="@+id/ll_profile_no_content"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/border_top"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/fab_profile_create_post"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -205,7 +207,7 @@
                 android:id="@+id/tv_profile_no_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="It seems like there are no featured photos to show..."
+                android:text="@string/no_content"
                 android:textColor="@color/black" />
 
             <ImageView
@@ -215,18 +217,35 @@
                 app:srcCompat="@drawable/icon_empty" />
         </LinearLayout>
 
-        <GridView
-            android:id="@+id/gv_profile_feature_gallery"
+        <ScrollView
+            android:id="@+id/sv_profile_user_featured"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@drawable/border_top"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_profile_mesage"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
-        </GridView>
+            <LinearLayout
+                android:id="@+id/ll_profile_user_featured"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <GridView
+                    android:id="@+id/gv_profile_feature_gallery"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/border_top"
+                    android:visibility="visible"
+                    tools:visibility="visible">
+
+                </GridView>
+            </LinearLayout>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
