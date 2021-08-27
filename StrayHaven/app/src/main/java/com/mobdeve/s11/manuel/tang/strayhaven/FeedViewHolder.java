@@ -60,4 +60,8 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
     public ImageView getIvFeedProfile(){
         return this.ivFeedProfile;
     }
+
+    public ImageView getIvFeedPicture() {
+        return this.ivFeedPicture;
+    }
 }
