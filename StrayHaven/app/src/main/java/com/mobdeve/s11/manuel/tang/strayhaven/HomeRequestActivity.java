@@ -28,7 +28,6 @@ public class HomeRequestActivity extends AppCompatActivity {
     private FloatingActionButton fabPost;
     private ImageButton ibSettings,ibTracker, ibNotifications, ibMessages;
     private RecyclerView rvFeed;
-    private FeedAdapter feedAdapter;
     private ArrayList<Feed> dataFeed;
     /*
     private ActivityResultLauncher feedActivityLauncher = registerForActivityResult(
