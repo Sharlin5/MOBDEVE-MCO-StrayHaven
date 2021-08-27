@@ -1,6 +1,8 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,17 +12,22 @@ import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 public class NotificationActivity extends AppCompatActivity {
 
     private ImageView ivProfile;
     private FloatingActionButton fabPost;
     private ImageButton ibSettings, ibHome, ibTracker, ibMessages;
+    private RecyclerView rvNotif;
+    private ArrayList<Notif> dataNotif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         this.initComponents();
+        this.initRecyclerView();
         overridePendingTransition(0,0);
         getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
     }
@@ -29,6 +36,13 @@ public class NotificationActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0, 0);
+    }
+
+    private void initRecyclerView(){
+        this.dataNotif = new NotificationDataHelper().loadNotifData();
+        this.rvNotif = findViewById(R.id.rv_notif_feed);
+        this.rvNotif.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        this.rvNotif.setAdapter(new NotificationAdapter(this.dataNotif));
     }
 
     //Initialize objects

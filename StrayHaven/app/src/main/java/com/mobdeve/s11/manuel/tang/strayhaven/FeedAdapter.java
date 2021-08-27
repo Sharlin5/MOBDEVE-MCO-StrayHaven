@@ -15,7 +15,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
 
     private ArrayList<Feed> dataFeed;
 
-
     public FeedAdapter(ArrayList<Feed> dataFeed){
         this.dataFeed = dataFeed;
     }
