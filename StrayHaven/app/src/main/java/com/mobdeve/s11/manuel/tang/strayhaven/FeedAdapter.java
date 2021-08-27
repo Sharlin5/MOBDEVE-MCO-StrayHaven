@@ -26,13 +26,21 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
         View itemView = inflater.inflate(R.layout.feed_template, parent, false);
         FeedViewHolder feedViewHolder = new FeedViewHolder(itemView);
 
-        /*
+
         feedViewHolder.getClFeed().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),)
+                Intent intent = new Intent(v.getContext(), ViewPostActivity.class);
+
+                intent.putExtra(Keys.KEY_FEED_USERNAME.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getUsername());
+                intent.putExtra(Keys.KEY_FEED_CAPTION.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getCaption());
+                intent.putExtra(Keys.KEY_FEED_LOCATION.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getLocation());
+                intent.putExtra(Keys.KEY_FEED_TYPE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getType());
+                intent.putExtra(Keys.KEY_FEED_IMAGE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getImageId());
+
+                v.getContext().startActivity(intent);
             }
-        });*/
+        });
 
         feedViewHolder.getTvFeedUser().setOnClickListener(new View.OnClickListener() {
             @Override
