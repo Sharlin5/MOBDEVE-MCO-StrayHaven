@@ -1,5 +1,6 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +25,57 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         View itemView = inflater.inflate(R.layout.message_template, parent, false);
         MessageViewHolder messageViewHolder = new MessageViewHolder(itemView);
 
+        messageViewHolder.getLlMessage().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewMessageActivity.class);
 
+                intent.putExtra(Keys.KEY_MESSAGE_IMAGE.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getImageId());
+                intent.putExtra(Keys.KEY_MESSAGE_USERNAME.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUsername());
+
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        messageViewHolder.getIvMessagePicture().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewMessageActivity.class);
+
+                intent.putExtra(Keys.KEY_MESSAGE_IMAGE.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getImageId());
+                intent.putExtra(Keys.KEY_MESSAGE_USERNAME.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUsername());
+
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        messageViewHolder.getTvProfilename().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewMessageActivity.class);
+
+                intent.putExtra(Keys.KEY_MESSAGE_IMAGE.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getImageId());
+                intent.putExtra(Keys.KEY_MESSAGE_USERNAME.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUsername());
+
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        messageViewHolder.getTvUsername().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewMessageActivity.class);
+
+                intent.putExtra(Keys.KEY_MESSAGE_IMAGE.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getImageId());
+                intent.putExtra(Keys.KEY_MESSAGE_USERNAME.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUsername());
+
+                v.getContext().startActivity(intent);
+            }
+        });
         return messageViewHolder;
     }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
