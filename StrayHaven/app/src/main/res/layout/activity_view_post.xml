@@ -103,7 +103,7 @@
                         android:id="@+id/iv_view_picture"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#B1B1B1"
+                        android:background="@color/light_gray"
                         android:clickable="true"
                         android:scaleType="fitCenter"
                         app:layout_constraintBottom_toBottomOf="parent"
