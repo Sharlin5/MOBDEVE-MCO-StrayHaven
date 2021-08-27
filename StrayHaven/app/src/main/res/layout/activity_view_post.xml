@@ -76,103 +76,118 @@
             app:tint="@color/red"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <ImageView
-            android:id="@+id/iv_view_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="#B1B1B1"
-            android:clickable="true"
-            android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_view_username"
-            app:srcCompat="@drawable/picture_request2"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <TextView
-            android:id="@+id/tv_view_request_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/dark_pink"
-            android:fontFamily="@font/days_one"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="Request Type"
-            android:textColor="@color/white"
-            android:textSize="34sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_view_picture"
-            tools:ignore="TextContrastCheck" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_view_heart"
-            android:layout_width="54dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="348dp"
-            android:layout_marginEnd="16dp"
-            android:clickable="true"
-            android:visibility="gone"
-            app:backgroundTint="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_view_request_type"
-            app:srcCompat="@drawable/icon_heart_off"
-            app:tint="@color/dark_pink"
-            tools:ignore="SpeakableTextPresentCheck"
-            tools:visibility="visible" />
-
-        <LinearLayout
-            android:id="@+id/ll_view_loc"
+        <ScrollView
+            android:id="@+id/sv_view_picture"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingTop="8dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/ll_view_bottom_nav_bar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_view_picture">
+            app:layout_constraintTop_toBottomOf="@+id/tv_view_username">
 
-            <ImageView
-                android:id="@+id/iv_view_loc_icon"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/icon_location"
-                app:tint="@color/red" />
-
-            <TextView
-                android:id="@+id/tv_view_user_loc"
+            <LinearLayout
+                android:id="@+id/ll_view_picture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/karla"
-                android:text="Location"
-                android:textColor="@color/red"
-                android:textSize="16sp"
-                android:textStyle="italic" />
-        </LinearLayout>
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_view_caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingTop="8dp"
-            android:paddingRight="20dp"
-            android:text="@string/lorem_ipsum_desc"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_view_loc" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_view_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_view_date_posted"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
-            android:text="DATE"
-            android:textColor="@color/gray"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_view_caption" />
+                    <ImageView
+                        android:id="@+id/iv_view_picture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#B1B1B1"
+                        android:clickable="true"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/picture_request2"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                    <TextView
+                        android:id="@+id/tv_view_request_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/dark_pink"
+                        android:fontFamily="@font/days_one"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Request Type"
+                        android:textColor="@color/white"
+                        android:textSize="34sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/iv_view_picture"
+                        tools:ignore="TextContrastCheck" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_view_date_posted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="8dp"
+                    android:text="DATE"
+                    android:textColor="@color/gray" />
+
+                <TextView
+                    android:id="@+id/tv_view_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/lorem_ipsum_desc"
+                    android:textColor="@color/black" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_view_heart"
+                    android:layout_width="54dp"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="348dp"
+                    android:layout_marginEnd="16dp"
+                    android:clickable="true"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/white"
+                    app:srcCompat="@drawable/icon_heart_off"
+                    app:tint="@color/dark_pink"
+                    tools:ignore="SpeakableTextPresentCheck"
+                    tools:visibility="visible" />
+
+                <LinearLayout
+                    android:id="@+id/ll_view_loc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="8dp">
+
+                    <ImageView
+                        android:id="@+id/iv_view_loc_icon"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/icon_location"
+                        app:tint="@color/red" />
+
+                    <TextView
+                        android:id="@+id/tv_view_user_loc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/karla"
+                        android:text="Location"
+                        android:textColor="@color/red"
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:id="@+id/ll_view_bottom_nav_bar"
