@@ -1,6 +1,8 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,18 +13,25 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 public class HomeUpdateActivity extends AppCompatActivity {
 
     private ImageView ivProfile;
     private TextView tvRequests;
     private FloatingActionButton fabPost;
     private ImageButton ibSettings,ibTracker, ibNotifications, ibMessages;
+    private RecyclerView rvUpdate;
+    private ArrayList<Feed> dataUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_update);
+
         this.initComponents();
+        this.initRecyclerView();
+
         overridePendingTransition(0,0);
         getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
     }
@@ -31,6 +40,13 @@ public class HomeUpdateActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0, 0);
+    }
+
+    public void initRecyclerView(){
+        this.dataUpdate = new UpdateDataHelper().loadUpdateData();
+        this.rvUpdate = findViewById(R.id.rv_home_upd_feed);
+        this.rvUpdate.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        this.rvUpdate.setAdapter(new FeedAdapter(this.dataUpdate));
     }
 
     //Initialize objects
