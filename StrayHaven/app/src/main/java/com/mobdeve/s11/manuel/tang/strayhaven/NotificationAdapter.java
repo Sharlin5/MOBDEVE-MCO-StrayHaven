@@ -32,6 +32,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationViewHo
         Notif currentNotif = this.dataNotif.get(position);
         holder.setTvUsername(currentNotif.getProfilename());
         holder.setIvNotifPicture(currentNotif.getImageId());
+        holder.setTvDate(currentNotif.getCustomDate().toStringFull());
     }
 
     @Override
