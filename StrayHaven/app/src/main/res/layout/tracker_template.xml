@@ -29,6 +29,7 @@
                 android:id="@+id/sw_tracker_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:checked="false"
                 android:minWidth="48dp"
