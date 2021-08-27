@@ -15,7 +15,7 @@ public class TrackerViewHolder extends RecyclerView.ViewHolder {
     public TrackerViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        this.ivTrackerPicture = itemView.findViewById(R.id.iv_tracker_user_pic);
+        this.ivTrackerPicture = itemView.findViewById(R.id.iv_tracker_post);
         this.tvType = itemView.findViewById(R.id.tv_tracker_type);
         this.tvDate = itemView.findViewById(R.id.tv_tracker_date);
 

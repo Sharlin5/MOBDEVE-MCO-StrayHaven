@@ -16,6 +16,7 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
     public TrackerAdapter(ArrayList<Tracker> dataTracker){
         this.dataTracker = dataTracker;
     }
+
     @NonNull
     @Override
     public TrackerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
