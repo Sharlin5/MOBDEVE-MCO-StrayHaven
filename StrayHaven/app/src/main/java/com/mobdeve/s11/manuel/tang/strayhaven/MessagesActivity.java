@@ -1,6 +1,8 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,16 +12,21 @@ import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 public class MessagesActivity extends AppCompatActivity {
 
     private ImageView ivProfile;
     private ImageButton ibSettings, ibHome, ibTracker, ibNotifications;
+    private RecyclerView rvMessage;
+    private ArrayList<Message> dataMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
         this.initComponents();
+        this.initRecyclerView();
         overridePendingTransition(0,0);
         getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
     }
@@ -28,6 +35,13 @@ public class MessagesActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0, 0);
+    }
+
+    private void initRecyclerView(){
+        this.dataMessage = new MessageDataHelper().loadMessageData();
+        this.rvMessage = findViewById(R.id.rv_message_feed);
+        this.rvMessage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        this.rvMessage.setAdapter(new MessageAdapter(this.dataMessage));
     }
 
     //Initialize objects
