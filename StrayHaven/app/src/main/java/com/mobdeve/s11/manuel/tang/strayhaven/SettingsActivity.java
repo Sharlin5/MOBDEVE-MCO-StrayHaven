@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private ImageButton ibBack, ibHome, ibTracker, ibNotifications, ibMessages;
+    private ImageButton ibBack;
     private Button btnLogout;
     private EditText etName, etDescription, etLocation;
 
@@ -48,10 +48,6 @@ public class SettingsActivity extends AppCompatActivity {
     //Initialize objects
     public void initComponents(){
         this.ibBack = findViewById(R.id.ib_settings_back);
-        this.ibHome = findViewById(R.id.ib_settings_home);
-        this.ibTracker = findViewById(R.id.ib_settings_tracker);
-        this.ibNotifications = findViewById(R.id.ib_settings_notifications);
-        this.ibMessages = findViewById(R.id.ib_settings_messages);
         this.btnLogout = findViewById(R.id.btn_settings_logout);
         this.etName = findViewById(R.id.et_settings_name);
         this.etDescription = findViewById(R.id.et_settings_desc);
@@ -64,44 +60,12 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        ibHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, HomeRequestActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        ibTracker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, TrackerActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        ibNotifications.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, NotificationActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        ibMessages.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, MessagesActivity.class);
-                startActivity(intent);
-            }
-        });
-
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                finish();
             }
         });
     }

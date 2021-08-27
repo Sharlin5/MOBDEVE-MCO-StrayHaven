@@ -3,5 +3,5 @@
     <string name="lorem_ipsum_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="def_loc">User Location</string>
     <string name="no_content">It seems like there are no featured photos to show...</string>
-    <string name="caption_hint">Add important details such as \nlength of foster, conditions when \nfound, and the likes to ensure full \ndisclosure of request details.</string>
+    <string name="caption_hint">Add important details such as \nlength of foster, conditions \nwhen found, and the likes to \nensure full disclosure of \nrequest details.</string>
 </resources>
