@@ -29,19 +29,9 @@ public class HomeRequestActivity extends AppCompatActivity {
     private ImageButton ibSettings,ibTracker, ibNotifications, ibMessages;
     private RecyclerView rvFeed;
     private ArrayList<Feed> dataFeed;
-    /*
-    private ActivityResultLauncher feedActivityLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK){
-                        Intent intent = result.getData();
 
-                    }
-                }
-            });
-    */
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

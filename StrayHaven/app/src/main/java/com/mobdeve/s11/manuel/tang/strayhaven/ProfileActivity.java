@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,6 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FloatingActionButton fabPost;
     private ImageButton ibBack, ibSettings, ibHome, ibTracker, ibNotifications, ibMessages;
     private TextView tvUsername, tvLocation, tvDescription, tvProfilename;
+    private LinearLayout llLoc;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -58,6 +60,21 @@ public class ProfileActivity extends AppCompatActivity {
         this.ibTracker = findViewById(R.id.ib_profile_tracker);
         this.ibNotifications = findViewById(R.id.ib_profile_notifications);
         this.ibMessages = findViewById(R.id.ib_profile_messages);
+        this.llLoc = findViewById(R.id.ll_profile_loc);
+
+        String location = tvLocation.getText().toString().trim();
+        if (!location.equals(" ") && !location.isEmpty()) {
+            this.llLoc.setVisibility(View.VISIBLE);
+        } else {
+            this.llLoc.setVisibility(View.GONE);
+        }
+
+        String description = tvDescription.getText().toString().trim();
+        if (!description.equals(" ") && !description.isEmpty()) {
+            this.tvDescription .setVisibility(View.VISIBLE);
+        } else {
+            this.tvDescription .setVisibility(View.GONE);
+        }
 
         fabPost.setOnClickListener(new View.OnClickListener() {
             @Override
