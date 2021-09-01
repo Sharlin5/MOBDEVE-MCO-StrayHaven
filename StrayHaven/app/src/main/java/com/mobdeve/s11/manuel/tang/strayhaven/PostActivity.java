@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -26,6 +27,10 @@ public class PostActivity extends AppCompatActivity {
     private ImageButton ibBack;
     private Button btnPost;
     private EditText etPostRequest, etPostLocation, etPostDescription;
+
+    //Request type spinner
+    private String[] request = {"Request Type", "Adopt", "Foster", "Update"};
+    private ArrayAdapter requestArrayAdapter;
 
     private FirebaseDatabase database;
     private FirebaseAuth mAuth;

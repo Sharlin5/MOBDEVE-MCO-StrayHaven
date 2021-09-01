@@ -1,5 +1,6 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -23,6 +28,7 @@ public class HomeUpdateActivity extends AppCompatActivity {
     private ImageButton ibSettings,ibTracker, ibNotifications, ibMessages;
     private RecyclerView rvUpdate;
     private ArrayList<Feed> dataUpdate;
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +36,7 @@ public class HomeUpdateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_update);
 
         this.initComponents();
-        this.initRecyclerView();
+        this.initUpdate();
 
         overridePendingTransition(0,0);
         getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -42,8 +48,31 @@ public class HomeUpdateActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
-    public void initRecyclerView(){
-        this.dataUpdate = new UpdateDataHelper().loadUpdateData();
+    private void initUpdate(){
+        this.database = FirebaseDatabase.getInstance();
+        this.dataUpdate = new ArrayList<Feed>();
+
+        database.getReference().child(Collections.feeds.name()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dss:snapshot.getChildren()){
+                    String type = dss.child("type").getValue(String.class);
+                    if (type.equals("Update")){
+                        String username = dss.child("username").getValue(String.class);
+                        String caption = dss.child("caption").getValue(String.class);
+                        String location = dss.child("location").getValue(String.class);
+                        int imageId = dss.child("imageId").getValue(int.class);
+                        dataUpdate.add(new Feed(username, imageId, type, location, caption));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         this.rvUpdate = findViewById(R.id.rv_home_upd_feed);
         this.rvUpdate.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         this.rvUpdate.setAdapter(new FeedAdapter(this.dataUpdate));

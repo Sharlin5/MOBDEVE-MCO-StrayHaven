@@ -5,6 +5,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -29,7 +34,7 @@ public class HomeRequestActivity extends AppCompatActivity {
     private ImageButton ibSettings,ibTracker, ibNotifications, ibMessages;
     private RecyclerView rvFeed;
     private ArrayList<Feed> dataFeed;
-
+    private FirebaseDatabase database;
 
 
     @Override
@@ -38,7 +43,7 @@ public class HomeRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_request);
 
         this.initComponents();
-        this.initRecyclerView();
+        this.initRequest();
 
         if(!"activity_main".equals(getIntent().getStringExtra("from"))){
             overridePendingTransition(0,0);
@@ -47,8 +52,31 @@ public class HomeRequestActivity extends AppCompatActivity {
 
     }
 
-    private void initRecyclerView(){
-        this.dataFeed = new FeedDataHelper().loadFeedData();
+    private void initRequest(){
+        this.database = FirebaseDatabase.getInstance();
+        this.dataFeed = new ArrayList<Feed>();
+
+        database.getReference().child(Collections.feeds.name()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dss:snapshot.getChildren()){
+                    String type = dss.child("type").getValue(String.class);
+                    if(type.equals("Foster") || type.equals("Adopt")){
+                        String username = dss.child("username").getValue(String.class);
+                        String caption = dss.child("caption").getValue(String.class);
+                        String location = dss.child("location").getValue(String.class);
+                        int imageId = dss.child("imageId").getValue(int.class);
+                        dataFeed.add(new Feed(username, imageId, type, location, caption));
+                    }
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         this.rvFeed = findViewById(R.id.rv_home_req_feed);
         this.rvFeed.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         this.rvFeed.setAdapter(new FeedAdapter(this.dataFeed));
