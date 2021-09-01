@@ -132,6 +132,10 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    private void otherUser(){
+
+    }
+
     private void initFirebase(){
         this.mAuth = FirebaseAuth.getInstance();
         this.user = this.mAuth.getCurrentUser();
