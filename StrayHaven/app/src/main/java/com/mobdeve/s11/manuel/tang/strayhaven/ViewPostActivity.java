@@ -30,7 +30,6 @@ public class ViewPostActivity extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseDatabase database;
     private String userId;
-    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,21 +54,54 @@ public class ViewPostActivity extends AppCompatActivity {
         this.database = FirebaseDatabase.getInstance();
 
         DatabaseReference reference = database.getReference(Collections.users.name());
+        DatabaseReference feedReference = database.getReference(Collections.feeds.name());
 
         reference.child(this.userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                username = snapshot.child("username").getValue().toString().trim();
+                String postname = snapshot.child("username").getValue().toString().trim();
                 Intent intent = getIntent();
-                String userPost = intent.getStringExtra(Keys.KEY_FEED_USERNAME.name());
 
-                if (username.equals(userPost)){
+                String userPost = intent.getStringExtra(Keys.KEY_FEED_USERNAME.name());
+                int userImage = intent.getIntExtra(Keys.KEY_FEED_IMAGE.name(), 0);
+                String userCaption = intent.getStringExtra(Keys.KEY_FEED_CAPTION.name());
+                String userLocation = intent.getStringExtra(Keys.KEY_FEED_LOCATION.name());
+                String userFeedType = intent.getStringExtra(Keys.KEY_FEED_TYPE.name());
+                
+                if (postname.equals(userPost)){
                     ibDelete.setVisibility(View.VISIBLE);
 
                     ibDelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            database.getReference().child(Collections.feeds.name()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for(DataSnapshot dss:snapshot.getChildren()){
+                                        String type = dss.child("type").getValue(String.class);
+                                        String username = dss.child("username").getValue(String.class);
+                                        String caption = dss.child("caption").getValue(String.class);
+                                        String location = dss.child("location").getValue(String.class);
+                                        int imageId = dss.child("imageId").getValue(int.class);
 
+                                        boolean isType = userFeedType.equals(type);
+                                        boolean isName = userPost.equals(username);
+                                        boolean isLocation = userLocation.equals(location);
+                                        boolean isCaption = userCaption.equals(caption);
+                                        boolean isImage = userImage == imageId;
+
+                                        if(isType && isName && isLocation && isCaption && isImage){
+                                            dss.getRef().removeValue();
+                                        }
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+                            finish();
                         }
                     });
 

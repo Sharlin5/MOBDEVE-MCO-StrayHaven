@@ -55,12 +55,11 @@ public class PostActivity extends AppCompatActivity {
 
         DatabaseReference reference = database.getReference(Collections.users.name());
 
-
-
         reference.child(this.userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 username = snapshot.child("username").getValue().toString();
+
             }
 
             @Override
