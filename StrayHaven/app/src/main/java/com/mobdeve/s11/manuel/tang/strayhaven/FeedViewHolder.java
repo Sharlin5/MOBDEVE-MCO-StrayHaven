@@ -17,7 +17,7 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
     public TextView tvFeedType;
     public ConstraintLayout clFeed;
     public ImageView ivFeedProfile;
-
+    public TextView tvFeedDate;
 
     public FeedViewHolder(@NonNull View itemView) {
         super(itemView);

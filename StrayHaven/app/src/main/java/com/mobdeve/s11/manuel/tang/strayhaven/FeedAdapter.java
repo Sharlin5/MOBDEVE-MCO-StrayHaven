@@ -36,6 +36,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
                 intent.putExtra(Keys.KEY_FEED_LOCATION.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getLocation());
                 intent.putExtra(Keys.KEY_FEED_TYPE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getType());
                 intent.putExtra(Keys.KEY_FEED_IMAGE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getImageId());
+                intent.putExtra(Keys.KEY_FEED_DATE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getDate());
 
                 v.getContext().startActivity(intent);
             }
@@ -50,6 +51,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
                 intent.putExtra(Keys.KEY_FEED_LOCATION.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getLocation());
                 intent.putExtra(Keys.KEY_FEED_TYPE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getType());
                 intent.putExtra(Keys.KEY_FEED_IMAGE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getImageId());
+                intent.putExtra(Keys.KEY_FEED_DATE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getDate());
 
                 v.getContext().startActivity(intent);
             }

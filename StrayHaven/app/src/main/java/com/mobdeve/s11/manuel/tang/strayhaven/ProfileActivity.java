@@ -62,19 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
         this.ibMessages = findViewById(R.id.ib_profile_messages);
         this.llLoc = findViewById(R.id.ll_profile_loc);
 
-        String location = tvLocation.getText().toString().trim();
-        if (!location.equals(" ") && !location.isEmpty()) {
-            this.llLoc.setVisibility(View.VISIBLE);
-        } else {
-            this.llLoc.setVisibility(View.GONE);
-        }
 
-        String description = tvDescription.getText().toString().trim();
-        if (!description.equals(" ") && !description.isEmpty()) {
-            this.tvDescription .setVisibility(View.VISIBLE);
-        } else {
-            this.tvDescription .setVisibility(View.GONE);
-        }
 
         fabPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +143,19 @@ public class ProfileActivity extends AppCompatActivity {
                 tvDescription.setText(description);
                 String location = snapshot.child("location").getValue().toString();
                 tvLocation.setText(location);
+
+                if (!location.equals(" ") && !location.isEmpty()) {
+                    llLoc.setVisibility(View.VISIBLE);
+                } else {
+                    llLoc.setVisibility(View.GONE);
+                }
+
+                if (!description.equals(" ") && !description.isEmpty()) {
+                    tvDescription .setVisibility(View.VISIBLE);
+                } else {
+                    tvDescription .setVisibility(View.GONE);
+                }
+
             }
 
             @Override

@@ -24,7 +24,7 @@ public class ViewPostActivity extends AppCompatActivity {
 
     private ImageButton ibBack, ibHome, ibTracker, ibNotifications, ibMessages, ibDelete;
     private ImageView ivPicture;
-    private TextView tvUsername, tvLocation, tvCaption, tvType;
+    private TextView tvUsername, tvLocation, tvCaption, tvType, tvDate;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -45,6 +45,7 @@ public class ViewPostActivity extends AppCompatActivity {
         this.tvCaption.setText(intent.getStringExtra(Keys.KEY_FEED_CAPTION.name()));
         this.tvLocation.setText(intent.getStringExtra(Keys.KEY_FEED_LOCATION.name()));
         this.tvType.setText(intent.getStringExtra(Keys.KEY_FEED_TYPE.name()));
+        this.tvDate.setText(intent.getStringExtra(Keys.KEY_FEED_DATE.name()));
     }
 
     private void initFirebase(){
@@ -67,7 +68,8 @@ public class ViewPostActivity extends AppCompatActivity {
                 String userCaption = intent.getStringExtra(Keys.KEY_FEED_CAPTION.name());
                 String userLocation = intent.getStringExtra(Keys.KEY_FEED_LOCATION.name());
                 String userFeedType = intent.getStringExtra(Keys.KEY_FEED_TYPE.name());
-                
+                String userFeedDate = intent.getStringExtra(Keys.KEY_FEED_DATE.name());
+
                 if (postname.equals(userPost)){
                     ibDelete.setVisibility(View.VISIBLE);
 
@@ -83,14 +85,16 @@ public class ViewPostActivity extends AppCompatActivity {
                                         String caption = dss.child("caption").getValue(String.class);
                                         String location = dss.child("location").getValue(String.class);
                                         int imageId = dss.child("imageId").getValue(int.class);
+                                        String date = dss.child("date").getValue(String.class);
 
                                         boolean isType = userFeedType.equals(type);
                                         boolean isName = userPost.equals(username);
                                         boolean isLocation = userLocation.equals(location);
                                         boolean isCaption = userCaption.equals(caption);
                                         boolean isImage = userImage == imageId;
+                                        boolean isDate = userFeedDate.equals(date);
 
-                                        if(isType && isName && isLocation && isCaption && isImage){
+                                        if(isType && isName && isLocation && isCaption && isImage &&isDate){
                                             dss.getRef().removeValue();
                                         }
                                     }
@@ -122,6 +126,7 @@ public class ViewPostActivity extends AppCompatActivity {
         tvType = findViewById(R.id.tv_view_request_type);
         tvLocation = findViewById(R.id.tv_view_user_loc);
         tvCaption = findViewById(R.id.tv_view_caption);
+        tvDate = findViewById(R.id.tv_view_date_posted);
         ibBack = findViewById(R.id.ib_view_back);
         ibHome = findViewById(R.id.ib_view_home);
         ibTracker = findViewById(R.id.ib_view_tracker);

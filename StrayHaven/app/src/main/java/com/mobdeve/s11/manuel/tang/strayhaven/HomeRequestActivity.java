@@ -66,7 +66,8 @@ public class HomeRequestActivity extends AppCompatActivity {
                         String caption = dss.child("caption").getValue(String.class);
                         String location = dss.child("location").getValue(String.class);
                         int imageId = dss.child("imageId").getValue(int.class);
-                        dataFeed.add(new Feed(username, imageId, type, location, caption));
+                        String date = dss.child("date").getValue(String.class);
+                        dataFeed.add(new Feed(username, imageId, type, location, caption, date));
                     }
 
                 }

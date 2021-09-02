@@ -59,7 +59,6 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 username = snapshot.child("username").getValue().toString();
-
             }
 
             @Override
@@ -91,8 +90,9 @@ public class PostActivity extends AppCompatActivity {
                 String request = etPostRequest.getText().toString().trim();
                 String description = etPostDescription.getText().toString().trim();
                 String location = etPostLocation.getText().toString().trim();
+                String date = new CustomDate().toStringFull();
 
-                Feed feed = new Feed(username, R.drawable.picture_feature1, request, location, description);
+                Feed feed = new Feed(username, R.drawable.picture_feature1, request, location, description, date);
                 storePost(feed);
             }
         });

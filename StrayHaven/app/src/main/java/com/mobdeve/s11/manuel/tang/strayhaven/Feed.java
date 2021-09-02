@@ -6,6 +6,7 @@ public class Feed {
     private String caption;
     private String location;
     private String type;
+    private String date;
 
     public Feed(String username, int imageId, String type, String location, String caption) {
         this.username = username;
@@ -13,6 +14,15 @@ public class Feed {
         this.type = type;
         this.location = location;
         this.caption = caption;
+    }
+
+    public Feed(String username, int imageId, String type, String location, String caption, String date) {
+        this.username = username;
+        this.imageId = imageId;
+        this.type = type;
+        this.location = location;
+        this.caption = caption;
+        this.date = date;
     }
 
     public String getUsername(){
@@ -33,5 +43,9 @@ public class Feed {
 
     public String getType(){
         return this.type;
+    }
+
+    public String getDate(){
+        return this.date;
     }
 }
