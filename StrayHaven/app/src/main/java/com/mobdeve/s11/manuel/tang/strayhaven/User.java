@@ -1,5 +1,7 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
+import android.graphics.Bitmap;
+
 public class User {
     private String email;
     private String username;
@@ -7,6 +9,8 @@ public class User {
     private String description;
     private String location;
     private String profilename;
+   // private String profileKey;
+    private String profilepicUrl;
 
     public User(String email, String username, String password){
         this.email = email;
@@ -15,7 +19,9 @@ public class User {
         this.profilename = username;
         this.description = " ";
         this.location = " ";
+        this.profilepicUrl = " ";
     }
+
 
     public User(String email, String username, String profilename, String password, String description, String location){
         this.email = email;
@@ -24,6 +30,16 @@ public class User {
         this.password = password;
         this.description = description;
         this.location = location;
+    }
+
+    public User(String email, String username, String profilename, String password, String description, String location, String profilepicUrl){
+        this.email = email;
+        this.username = username;
+        this.profilename = profilename;
+        this.password = password;
+        this.description = description;
+        this.location = location;
+        this.profilepicUrl = profilepicUrl;
     }
 
     public String getEmail(){
@@ -48,5 +64,21 @@ public class User {
 
     public String getProfilename(){
         return this.profilename;
+    }
+/*
+    public String getProfileKey(){
+        return this.profileKey;
+    }
+
+    public void setProfileKey(String key){
+        this.profileKey = key;
+    }
+*/
+    public String getProfilepicUrl(){
+        return this.profilepicUrl;
+    }
+
+    public void setProfilepicUrl(String key){
+        this.profilepicUrl = key;
     }
 }

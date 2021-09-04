@@ -19,10 +19,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -35,6 +39,9 @@ public class HomeRequestActivity extends AppCompatActivity {
     private RecyclerView rvFeed;
     private ArrayList<Feed> dataFeed;
     private FirebaseDatabase database;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private String userId;
 
 
     @Override
@@ -44,12 +51,39 @@ public class HomeRequestActivity extends AppCompatActivity {
 
         this.initComponents();
         this.initRequest();
+        this.initProfilePic();
 
         if(!"activity_main".equals(getIntent().getStringExtra("from"))){
             overridePendingTransition(0,0);
             getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         }
 
+    }
+
+    private void initProfilePic(){
+        this.database = FirebaseDatabase.getInstance();
+        this.mAuth = FirebaseAuth.getInstance();
+        this.user = this.mAuth.getCurrentUser();
+        this.userId = this.user.getUid();
+
+        DatabaseReference reference = database.getReference(Collections.users.name());
+
+        reference.child(this.userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String imageUrl = snapshot.child("profilepicUrl").getValue().toString();
+                if (imageUrl.equals(" ")){
+                    ivProfile.setImageResource(R.drawable.icon_default_user);
+                } else {
+                    Picasso.get().load(imageUrl).into(ivProfile);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void initRequest(){

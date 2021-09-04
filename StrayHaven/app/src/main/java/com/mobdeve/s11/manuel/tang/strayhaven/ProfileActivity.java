@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -25,6 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageButton ibBack, ibSettings, ibHome, ibTracker, ibNotifications, ibMessages;
     private TextView tvUsername, tvLocation, tvDescription, tvProfilename;
     private LinearLayout llLoc;
+    private ImageView ivProfile;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -61,8 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
         this.ibNotifications = findViewById(R.id.ib_profile_notifications);
         this.ibMessages = findViewById(R.id.ib_profile_messages);
         this.llLoc = findViewById(R.id.ll_profile_loc);
-
-
+        this.ivProfile = findViewById(R.id.iv_profile_user_pic);
 
         fabPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,10 +122,6 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void otherUser(){
-
-    }
-
     private void initFirebase(){
         this.mAuth = FirebaseAuth.getInstance();
         this.user = this.mAuth.getCurrentUser();
@@ -143,6 +141,12 @@ public class ProfileActivity extends AppCompatActivity {
                 tvDescription.setText(description);
                 String location = snapshot.child("location").getValue().toString();
                 tvLocation.setText(location);
+                String imageUrl = snapshot.child("profilepicUrl").getValue().toString();
+                if (imageUrl.equals(" ")){
+                    ivProfile.setImageResource(R.drawable.icon_default_user);
+                } else {
+                    Picasso.get().load(imageUrl).into(ivProfile);
+                }
 
                 if (!location.equals(" ") && !location.isEmpty()) {
                     llLoc.setVisibility(View.VISIBLE);

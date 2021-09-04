@@ -13,10 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -29,6 +33,9 @@ public class HomeUpdateActivity extends AppCompatActivity {
     private RecyclerView rvUpdate;
     private ArrayList<Feed> dataUpdate;
     private FirebaseDatabase database;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,7 @@ public class HomeUpdateActivity extends AppCompatActivity {
 
         this.initComponents();
         this.initUpdate();
+        this.initProfilePic();
 
         overridePendingTransition(0,0);
         getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -46,6 +54,32 @@ public class HomeUpdateActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0, 0);
+    }
+
+    private void initProfilePic(){
+        this.database = FirebaseDatabase.getInstance();
+        this.mAuth = FirebaseAuth.getInstance();
+        this.user = this.mAuth.getCurrentUser();
+        this.userId = this.user.getUid();
+
+        DatabaseReference reference = database.getReference(Collections.users.name());
+
+        reference.child(this.userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String imageUrl = snapshot.child("profilepicUrl").getValue().toString();
+                if (imageUrl.equals(" ")){
+                    ivProfile.setImageResource(R.drawable.icon_default_user);
+                } else {
+                    Picasso.get().load(imageUrl).into(ivProfile);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void initUpdate(){
