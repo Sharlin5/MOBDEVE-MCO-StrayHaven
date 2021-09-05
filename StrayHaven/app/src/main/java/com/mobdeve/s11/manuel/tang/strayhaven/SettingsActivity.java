@@ -6,17 +6,25 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ComponentActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +49,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.net.URI;
+import java.security.Key;
+
 public class SettingsActivity extends AppCompatActivity {
 
     private ImageButton ibBack;
@@ -48,8 +61,8 @@ public class SettingsActivity extends AppCompatActivity {
     private EditText etName, etDescription, etLocation, etPassword;
     private ImageView ivProfile;
 
-    private static final int IMAGE_PICK_CODE = 1000;
-    private static final int IMAGE_PERMISSION_CODE = 1001;
+    private static final int PERMISSION_CODE = 1000;
+    private static final int IMAGE_CAPTURE_CODE = 1001;
     private Uri imageUri;
 
     private FirebaseUser user;
@@ -124,7 +137,8 @@ public class SettingsActivity extends AppCompatActivity {
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickImageFromGallery();
+                //pickImageFromGallery();
+                pickImageFromCamera();
             }
         });
     }
@@ -152,6 +166,80 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
     );
+
+    //get image from camera
+    private void pickImageFromCamera(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (checkSelfPermission(Manifest.permission.CAMERA) ==
+                    PackageManager.PERMISSION_DENIED ||
+                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                            PackageManager.PERMISSION_DENIED){
+                //permission not enabled, request it
+                String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                //show popup to request permissions
+                requestPermissions(permission, PERMISSION_CODE);
+            }
+            else {
+                //permission already granted
+                openCamera();
+            }
+        }
+        else {
+            //system os < marshmallow
+            openCamera();
+        }
+    }
+
+    private void openCamera(){
+
+        //Camera intent
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //intent.putExtra(Keys.KEY_PROFILE_IMAGE.name(), tempUri.toString());
+        cameraActivityResultLauncher.launch(intent);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case PERMISSION_CODE:{
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    //permission from popup was granted
+                    openCamera();
+                }
+                else {
+                    //permission from popup was denied
+                    Toast.makeText(SettingsActivity.this, "Permission denied...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    private ActivityResultLauncher<Intent> cameraActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Bundle bundle = result.getData().getExtras();
+                        Bitmap bitmap = (Bitmap) bundle.get("data");
+
+                        Uri tempUri = getImageUri(getApplicationContext(), bitmap);
+                        imageUri = tempUri;
+                        ivProfile.setImageURI(tempUri);
+                    } else {
+                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
 
     // For profile pic update
     private void updatePhoto(){
