@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 public class FeedViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView ivFeedPicture;
@@ -17,7 +19,6 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
     public TextView tvFeedType;
     public ConstraintLayout clFeed;
     public ImageView ivFeedProfile;
-    public TextView tvFeedDate;
 
     public FeedViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -29,7 +30,12 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
         this.ivFeedProfile = itemView.findViewById(R.id.iv_feed_user_pic);
     }
 
-    public void setIvFeedPicture(int picture) {
+    public void setIvFeedPicture(String picture){
+        Picasso.get().load(picture).into(ivFeedPicture);
+    }
+
+    public void setIvFeedPicture(int picture){
+        //Picasso.get().load(picture).into(ivFeedPicture);
         this.ivFeedPicture.setImageResource(picture);
     }
 
@@ -47,6 +53,10 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
 
     public void setIvFeedProfile(int feedProfile){
         this.ivFeedProfile.setImageResource(feedProfile);
+    }
+
+    public void setIvFeedProfile(String feedProfile){
+        Picasso.get().load(feedProfile).into(ivFeedProfile);
     }
 
     public ConstraintLayout getClFeed(){

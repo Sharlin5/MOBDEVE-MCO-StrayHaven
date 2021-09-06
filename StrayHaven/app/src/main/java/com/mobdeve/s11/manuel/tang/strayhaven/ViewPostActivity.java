@@ -9,7 +9,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,13 +21,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.security.Key;
 
 public class ViewPostActivity extends AppCompatActivity {
 
     private ImageButton ibBack, ibHome, ibTracker, ibNotifications, ibMessages, ibDelete;
-    private ImageView ivPicture;
+    private ImageView ivPicture, ivProfile;
     private TextView tvUsername, tvLocation, tvCaption, tvType, tvDate;
 
     private FirebaseAuth mAuth;
@@ -40,12 +45,24 @@ public class ViewPostActivity extends AppCompatActivity {
         this.initFirebase();
 
         Intent intent = getIntent();
-        this.ivPicture.setImageResource(intent.getIntExtra(Keys.KEY_FEED_IMAGE.name(), 0));
+        String pictureUrl = intent.getStringExtra(Keys.KEY_POST_IMAGE.name());
+        Picasso.get().load(pictureUrl).into(ivPicture);
+        String imageUrl = intent.getStringExtra(Keys.KEY_POST_PROFILE.name());
+        if (imageUrl.equals(" ")){
+            ivProfile.setImageResource(R.drawable.icon_default_user);
+        } else {
+            Picasso.get().load(imageUrl).into(ivProfile);
+        }
+        //this.ivPicture.setImageResource(intent.getIntExtra(Keys.KEY_FEED_IMAGE.name(), 0));
         this.tvUsername.setText(intent.getStringExtra(Keys.KEY_FEED_USERNAME.name()));
         this.tvCaption.setText(intent.getStringExtra(Keys.KEY_FEED_CAPTION.name()));
         this.tvLocation.setText(intent.getStringExtra(Keys.KEY_FEED_LOCATION.name()));
         this.tvType.setText(intent.getStringExtra(Keys.KEY_FEED_TYPE.name()));
         this.tvDate.setText(intent.getStringExtra(Keys.KEY_FEED_DATE.name()));
+
+        String checkPostid = intent.getStringExtra(Keys.KEY_POST_ID.name());
+
+        Toast.makeText(this, checkPostid, Toast.LENGTH_SHORT).show();
     }
 
     private void initFirebase(){
@@ -65,10 +82,14 @@ public class ViewPostActivity extends AppCompatActivity {
 
                 String userPost = intent.getStringExtra(Keys.KEY_FEED_USERNAME.name());
                 int userImage = intent.getIntExtra(Keys.KEY_FEED_IMAGE.name(), 0);
+                String feedImage = intent.getStringExtra(Keys.KEY_POST_IMAGE.name());
                 String userCaption = intent.getStringExtra(Keys.KEY_FEED_CAPTION.name());
                 String userLocation = intent.getStringExtra(Keys.KEY_FEED_LOCATION.name());
                 String userFeedType = intent.getStringExtra(Keys.KEY_FEED_TYPE.name());
                 String userFeedDate = intent.getStringExtra(Keys.KEY_FEED_DATE.name());
+                String postId = intent.getStringExtra(Keys.KEY_POST_ID.name());
+
+
 
                 if (postname.equals(userPost)){
                     ibDelete.setVisibility(View.VISIBLE);
@@ -76,36 +97,19 @@ public class ViewPostActivity extends AppCompatActivity {
                     ibDelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            database.getReference().child(Collections.feeds.name()).addValueEventListener(new ValueEventListener() {
+                            feedReference.child(postId).removeValue();
+                            /*
+                            feedReference.child(postId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    for(DataSnapshot dss:snapshot.getChildren()){
-                                        String type = dss.child("type").getValue(String.class);
-                                        String username = dss.child("username").getValue(String.class);
-                                        String caption = dss.child("caption").getValue(String.class);
-                                        String location = dss.child("location").getValue(String.class);
-                                        int imageId = dss.child("imageId").getValue(int.class);
-                                        String date = dss.child("date").getValue(String.class);
-
-                                        boolean isType = userFeedType.equals(type);
-                                        boolean isName = userPost.equals(username);
-                                        boolean isLocation = userLocation.equals(location);
-                                        boolean isCaption = userCaption.equals(caption);
-                                        boolean isImage = userImage == imageId;
-                                        boolean isDate = userFeedDate.equals(date);
-
-                                        if(isType && isName && isLocation && isCaption && isImage &&isDate){
-                                            dss.getRef().removeValue();
-                                        }
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        successfulDelete();
+                                    } else {
+                                        failedDelete();
                                     }
                                 }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                            });*/
 
-                                }
-                            });
-
-                            finish();
                         }
                     });
 
@@ -121,6 +125,16 @@ public class ViewPostActivity extends AppCompatActivity {
         });
     }
 
+    private void successfulDelete(){
+        Toast.makeText(this, "Delete Successful", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    private void failedDelete(){
+        Toast.makeText(this, "Delete Failed", Toast.LENGTH_SHORT).show();
+    }
+
+
     private void initComponents(){
         tvUsername = findViewById(R.id.tv_view_username);
         tvType = findViewById(R.id.tv_view_request_type);
@@ -133,6 +147,7 @@ public class ViewPostActivity extends AppCompatActivity {
         ibNotifications = findViewById(R.id.ib_view_notifications);
         ibMessages = findViewById(R.id.ib_view_messages);
         ivPicture = findViewById(R.id.iv_view_picture);
+        ivProfile = findViewById(R.id.iv_view_user_pic);
         ibDelete = findViewById(R.id.ib_view_delete);
 
         ibBack.setOnClickListener(new View.OnClickListener() {

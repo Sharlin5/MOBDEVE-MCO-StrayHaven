@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +43,10 @@ public class HomeRequestActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private String userId;
+
+    private ArrayList<String> userKeys;
+    private ArrayList<String> temppostername;
+    private ArrayList<String> tempprofileUrl;
 
 
     @Override
@@ -93,17 +98,22 @@ public class HomeRequestActivity extends AppCompatActivity {
         database.getReference().child(Collections.feeds.name()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //int i = 0;
                 for(DataSnapshot dss:snapshot.getChildren()){
                     String type = dss.child("type").getValue(String.class);
                     if(type.equals("Foster") || type.equals("Adopt")){
-                        String username = dss.child("username").getValue(String.class);
+                        String posterkey = dss.child("posterKey").getValue(String.class);
                         String caption = dss.child("caption").getValue(String.class);
                         String location = dss.child("location").getValue(String.class);
-                        int imageId = dss.child("imageId").getValue(int.class);
                         String date = dss.child("date").getValue(String.class);
-                        dataFeed.add(new Feed(username, imageId, type, location, caption, date));
+                        String imageUrl = dss.child("postUrl").getValue(String.class);
+                        String postername = dss.child("username").getValue(String.class);
+                        String profileUrl = dss.child("profileUrl").getValue(String.class);
+                        String postKey = dss.getKey();
+                        dataFeed.add(new Feed(postKey, postername, profileUrl, imageUrl, type, location, caption, date));
+                        //dataFeed.add(new Feed(postername, profileUrl, imageUrl, type, location, caption, date));
+                        //i++;
                     }
-
                 }
             }
             @Override
@@ -112,9 +122,12 @@ public class HomeRequestActivity extends AppCompatActivity {
             }
         });
 
+        //Toast.makeText(HomeRequestActivity.this, " " + dataFeed.size() + " ", Toast.LENGTH_SHORT).show();
+
+        FeedAdapter feedAdapter = new FeedAdapter(dataFeed);
         this.rvFeed = findViewById(R.id.rv_home_req_feed);
-        this.rvFeed.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        this.rvFeed.setAdapter(new FeedAdapter(this.dataFeed));
+        this.rvFeed.setLayoutManager(new LinearLayoutManager(HomeRequestActivity.this, LinearLayoutManager.VERTICAL, false));
+        this.rvFeed.setAdapter(feedAdapter);
     }
 
     @Override
@@ -132,6 +145,9 @@ public class HomeRequestActivity extends AppCompatActivity {
         this.ibTracker = findViewById(R.id.ib_home_req_tracker);
         this.ibNotifications = findViewById(R.id.ib_home_req_notifications);
         this.ibMessages = findViewById(R.id.ib_home_req_messages);
+
+        //this.getUserKeys();
+        //this.initUserInfo();
 
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override

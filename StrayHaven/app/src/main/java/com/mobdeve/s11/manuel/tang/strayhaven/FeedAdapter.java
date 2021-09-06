@@ -18,6 +18,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
     public FeedAdapter(ArrayList<Feed> dataFeed){
         this.dataFeed = dataFeed;
     }
+
     @NonNull
     @Override
     public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -25,19 +26,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
         View itemView = inflater.inflate(R.layout.feed_template, parent, false);
         FeedViewHolder feedViewHolder = new FeedViewHolder(itemView);
 
-
         feedViewHolder.getClFeed().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ViewPostActivity.class);
-
-                intent.putExtra(Keys.KEY_FEED_USERNAME.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getUsername());
-                intent.putExtra(Keys.KEY_FEED_CAPTION.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getCaption());
-                intent.putExtra(Keys.KEY_FEED_LOCATION.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getLocation());
-                intent.putExtra(Keys.KEY_FEED_TYPE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getType());
-                intent.putExtra(Keys.KEY_FEED_IMAGE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getImageId());
-                intent.putExtra(Keys.KEY_FEED_DATE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getDate());
-
+                viewPutExtras(intent, feedViewHolder);
                 v.getContext().startActivity(intent);
             }
         });
@@ -46,13 +39,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ViewPostActivity.class);
-                intent.putExtra(Keys.KEY_FEED_USERNAME.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getUsername());
-                intent.putExtra(Keys.KEY_FEED_CAPTION.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getCaption());
-                intent.putExtra(Keys.KEY_FEED_LOCATION.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getLocation());
-                intent.putExtra(Keys.KEY_FEED_TYPE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getType());
-                intent.putExtra(Keys.KEY_FEED_IMAGE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getImageId());
-                intent.putExtra(Keys.KEY_FEED_DATE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getDate());
-
+                viewPutExtras(intent, feedViewHolder);
                 v.getContext().startActivity(intent);
             }
         });
@@ -60,21 +47,34 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
         feedViewHolder.getTvFeedUser().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ProfileActivity.class);
+                Intent intent = new Intent(v.getContext(), ViewPosterActivity.class);
+                intent.putExtra(Keys.KEY_POSTER_ID.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getPosterKey());
                 v.getContext().startActivity(intent);
-
             }
         });
 
         feedViewHolder.getIvFeedProfile().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentprofile = new Intent(v.getContext(), ProfileActivity.class);
-                v.getContext().startActivity(intentprofile);
+                Intent intent = new Intent(v.getContext(), ViewPosterActivity.class);
+                intent.putExtra(Keys.KEY_POSTER_ID.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getPosterKey());
+                v.getContext().startActivity(intent);
             }
         });
 
         return feedViewHolder;
+    }
+
+    private void viewPutExtras(Intent intent, FeedViewHolder feedViewHolder){
+        intent.putExtra(Keys.KEY_FEED_USERNAME.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getUsername());
+        intent.putExtra(Keys.KEY_FEED_CAPTION.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getCaption());
+        intent.putExtra(Keys.KEY_FEED_LOCATION.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getLocation());
+        intent.putExtra(Keys.KEY_FEED_TYPE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getType());
+        intent.putExtra(Keys.KEY_POST_IMAGE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getPostUrl());
+        intent.putExtra(Keys.KEY_POST_PROFILE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getProfileUrl());
+        intent.putExtra(Keys.KEY_FEED_DATE.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getDate());
+        intent.putExtra(Keys.KEY_POSTER_ID.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getPosterKey());
+        intent.putExtra(Keys.KEY_POST_ID.name(), dataFeed.get(feedViewHolder.getBindingAdapterPosition()).getPostKey());
     }
 
     @Override
@@ -83,8 +83,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
         holder.setTvFeedUser(currentFeed.getUsername());
         holder.setTvFeedLocation(currentFeed.getLocation());
         holder.setTvFeedType(currentFeed.getType());
-        holder.setIvFeedPicture(currentFeed.getImageId());
-
+        holder.setIvFeedPicture(currentFeed.getPostUrl());
+        //holder.setIvFeedPicture(R.drawable.picture_feature1);
+        holder.setIvFeedProfile(currentFeed.getProfileUrl());
     }
 
     @Override

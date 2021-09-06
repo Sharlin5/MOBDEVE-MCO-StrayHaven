@@ -92,12 +92,15 @@ public class HomeUpdateActivity extends AppCompatActivity {
                 for(DataSnapshot dss:snapshot.getChildren()){
                     String type = dss.child("type").getValue(String.class);
                     if (type.equals("Update")){
-                        String username = dss.child("username").getValue(String.class);
+                        String posterkey = dss.child("posterKey").getValue(String.class);
                         String caption = dss.child("caption").getValue(String.class);
                         String location = dss.child("location").getValue(String.class);
-                        int imageId = dss.child("imageId").getValue(int.class);
                         String date = dss.child("date").getValue(String.class);
-                        dataUpdate.add(new Feed(username, imageId, type, location, caption, date));
+                        String imageUrl = dss.child("postUrl").getValue(String.class);
+                        String postername = dss.child("username").getValue(String.class);
+                        String profileUrl = dss.child("profileUrl").getValue(String.class);
+                        String postKey = dss.getKey();
+                        dataUpdate.add(new Feed(postKey, postername, profileUrl, imageUrl, type, location, caption, date));
                     }
                 }
             }
@@ -108,6 +111,7 @@ public class HomeUpdateActivity extends AppCompatActivity {
             }
         });
 
+        //FeedAdapter feedAdapter = new FeedAdapter(dataUpdate);
         this.rvUpdate = findViewById(R.id.rv_home_upd_feed);
         this.rvUpdate.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         this.rvUpdate.setAdapter(new FeedAdapter(this.dataUpdate));
