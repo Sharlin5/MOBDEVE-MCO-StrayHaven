@@ -86,7 +86,7 @@ public class HomeUpdateActivity extends AppCompatActivity {
         this.database = FirebaseDatabase.getInstance();
         this.dataUpdate = new ArrayList<Feed>();
 
-        database.getReference().child(Collections.feeds.name()).addValueEventListener(new ValueEventListener() {
+        database.getReference().child(Collections.update.name()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dss:snapshot.getChildren()){

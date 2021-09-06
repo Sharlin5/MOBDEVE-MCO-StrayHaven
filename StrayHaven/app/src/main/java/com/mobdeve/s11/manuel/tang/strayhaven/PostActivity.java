@@ -148,10 +148,22 @@ public class PostActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         String postUrl = uri.toString();
-                        if(!hasEmpty(request, location, description)){
+                        if(!hasEmpty(request, location, description)  && (request.equals("Foster") || request.equals("Adopt"))){
                             //Feed feed = new Feed(userkey, postUrl, request, location, description, date);
                             Feed feed = new Feed(userkey, username, profileUrl, postUrl,request, location, description, date);
-                            database.getReference(Collections.feeds.name()).push().setValue(feed).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            database.getReference(Collections.request.name()).push().setValue(feed).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        successfulPost();
+                                    } else {
+                                        failedPost();
+                                    }
+                                }
+                            });
+                        } else if (!hasEmpty(request, location, description)  && (request.equals("Update"))){
+                            Feed feed = new Feed(userkey, username, profileUrl, postUrl,request, location, description, date);
+                            database.getReference(Collections.update.name()).push().setValue(feed).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){

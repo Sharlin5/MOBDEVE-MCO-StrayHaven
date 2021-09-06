@@ -95,7 +95,7 @@ public class HomeRequestActivity extends AppCompatActivity {
         this.database = FirebaseDatabase.getInstance();
         this.dataFeed = new ArrayList<Feed>();
 
-        database.getReference().child(Collections.feeds.name()).addValueEventListener(new ValueEventListener() {
+        database.getReference().child(Collections.request.name()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //int i = 0;
