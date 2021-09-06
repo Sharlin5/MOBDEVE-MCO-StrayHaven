@@ -35,6 +35,7 @@ public class ViewPostActivity extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseDatabase database;
     private String userId;
+    private String postId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +60,6 @@ public class ViewPostActivity extends AppCompatActivity {
         this.tvLocation.setText(intent.getStringExtra(Keys.KEY_FEED_LOCATION.name()));
         this.tvType.setText(intent.getStringExtra(Keys.KEY_FEED_TYPE.name()));
         this.tvDate.setText(intent.getStringExtra(Keys.KEY_FEED_DATE.name()));
-
-        String checkPostid = intent.getStringExtra(Keys.KEY_POST_ID.name());
-
-        Toast.makeText(this, checkPostid, Toast.LENGTH_SHORT).show();
     }
 
     private void initFirebase(){
@@ -74,6 +71,9 @@ public class ViewPostActivity extends AppCompatActivity {
         DatabaseReference reference = database.getReference(Collections.users.name());
         DatabaseReference feedReference = database.getReference(Collections.feeds.name());
 
+        Intent intent = getIntent();
+        String postId = intent.getStringExtra(Keys.KEY_POST_ID.name());
+
         reference.child(this.userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -81,15 +81,14 @@ public class ViewPostActivity extends AppCompatActivity {
                 Intent intent = getIntent();
 
                 String userPost = intent.getStringExtra(Keys.KEY_FEED_USERNAME.name());
-                int userImage = intent.getIntExtra(Keys.KEY_FEED_IMAGE.name(), 0);
+                //int userImage = intent.getIntExtra(Keys.KEY_FEED_IMAGE.name(), 0);
                 String feedImage = intent.getStringExtra(Keys.KEY_POST_IMAGE.name());
                 String userCaption = intent.getStringExtra(Keys.KEY_FEED_CAPTION.name());
                 String userLocation = intent.getStringExtra(Keys.KEY_FEED_LOCATION.name());
                 String userFeedType = intent.getStringExtra(Keys.KEY_FEED_TYPE.name());
                 String userFeedDate = intent.getStringExtra(Keys.KEY_FEED_DATE.name());
                 String postId = intent.getStringExtra(Keys.KEY_POST_ID.name());
-
-
+                String imageUrl = intent.getStringExtra(Keys.KEY_POST_PROFILE.name());
 
                 if (postname.equals(userPost)){
                     ibDelete.setVisibility(View.VISIBLE);
@@ -97,21 +96,44 @@ public class ViewPostActivity extends AppCompatActivity {
                     ibDelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            feedReference.child(postId).removeValue();
-                            /*
-                            feedReference.child(postId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            feedReference.addValueEventListener(new ValueEventListener() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        successfulDelete();
-                                    } else {
-                                        failedDelete();
-                                    }
-                                }
-                            });*/
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    String temp = snapshot.child("username").getValue(String.class);
+                                    Toast.makeText(ViewPostActivity.this, temp, Toast.LENGTH_SHORT).show();
 
+                                    for(DataSnapshot dss:snapshot.getChildren()){
+                                        String type = dss.child("type").getValue(String.class);
+                                        String username = dss.child("username").getValue(String.class);
+                                        String caption = dss.child("caption").getValue(String.class);
+                                        String location = dss.child("location").getValue(String.class);
+                                        String date = dss.child("date").getValue(String.class);
+                                        String imageurl = dss.child("postUrl").getValue(String.class);
+
+                                        boolean isType = userFeedType.equals(type);
+                                        boolean isName = userPost.equals(username);
+                                        boolean isLocation = userLocation.equals(location);
+                                        boolean isCaption = userCaption.equals(caption);
+                                        boolean isDate = userFeedDate.equals(date);
+                                        boolean isImage = feedImage.equals(imageurl);
+
+                                        if(isType && isName && isLocation && isCaption &&isDate){
+                                            dss.getRef().removeValue();
+                                        }
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                            finish();
                         }
+
                     });
+
 
                 } else {
                     ibDelete.setVisibility(View.GONE);
