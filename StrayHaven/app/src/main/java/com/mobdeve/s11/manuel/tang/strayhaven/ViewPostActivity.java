@@ -90,7 +90,7 @@ public class ViewPostActivity extends AppCompatActivity {
                 String userFeedDate = intent.getStringExtra(Keys.KEY_FEED_DATE.name());
                 String postId = intent.getStringExtra(Keys.KEY_POST_ID.name());
                 String profileUrl = intent.getStringExtra(Keys.KEY_POST_PROFILE.name());
-                
+
                 if (postname.equals(userPost)){
                     ibDelete.setVisibility(View.VISIBLE);
 

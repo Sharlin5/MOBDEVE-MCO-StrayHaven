@@ -103,7 +103,6 @@ public class TrackerActivity extends AppCompatActivity {
                         String profileUrl = dss.child("profileUrl").getValue(String.class);
                         String postKey = dss.getKey();
                         String isDone = dss.child("isDone").getValue(String.class);
-                        Toast.makeText(TrackerActivity.this, postKey, Toast.LENGTH_SHORT).show();
                         dataTracker.add(new Feed(postKey, posterkey, postername, profileUrl, imageUrl, type, location, caption, date, isDone));
                     }
                 }

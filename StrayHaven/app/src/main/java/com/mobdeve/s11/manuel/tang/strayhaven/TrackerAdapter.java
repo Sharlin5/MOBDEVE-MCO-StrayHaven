@@ -58,14 +58,36 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
         trackerViewHolder.getSwStatus().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                updateFirebase(trackerViewHolder, isChecked);
             }
         });
         return trackerViewHolder;
     }
 
-    private void updateFirebase(TrackerViewHolder trackerViewHolder){
+    private void updateFirebase(TrackerViewHolder trackerViewHolder, boolean isChecked){
+        this.database = FirebaseDatabase.getInstance();
+        DatabaseReference trackerReference = database.getReference(Collections.request.name());
 
+        String postKey = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getPostKey();
+        String posterKey = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getPosterKey();
+        String postCaption = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getCaption();
+        String postLocation = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getLocation();
+        String postUrl = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getPostUrl();
+        String postProfileUrl = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getProfileUrl();
+        String postType = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getType();
+        String postUsername = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getUsername();
+        String postDate = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getDate();
+        String isDone;
+
+        if (isChecked){
+            isDone = "false";
+            Feed feed = new Feed(posterKey, postUsername, postProfileUrl, postUrl, postType, postLocation, postCaption, postDate, isDone);
+            database.getReference(Collections.request.name()).child(postKey).setValue(feed);
+        } else {
+            isDone = "true";
+            Feed feed = new Feed(posterKey, postUsername, postProfileUrl, postUrl, postType, postLocation, postCaption, postDate, isDone);
+            database.getReference(Collections.request.name()).child(postKey).setValue(feed);
+        }
     }
 
     private void deleteRequest(TrackerViewHolder trackerViewHolder){

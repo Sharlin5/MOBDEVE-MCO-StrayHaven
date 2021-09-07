@@ -108,6 +108,7 @@ public class HomeRequestActivity extends AppCompatActivity {
                         String postername = dss.child("username").getValue(String.class);
                         String profileUrl = dss.child("profileUrl").getValue(String.class);
                         String postKey = dss.getKey();
+
                         Feed request = new Feed(posterkey, postername, profileUrl, imageUrl, type, location, caption, date);
                         request.setPostKey(postKey);
                         dataFeed.add(request);
