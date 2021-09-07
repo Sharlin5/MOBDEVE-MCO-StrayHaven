@@ -1,6 +1,8 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
 public class Notif {
+    private String userKey;
+    private String postKey;
     private String profilename;
     private String notification;
     private int imageId;

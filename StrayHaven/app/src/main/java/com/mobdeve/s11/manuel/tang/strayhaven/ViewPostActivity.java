@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +31,7 @@ public class ViewPostActivity extends AppCompatActivity {
     private ImageButton ibBack, ibHome, ibTracker, ibNotifications, ibMessages, ibDelete;
     private ImageView ivPicture, ivProfile;
     private TextView tvUsername, tvLocation, tvCaption, tvType, tvDate;
+    private FloatingActionButton fabInterested;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -82,14 +84,14 @@ public class ViewPostActivity extends AppCompatActivity {
                 Intent intent = getIntent();
 
                 String userPost = intent.getStringExtra(Keys.KEY_FEED_USERNAME.name());
-                //int userImage = intent.getIntExtra(Keys.KEY_FEED_IMAGE.name(), 0);
+                String userFeedType = intent.getStringExtra(Keys.KEY_FEED_TYPE.name());
+                String postId = intent.getStringExtra(Keys.KEY_POST_ID.name());
+
                 String feedImage = intent.getStringExtra(Keys.KEY_POST_IMAGE.name());
                 String userCaption = intent.getStringExtra(Keys.KEY_FEED_CAPTION.name());
                 String userLocation = intent.getStringExtra(Keys.KEY_FEED_LOCATION.name());
-                String userFeedType = intent.getStringExtra(Keys.KEY_FEED_TYPE.name());
-                String userFeedDate = intent.getStringExtra(Keys.KEY_FEED_DATE.name());
-                String postId = intent.getStringExtra(Keys.KEY_POST_ID.name());
                 String profileUrl = intent.getStringExtra(Keys.KEY_POST_PROFILE.name());
+                String userFeedDate = intent.getStringExtra(Keys.KEY_FEED_DATE.name());
 
                 if (postname.equals(userPost)){
                     ibDelete.setVisibility(View.VISIBLE);
@@ -102,7 +104,16 @@ public class ViewPostActivity extends AppCompatActivity {
                                 feedReference.child(postId).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        snapshot.getRef().removeValue();
+                                        snapshot.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()){
+                                                    successfulDelete();
+                                                } else {
+                                                    failedDelete();
+                                                }
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -110,13 +121,21 @@ public class ViewPostActivity extends AppCompatActivity {
 
                                     }
                                 });
-                                finish();
                             } else {
                                 DatabaseReference feedReference = requestReference;
                                 feedReference.child(postId).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        snapshot.getRef().removeValue();
+                                        snapshot.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()){
+                                                    successfulDelete();
+                                                } else {
+                                                    failedDelete();
+                                                }
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -124,12 +143,9 @@ public class ViewPostActivity extends AppCompatActivity {
 
                                     }
                                 });
-                                finish();
                             }
                         }
                     });
-
-
                 } else {
                     ibDelete.setVisibility(View.GONE);
                 }
@@ -144,6 +160,8 @@ public class ViewPostActivity extends AppCompatActivity {
 
     private void successfulDelete(){
         Toast.makeText(this, "Delete Successful", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(ViewPostActivity.this, HomeRequestActivity.class);
+        startActivity(intent);
         finish();
     }
 
@@ -166,6 +184,7 @@ public class ViewPostActivity extends AppCompatActivity {
         ivPicture = findViewById(R.id.iv_view_picture);
         ivProfile = findViewById(R.id.iv_view_user_pic);
         ibDelete = findViewById(R.id.ib_view_delete);
+        fabInterested = findViewById(R.id.fab_view_heart);
 
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +229,12 @@ public class ViewPostActivity extends AppCompatActivity {
             }
         });
 
+        fabInterested.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 }

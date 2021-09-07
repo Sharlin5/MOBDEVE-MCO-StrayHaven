@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +27,7 @@ public class ViewPosterActivity extends AppCompatActivity {
 
     private FloatingActionButton fabPost;
     private ImageButton ibBack, ibSettings, ibHome, ibTracker, ibNotifications, ibMessages;
+    private Button btnMessage;
 
     private TextView tvUsername, tvLocation, tvDescription, tvProfilename;
     private LinearLayout llLoc;
@@ -41,6 +44,8 @@ public class ViewPosterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         initComponents();
+        initFirebase();
+
     }
 
     public void initComponents(){
@@ -57,6 +62,7 @@ public class ViewPosterActivity extends AppCompatActivity {
         this.ibMessages = findViewById(R.id.ib_profile_messages);
         this.llLoc = findViewById(R.id.ll_profile_loc);
         this.ivProfile = findViewById(R.id.iv_profile_user_pic);
+        this.btnMessage = findViewById(R.id.btn_profile_message);
 
         fabPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,15 +120,23 @@ public class ViewPosterActivity extends AppCompatActivity {
         });
     }
 
-    private void initFirebase(){
+    private void initFirebase() {
         this.mAuth = FirebaseAuth.getInstance();
         this.user = this.mAuth.getCurrentUser();
         this.userId = this.user.getUid();
         this.database = FirebaseDatabase.getInstance();
 
         DatabaseReference reference = database.getReference(Collections.users.name());
+        Intent intent = getIntent();
+        String posterKey = intent.getStringExtra(Keys.KEY_POSTER_ID.name());
 
-        reference.child(this.userId).addValueEventListener(new ValueEventListener() {
+        if(!posterKey.equals(userId)){
+            btnMessage.setVisibility(View.VISIBLE);
+        } else {
+            btnMessage.setVisibility(View.GONE);
+        }
+
+        reference.child(posterKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String username = snapshot.child("username").getValue().toString();
@@ -151,7 +165,6 @@ public class ViewPosterActivity extends AppCompatActivity {
                 } else {
                     tvDescription .setVisibility(View.GONE);
                 }
-
             }
 
             @Override
@@ -159,5 +172,6 @@ public class ViewPosterActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }
