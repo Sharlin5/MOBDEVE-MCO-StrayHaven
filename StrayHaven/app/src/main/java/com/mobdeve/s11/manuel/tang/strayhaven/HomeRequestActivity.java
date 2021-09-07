@@ -98,10 +98,8 @@ public class HomeRequestActivity extends AppCompatActivity {
         database.getReference().child(Collections.request.name()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //int i = 0;
                 for(DataSnapshot dss:snapshot.getChildren()){
                     String type = dss.child("type").getValue(String.class);
-                    if(type.equals("Foster") || type.equals("Adopt")){
                         String posterkey = dss.child("posterKey").getValue(String.class);
                         String caption = dss.child("caption").getValue(String.class);
                         String location = dss.child("location").getValue(String.class);
@@ -112,8 +110,6 @@ public class HomeRequestActivity extends AppCompatActivity {
                         String postKey = dss.getKey();
                         dataFeed.add(new Feed(postKey, postername, profileUrl, imageUrl, type, location, caption, date));
                         //dataFeed.add(new Feed(postername, profileUrl, imageUrl, type, location, caption, date));
-                        //i++;
-                    }
                 }
             }
             @Override
@@ -122,12 +118,10 @@ public class HomeRequestActivity extends AppCompatActivity {
             }
         });
 
-        //Toast.makeText(HomeRequestActivity.this, " " + dataFeed.size() + " ", Toast.LENGTH_SHORT).show();
-
-        FeedAdapter feedAdapter = new FeedAdapter(dataFeed);
+        //FeedAdapter feedAdapter = new FeedAdapter(dataFeed);
         this.rvFeed = findViewById(R.id.rv_home_req_feed);
         this.rvFeed.setLayoutManager(new LinearLayoutManager(HomeRequestActivity.this, LinearLayoutManager.VERTICAL, false));
-        this.rvFeed.setAdapter(feedAdapter);
+        this.rvFeed.setAdapter(new FeedAdapter(dataFeed));
     }
 
     @Override
@@ -145,9 +139,6 @@ public class HomeRequestActivity extends AppCompatActivity {
         this.ibTracker = findViewById(R.id.ib_home_req_tracker);
         this.ibNotifications = findViewById(R.id.ib_home_req_notifications);
         this.ibMessages = findViewById(R.id.ib_home_req_messages);
-
-        //this.getUserKeys();
-        //this.initUserInfo();
 
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override

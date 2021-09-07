@@ -150,7 +150,8 @@ public class PostActivity extends AppCompatActivity {
                         String postUrl = uri.toString();
                         if(!hasEmpty(request, location, description)  && (request.equals("Foster") || request.equals("Adopt"))){
                             //Feed feed = new Feed(userkey, postUrl, request, location, description, date);
-                            Feed feed = new Feed(userkey, username, profileUrl, postUrl,request, location, description, date);
+                            String isDone = "false";
+                            Feed feed = new Feed(userkey, username, profileUrl, postUrl,request, location, description, date, isDone);
                             database.getReference(Collections.request.name()).push().setValue(feed).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

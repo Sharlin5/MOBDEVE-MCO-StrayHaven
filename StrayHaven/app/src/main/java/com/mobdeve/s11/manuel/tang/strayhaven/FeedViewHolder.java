@@ -56,7 +56,11 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setIvFeedProfile(String feedProfile){
-        Picasso.get().load(feedProfile).into(ivFeedProfile);
+        if (feedProfile.equals(" ")){
+            ivFeedProfile.setImageResource(R.drawable.icon_default_user);
+        } else {
+            Picasso.get().load(feedProfile).into(ivFeedProfile);
+        }
     }
 
     public ConstraintLayout getClFeed(){

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,19 +30,20 @@ public class TrackerActivity extends AppCompatActivity {
     private FloatingActionButton fabPost;
     private ImageButton ibSettings, ibHome, ibNotifications, ibMessages;
     private RecyclerView rvTracker;
-    private ArrayList<Tracker> dataTracker;
+    private ArrayList<Feed> dataTracker;
     private FirebaseDatabase database;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private String userId;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracker);
         this.initComponents();
-        this.initRecyclerView();
         this.initProfilePic();
+        this.initRecyclerView();
         overridePendingTransition(0,0);
         getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
     }
@@ -63,6 +65,7 @@ public class TrackerActivity extends AppCompatActivity {
         reference.child(this.userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                username = snapshot.child("username").getValue().toString();
                 String imageUrl = snapshot.child("profilepicUrl").getValue().toString();
                 if (imageUrl.equals(" ")){
                     ivProfile.setImageResource(R.drawable.icon_default_user);
@@ -79,10 +82,62 @@ public class TrackerActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        this.dataTracker = new TrackerDataHelper().loadTrackerData();
+        //this.dataTracker = new TrackerDataHelper().loadTrackerData();
+
+        this.database = FirebaseDatabase.getInstance();
+        this.dataTracker = new ArrayList<Feed>();
+        //String username;
+
+        this.userId = this.user.getUid();
+
+        /*
+        DatabaseReference reference = database.getReference(Collections.users.name());
+
+        reference.child(this.userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                username = snapshot.child("username").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
+
+        database.getReference().child(Collections.request.name()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //int i = 0;
+                for(DataSnapshot dss:snapshot.getChildren()){
+                    String type = dss.child("type").getValue(String.class);
+                    String postername = dss.child("username").getValue(String.class);
+                    //Toast.makeText(TrackerActivity.this, postername + " " + username + " " + postername.equals(username), Toast.LENGTH_SHORT).show();
+                    if(postername.equals(username)){
+                    String posterkey = dss.child("posterKey").getValue(String.class);
+                    String caption = dss.child("caption").getValue(String.class);
+                    String location = dss.child("location").getValue(String.class);
+                    String date = dss.child("date").getValue(String.class);
+                    String imageUrl = dss.child("postUrl").getValue(String.class);
+                    String profileUrl = dss.child("profileUrl").getValue(String.class);
+                    String postKey = dss.getKey();
+                    String isDone = dss.child("isDone").getValue(String.class);
+                    dataTracker.add(new Feed(postKey, postername, profileUrl, imageUrl, type, location, caption, date, isDone));
+                    //dataFeed.add(new Feed(postername, profileUrl, imageUrl, type, location, caption, date));
+                    //i++;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         this.rvTracker = findViewById(R.id.rv_tracker_feed);
         this.rvTracker.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         this.rvTracker.setAdapter(new TrackerAdapter(this.dataTracker));
+
     }
 
     //Initialize objects

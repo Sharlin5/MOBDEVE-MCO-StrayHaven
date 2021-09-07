@@ -91,7 +91,6 @@ public class HomeUpdateActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dss:snapshot.getChildren()){
                     String type = dss.child("type").getValue(String.class);
-                    if (type.equals("Update")){
                         String posterkey = dss.child("posterKey").getValue(String.class);
                         String caption = dss.child("caption").getValue(String.class);
                         String location = dss.child("location").getValue(String.class);
@@ -101,7 +100,6 @@ public class HomeUpdateActivity extends AppCompatActivity {
                         String profileUrl = dss.child("profileUrl").getValue(String.class);
                         String postKey = dss.getKey();
                         dataUpdate.add(new Feed(postKey, postername, profileUrl, imageUrl, type, location, caption, date));
-                    }
                 }
             }
 
