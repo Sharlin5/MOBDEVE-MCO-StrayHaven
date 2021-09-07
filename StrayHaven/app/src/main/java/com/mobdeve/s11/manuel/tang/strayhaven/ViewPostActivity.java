@@ -69,7 +69,8 @@ public class ViewPostActivity extends AppCompatActivity {
         this.database = FirebaseDatabase.getInstance();
 
         DatabaseReference reference = database.getReference(Collections.users.name());
-        DatabaseReference feedReference = database.getReference(Collections.feeds.name());
+        DatabaseReference updateReference = database.getReference(Collections.update.name());
+        DatabaseReference requestReference = database.getReference(Collections.request.name());
 
         Intent intent = getIntent();
         String postId = intent.getStringExtra(Keys.KEY_POST_ID.name());
@@ -88,50 +89,44 @@ public class ViewPostActivity extends AppCompatActivity {
                 String userFeedType = intent.getStringExtra(Keys.KEY_FEED_TYPE.name());
                 String userFeedDate = intent.getStringExtra(Keys.KEY_FEED_DATE.name());
                 String postId = intent.getStringExtra(Keys.KEY_POST_ID.name());
-                String imageUrl = intent.getStringExtra(Keys.KEY_POST_PROFILE.name());
-
+                String profileUrl = intent.getStringExtra(Keys.KEY_POST_PROFILE.name());
+                
                 if (postname.equals(userPost)){
                     ibDelete.setVisibility(View.VISIBLE);
 
                     ibDelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            feedReference.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    String temp = snapshot.child("username").getValue(String.class);
-                                    Toast.makeText(ViewPostActivity.this, temp, Toast.LENGTH_SHORT).show();
-
-                                    for(DataSnapshot dss:snapshot.getChildren()){
-                                        String type = dss.child("type").getValue(String.class);
-                                        String username = dss.child("username").getValue(String.class);
-                                        String caption = dss.child("caption").getValue(String.class);
-                                        String location = dss.child("location").getValue(String.class);
-                                        String date = dss.child("date").getValue(String.class);
-                                        String imageurl = dss.child("postUrl").getValue(String.class);
-
-                                        boolean isType = userFeedType.equals(type);
-                                        boolean isName = userPost.equals(username);
-                                        boolean isLocation = userLocation.equals(location);
-                                        boolean isCaption = userCaption.equals(caption);
-                                        boolean isDate = userFeedDate.equals(date);
-                                        boolean isImage = feedImage.equals(imageurl);
-
-                                        if(isType && isName && isLocation && isCaption &&isDate){
-                                            dss.getRef().removeValue();
-                                        }
+                            if (userFeedType.equals("Update")){
+                                DatabaseReference feedReference = updateReference;
+                                feedReference.child(postId).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        snapshot.getRef().removeValue();
                                     }
 
-                                }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
+                                finish();
+                            } else {
+                                DatabaseReference feedReference = requestReference;
+                                feedReference.child(postId).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        snapshot.getRef().removeValue();
+                                    }
 
-                                }
-                            });
-                            finish();
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                                finish();
+                            }
                         }
-
                     });
 
 

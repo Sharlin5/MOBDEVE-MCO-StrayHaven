@@ -54,6 +54,7 @@ public class TrackerActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
+    // sets profile picture
     private void initProfilePic(){
         this.database = FirebaseDatabase.getInstance();
         this.mAuth = FirebaseAuth.getInstance();
@@ -81,50 +82,29 @@ public class TrackerActivity extends AppCompatActivity {
         });
     }
 
+    //initialize recycler view
     private void initRecyclerView(){
-        //this.dataTracker = new TrackerDataHelper().loadTrackerData();
-
         this.database = FirebaseDatabase.getInstance();
         this.dataTracker = new ArrayList<Feed>();
-        //String username;
-
         this.userId = this.user.getUid();
-
-        /*
-        DatabaseReference reference = database.getReference(Collections.users.name());
-
-        reference.child(this.userId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                username = snapshot.child("username").getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
 
         database.getReference().child(Collections.request.name()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //int i = 0;
                 for(DataSnapshot dss:snapshot.getChildren()){
                     String type = dss.child("type").getValue(String.class);
                     String postername = dss.child("username").getValue(String.class);
-                    //Toast.makeText(TrackerActivity.this, postername + " " + username + " " + postername.equals(username), Toast.LENGTH_SHORT).show();
                     if(postername.equals(username)){
-                    String posterkey = dss.child("posterKey").getValue(String.class);
-                    String caption = dss.child("caption").getValue(String.class);
-                    String location = dss.child("location").getValue(String.class);
-                    String date = dss.child("date").getValue(String.class);
-                    String imageUrl = dss.child("postUrl").getValue(String.class);
-                    String profileUrl = dss.child("profileUrl").getValue(String.class);
-                    String postKey = dss.getKey();
-                    String isDone = dss.child("isDone").getValue(String.class);
-                    dataTracker.add(new Feed(postKey, postername, profileUrl, imageUrl, type, location, caption, date, isDone));
-                    //dataFeed.add(new Feed(postername, profileUrl, imageUrl, type, location, caption, date));
-                    //i++;
+                        String posterkey = dss.child("posterKey").getValue(String.class);
+                        String caption = dss.child("caption").getValue(String.class);
+                        String location = dss.child("location").getValue(String.class);
+                        String date = dss.child("date").getValue(String.class);
+                        String imageUrl = dss.child("postUrl").getValue(String.class);
+                        String profileUrl = dss.child("profileUrl").getValue(String.class);
+                        String postKey = dss.getKey();
+                        String isDone = dss.child("isDone").getValue(String.class);
+                        Toast.makeText(TrackerActivity.this, postKey, Toast.LENGTH_SHORT).show();
+                        dataTracker.add(new Feed(postKey, posterkey, postername, profileUrl, imageUrl, type, location, caption, date, isDone));
                     }
                 }
             }
@@ -133,10 +113,12 @@ public class TrackerActivity extends AppCompatActivity {
 
             }
         });
+        TrackerAdapter trackerAdapter = new TrackerAdapter(this.dataTracker);
+        trackerAdapter.notifyDataSetChanged();
 
         this.rvTracker = findViewById(R.id.rv_tracker_feed);
         this.rvTracker.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        this.rvTracker.setAdapter(new TrackerAdapter(this.dataTracker));
+        this.rvTracker.setAdapter(new TrackerAdapter(this, this.dataTracker));
 
     }
 

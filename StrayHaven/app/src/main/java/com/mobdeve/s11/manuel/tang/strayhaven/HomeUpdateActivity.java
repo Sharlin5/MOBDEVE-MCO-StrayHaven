@@ -99,7 +99,9 @@ public class HomeUpdateActivity extends AppCompatActivity {
                         String postername = dss.child("username").getValue(String.class);
                         String profileUrl = dss.child("profileUrl").getValue(String.class);
                         String postKey = dss.getKey();
-                        dataUpdate.add(new Feed(postKey, postername, profileUrl, imageUrl, type, location, caption, date));
+                        Feed update = new Feed(posterkey, postername, profileUrl, imageUrl, type, location, caption, date);
+                        update.setPostKey(postKey);
+                        dataUpdate.add(update);
                 }
             }
 

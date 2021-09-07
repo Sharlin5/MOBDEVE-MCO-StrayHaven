@@ -1,6 +1,8 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ public class TrackerViewHolder extends RecyclerView.ViewHolder {
     public TextView tvType;
     public TextView tvDate;
     public Switch swStatus;
+    public ImageButton ibTrackerDelete;
 
     public TrackerViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -23,6 +26,7 @@ public class TrackerViewHolder extends RecyclerView.ViewHolder {
         this.tvType = itemView.findViewById(R.id.tv_tracker_type);
         this.tvDate = itemView.findViewById(R.id.tv_tracker_date);
         this.swStatus = itemView.findViewById(R.id.sw_tracker_status);
+        this.ibTrackerDelete = itemView.findViewById(R.id.ib_tracker_delete);
     }
 
     public void setIvTrackerPicture(int picture) {
@@ -51,5 +55,9 @@ public class TrackerViewHolder extends RecyclerView.ViewHolder {
 
     public Switch getSwStatus(){
         return this.swStatus;
+    }
+
+    public ImageButton getIbTrackerDelete(){
+        return this.ibTrackerDelete;
     }
 }

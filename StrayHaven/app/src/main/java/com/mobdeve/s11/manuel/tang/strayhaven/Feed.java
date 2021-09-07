@@ -47,6 +47,20 @@ public class Feed {
         this.isDone = isDone;
     }
 
+    //for delete
+    public Feed(String postKey, String posterkey, String username, String profileUrl, String postUrl, String type, String location, String caption, String date, String isDone){
+        this.postKey = postKey;
+        this.posterKey = posterkey;
+        this.profileUrl = profileUrl;
+        this.username = username;
+        this.postUrl = postUrl;
+        this.type = type;
+        this.location = location;
+        this.caption = caption;
+        this.date = date;
+        this.isDone = isDone;
+    }
+
     public String getUsername(){
         return this.username;
     }
