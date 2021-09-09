@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,9 +49,10 @@ public class PostActivity extends AppCompatActivity {
     private Button btnPost;
     private EditText etPostRequest, etPostLocation, etPostDescription;
     private ImageView ivPost;
+    private ProgressBar pbPost;
 
     //Request type spinner
-    private String[] request = {"Request Type", "Adopt", "Foster", "Update"};
+    private String[] requestType = {"Request Type", "Adopt", "Foster", "Update"};
     private ArrayAdapter requestArrayAdapter;
 
     private static final int PERMISSION_CODE = 1000;
@@ -104,6 +106,8 @@ public class PostActivity extends AppCompatActivity {
         this.ibBack = findViewById(R.id.ib_post_back);
         this.btnPost = findViewById(R.id.btn_post_done);
         this.ivPost = findViewById(R.id.iv_post_image);
+        this.pbPost = findViewById(R.id.pb_post);
+
 
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,10 +117,14 @@ public class PostActivity extends AppCompatActivity {
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storePost();
-                /*
-                Intent intent = new Intent(PostActivity.this, HomeRequestActivity.class);
-                startActivity(intent);*/
+                String request = etPostRequest.getText().toString().trim();
+                String description = etPostDescription.getText().toString().trim();
+                String location = etPostLocation.getText().toString().trim();
+                if(!hasEmpty(request, location, description)){
+                    pbPost.setVisibility(View.VISIBLE);
+                    storePost();
+                }
+
             }
         });
 
@@ -197,6 +205,7 @@ public class PostActivity extends AppCompatActivity {
         }
         if (imageUri == null){
             Toast.makeText(this, "Please upload a photo.", Toast.LENGTH_SHORT).show();
+            empty = true;
         }
 
         return empty;

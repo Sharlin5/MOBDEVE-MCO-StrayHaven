@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -39,6 +41,8 @@ public class ViewPostActivity extends AppCompatActivity {
     private String userId;
     private String postId;
 
+    private Boolean likechecker = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +77,7 @@ public class ViewPostActivity extends AppCompatActivity {
         DatabaseReference reference = database.getReference(Collections.users.name());
         DatabaseReference updateReference = database.getReference(Collections.update.name());
         DatabaseReference requestReference = database.getReference(Collections.request.name());
-
-        Intent intent = getIntent();
-        String postId = intent.getStringExtra(Keys.KEY_POST_ID.name());
+        DatabaseReference likeReference = database.getReference(Collections.likes.name());
 
         reference.child(this.userId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,6 +88,7 @@ public class ViewPostActivity extends AppCompatActivity {
                 String userPost = intent.getStringExtra(Keys.KEY_FEED_USERNAME.name());
                 String userFeedType = intent.getStringExtra(Keys.KEY_FEED_TYPE.name());
                 String postId = intent.getStringExtra(Keys.KEY_POST_ID.name());
+                final String postKey = postId;
 
                 String feedImage = intent.getStringExtra(Keys.KEY_POST_IMAGE.name());
                 String userCaption = intent.getStringExtra(Keys.KEY_FEED_CAPTION.name());
@@ -93,62 +96,114 @@ public class ViewPostActivity extends AppCompatActivity {
                 String profileUrl = intent.getStringExtra(Keys.KEY_POST_PROFILE.name());
                 String userFeedDate = intent.getStringExtra(Keys.KEY_FEED_DATE.name());
 
+                // delete button visibility
                 if (postname.equals(userPost)){
                     ibDelete.setVisibility(View.VISIBLE);
-
-                    ibDelete.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (userFeedType.equals("Update")){
-                                DatabaseReference feedReference = updateReference;
-                                feedReference.child(postId).addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        snapshot.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()){
-                                                    successfulDelete();
-                                                } else {
-                                                    failedDelete();
-                                                }
-                                            }
-                                        });
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-                            } else {
-                                DatabaseReference feedReference = requestReference;
-                                feedReference.child(postId).addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        snapshot.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()){
-                                                    successfulDelete();
-                                                } else {
-                                                    failedDelete();
-                                                }
-                                            }
-                                        });
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-                            }
-                        }
-                    });
                 } else {
                     ibDelete.setVisibility(View.GONE);
                 }
+
+                // delete button functionality
+                ibDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (userFeedType.equals("Update")){
+                            DatabaseReference feedReference = updateReference;
+                            feedReference.child(postId).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    snapshot.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()){
+                                                successfulDelete();
+                                            } else {
+                                                failedDelete();
+                                            }
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        } else {
+                            DatabaseReference feedReference = requestReference;
+                            feedReference.child(postId).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    snapshot.getRef().removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()){
+                                                successfulDelete();
+                                            } else {
+                                                failedDelete();
+                                            }
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                    }
+                });
+
+                // set heart view
+                database.getReference(Collections.likes.name()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.child(postKey).hasChild(userId)){
+                            fabInterested.setImageResource(R.drawable.icon_heart_on);
+                            fabInterested.setImageTintList(ColorStateList.valueOf(Color.rgb(255, 1, 1)));
+                        } else {
+                            fabInterested.setImageResource(R.drawable.icon_heart_off);
+                            fabInterested.setImageTintList(ColorStateList.valueOf(Color.rgb(255, 1, 1)));
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+
+                // Like/Heart button functionality
+                fabInterested.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // userId
+                        // postId
+
+                        likechecker = true;
+                        likeReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (likechecker.equals(true)){
+                                    if (snapshot.child(postKey).hasChild(userId)){
+                                        likeReference.child(postKey).child(userId).removeValue();
+                                        likechecker = false;
+                                    } else {
+                                        likeReference.child(postKey).child(userId).setValue(true);
+                                        likechecker = false;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                    }
+                });
             }
 
             @Override
@@ -156,6 +211,14 @@ public class ViewPostActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void successLike(){
+        Toast.makeText(this, "Liked post", Toast.LENGTH_SHORT).show();
+    }
+
+    private void failedLike(){
+        Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
     }
 
     private void successfulDelete(){
@@ -168,7 +231,6 @@ public class ViewPostActivity extends AppCompatActivity {
     private void failedDelete(){
         Toast.makeText(this, "Delete Failed", Toast.LENGTH_SHORT).show();
     }
-
 
     private void initComponents(){
         tvUsername = findViewById(R.id.tv_view_username);
@@ -228,13 +290,5 @@ public class ViewPostActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        fabInterested.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
     }
 }

@@ -4,5 +4,6 @@ public enum Collections {
     users,
     feeds,
     request,
-    update
+    update,
+    likes
 }
