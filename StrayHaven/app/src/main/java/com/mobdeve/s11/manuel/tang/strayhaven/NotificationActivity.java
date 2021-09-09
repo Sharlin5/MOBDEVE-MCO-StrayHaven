@@ -53,7 +53,34 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        this.dataNotif = new NotificationDataHelper().loadNotifData();
+        this.database = FirebaseDatabase.getInstance();
+        this.mAuth = FirebaseAuth.getInstance();
+        this.user = this.mAuth.getCurrentUser();
+        this.userId = this.user.getUid();
+
+        DatabaseReference notifReference = database.getReference(Collections.notifs.name());
+
+        this.dataNotif = new ArrayList<Notif>();
+
+        notifReference.child(this.userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dss: snapshot.getChildren()){
+                    String notifName = dss.child("notifierName").getValue().toString();
+                    String date = dss.child("date").getValue().toString();
+                    String notifUrl = dss.child("notifUrl").getValue().toString();
+
+                    Notif notif = new Notif(notifName, notifUrl, date);
+                    dataNotif.add(notif);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         this.rvNotif = findViewById(R.id.rv_notif_feed);
         this.rvNotif.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         this.rvNotif.setAdapter(new NotificationAdapter(this.dataNotif));

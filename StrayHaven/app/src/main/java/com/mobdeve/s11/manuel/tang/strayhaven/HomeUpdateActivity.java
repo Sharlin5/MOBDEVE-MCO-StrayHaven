@@ -113,7 +113,7 @@ public class HomeUpdateActivity extends AppCompatActivity {
 
         //FeedAdapter feedAdapter = new FeedAdapter(dataUpdate);
         this.rvUpdate = findViewById(R.id.rv_home_upd_feed);
-        this.rvUpdate.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        this.rvUpdate.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
         this.rvUpdate.setAdapter(new FeedAdapter(this.dataUpdate));
     }
 

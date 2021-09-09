@@ -123,7 +123,7 @@ public class HomeRequestActivity extends AppCompatActivity {
 
         //FeedAdapter feedAdapter = new FeedAdapter(dataFeed);
         this.rvFeed = findViewById(R.id.rv_home_req_feed);
-        this.rvFeed.setLayoutManager(new LinearLayoutManager(HomeRequestActivity.this, LinearLayoutManager.VERTICAL, false));
+        this.rvFeed.setLayoutManager(new LinearLayoutManager(HomeRequestActivity.this, LinearLayoutManager.VERTICAL, true));
         this.rvFeed.setAdapter(new FeedAdapter(dataFeed));
     }
 

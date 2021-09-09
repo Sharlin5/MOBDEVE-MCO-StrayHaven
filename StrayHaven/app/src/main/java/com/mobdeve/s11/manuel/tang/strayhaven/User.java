@@ -9,8 +9,13 @@ public class User {
     private String description;
     private String location;
     private String profilename;
-   // private String profileKey;
     private String profilepicUrl;
+    private String featured1;
+    private String featured2;
+    private String featured3;
+    private String featured4;
+    private String featured5;
+
 
     public User(String email, String username, String password){
         this.email = email;
@@ -80,5 +85,45 @@ public class User {
 
     public void setProfilepicUrl(String key){
         this.profilepicUrl = key;
+    }
+
+    public String getFeatured1() {
+        return featured1;
+    }
+
+    public void setFeatured1(String featured1) {
+        this.featured1 = featured1;
+    }
+
+    public String getFeatured2() {
+        return featured2;
+    }
+
+    public void setFeatured2(String featured2) {
+        this.featured2 = featured2;
+    }
+
+    public String getFeatured3() {
+        return featured3;
+    }
+
+    public void setFeatured3(String featured3) {
+        this.featured3 = featured3;
+    }
+
+    public String getFeatured4() {
+        return featured4;
+    }
+
+    public void setFeatured4(String featured4) {
+        this.featured4 = featured4;
+    }
+
+    public String getFeatured5() {
+        return featured5;
+    }
+
+    public void setFeatured5(String featured5) {
+        this.featured5 = featured5;
     }
 }

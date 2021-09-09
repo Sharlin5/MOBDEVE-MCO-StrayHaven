@@ -78,16 +78,18 @@ public class ViewPostActivity extends AppCompatActivity {
         DatabaseReference updateReference = database.getReference(Collections.update.name());
         DatabaseReference requestReference = database.getReference(Collections.request.name());
         DatabaseReference likeReference = database.getReference(Collections.likes.name());
+        DatabaseReference notifReference = database.getReference(Collections.notifs.name());
 
         reference.child(this.userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String postname = snapshot.child("username").getValue().toString().trim();
+                String postname = snapshot.child("username").getValue().toString().trim(); // name of the current user
                 Intent intent = getIntent();
 
                 String userPost = intent.getStringExtra(Keys.KEY_FEED_USERNAME.name());
                 String userFeedType = intent.getStringExtra(Keys.KEY_FEED_TYPE.name());
                 String postId = intent.getStringExtra(Keys.KEY_POST_ID.name());
+                String posterId = intent.getStringExtra(Keys.KEY_POSTER_ID.name());
                 final String postKey = postId;
 
                 String feedImage = intent.getStringExtra(Keys.KEY_POST_IMAGE.name());
@@ -95,12 +97,16 @@ public class ViewPostActivity extends AppCompatActivity {
                 String userLocation = intent.getStringExtra(Keys.KEY_FEED_LOCATION.name());
                 String profileUrl = intent.getStringExtra(Keys.KEY_POST_PROFILE.name());
                 String userFeedDate = intent.getStringExtra(Keys.KEY_FEED_DATE.name());
+                String currDate = new CustomDate().toStringFull();
+
 
                 // delete button visibility
                 if (postname.equals(userPost)){
                     ibDelete.setVisibility(View.VISIBLE);
+                    fabInterested.setVisibility(View.GONE);
                 } else {
                     ibDelete.setVisibility(View.GONE);
+                    fabInterested.setVisibility(View.VISIBLE);
                 }
 
                 // delete button functionality
@@ -178,9 +184,6 @@ public class ViewPostActivity extends AppCompatActivity {
                 fabInterested.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // userId
-                        // postId
-
                         likechecker = true;
                         likeReference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -192,15 +195,19 @@ public class ViewPostActivity extends AppCompatActivity {
                                     } else {
                                         likeReference.child(postKey).child(userId).setValue(true);
                                         likechecker = false;
+
+                                        Notif notif = new Notif(postname, feedImage, currDate);
+                                        notifReference.child(posterId).push().setValue(notif);
                                     }
                                 }
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
 
                             }
                         });
+
+
 
                     }
                 });

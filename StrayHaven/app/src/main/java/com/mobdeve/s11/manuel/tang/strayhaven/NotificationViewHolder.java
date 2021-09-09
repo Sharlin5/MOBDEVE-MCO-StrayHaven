@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 public class NotificationViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView ivNotifPicture;
@@ -20,8 +22,8 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder {
         this.tvDate = itemView.findViewById(R.id.tv_notif_text_date);
     }
 
-    public void setIvNotifPicture(int picture) {
-        this.ivNotifPicture.setImageResource(picture);
+    public void setIvNotifPicture(String picture) {
+        Picasso.get().load(picture).into(ivNotifPicture);
     }
 
     public void setTvUsername(String username) {
