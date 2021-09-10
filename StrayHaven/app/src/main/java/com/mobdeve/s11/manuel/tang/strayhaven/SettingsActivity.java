@@ -59,11 +59,12 @@ public class SettingsActivity extends AppCompatActivity {
     private ImageButton ibBack;
     private Button btnLogout, btnSave;
     private EditText etName, etDescription, etLocation, etPassword;
-    private ImageView ivProfile;
+    private ImageView ivProfile, ivFeatured1, ivFeatured2, ivFeatured3, ivFeatured4, ivFeatured5;
 
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
     private Uri imageUri;
+    private Uri featured1Uri, featured2Uri, featured3Uri, featured4Uri, featured5Uri;
 
     private FirebaseUser user;
     private FirebaseAuth mAuth;
@@ -72,7 +73,8 @@ public class SettingsActivity extends AppCompatActivity {
     private String userId;
     private String email, username;
     private String imageUrl;
-
+    private String featured1Url, featured2Url, featured3Url, featured4Url, featured5Url;
+    private User currUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,12 @@ public class SettingsActivity extends AppCompatActivity {
         this.etPassword = findViewById(R.id.et_settings_pass);
         this.btnSave = findViewById(R.id.btn_settings_save);
         this.ivProfile = findViewById(R.id.iv_settings_user_pic);
+        this.ivFeatured1 = findViewById(R.id.iv_settings_featured_1);
+        this.ivFeatured2 = findViewById(R.id.iv_settings_featured_2);
+        this.ivFeatured3 = findViewById(R.id.iv_settings_featured_3);
+        this.ivFeatured4 = findViewById(R.id.iv_settings_featured_4);
+        this.ivFeatured5 = findViewById(R.id.iv_settings_featured_5);
+
 
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,14 +130,8 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = etName.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
-                String description = etDescription.getText().toString().trim();
-                String location = etLocation.getText().toString().trim();
-                if (imageUri != null){
+                if(isValid(name, password)){
                     updatePhoto();
-                    Toast.makeText(SettingsActivity.this, "url in string: " + imageUrl, Toast.LENGTH_SHORT).show();
-                } else {
-                    User user = new User(email, username, name, password, description, location, imageUrl);
-                    updateUser(user);
                 }
             }
         });
@@ -137,21 +139,81 @@ public class SettingsActivity extends AppCompatActivity {
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //pickImageFromGallery();
-                pickImageFromCamera();
+                pickImageFromGallery("Profile");
+                //pickImageFromCamera();
+            }
+        });
+
+        ivFeatured1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickImageFromGallery("Featured1");
+            }
+        });
+
+        ivFeatured2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickImageFromGallery("Featured2");
+            }
+        });
+
+        ivFeatured3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickImageFromGallery("Featured3");
+            }
+        });
+
+        ivFeatured4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickImageFromGallery("Featured4");
+            }
+        });
+
+        ivFeatured5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickImageFromGallery("Featured5");
             }
         });
     }
 
     //Get image from gallery
-    private void pickImageFromGallery(){
+    private void pickImageFromGallery(String type){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
-        galleryActivityResultLauncher.launch(intent);
+        switch (type){
+            case "Profile": {
+                profileGalleryActivityResultLauncher.launch(intent);
+                break;
+            }
+            case "Featured1":{
+                featured1GalleryActivityResultLauncher.launch(intent);
+                break;
+            }
+            case "Featured2":{
+                featured2GalleryActivityResultLauncher.launch(intent);
+                break;
+            }
+            case "Featured3":{
+                featured3GalleryActivityResultLauncher.launch(intent);
+                break;
+            }
+            case "Featured4":{
+                featured4GalleryActivityResultLauncher.launch(intent);
+                break;
+            }
+            case "Featured5":{
+                featured5GalleryActivityResultLauncher.launch(intent);
+                break;
+            }
+        }
     }
 
-    //display imageUri
-    private ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
+    //display imageUri for profile
+    private ActivityResultLauncher<Intent> profileGalleryActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -160,6 +222,87 @@ public class SettingsActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         imageUri = data.getData();
                         ivProfile.setImageURI(imageUri);
+                    } else {
+                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+    );
+
+    // get imageUri for featured 1
+    private ActivityResultLauncher<Intent> featured1GalleryActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Intent data = result.getData();
+                        featured1Uri = data.getData();
+                        ivFeatured1.setImageURI(featured1Uri);
+                    } else {
+                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+    );
+
+    private ActivityResultLauncher<Intent> featured2GalleryActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Intent data = result.getData();
+                        featured2Uri = data.getData();
+                        ivFeatured2.setImageURI(featured2Uri);
+                    } else {
+                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+    );
+
+    private ActivityResultLauncher<Intent> featured3GalleryActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Intent data = result.getData();
+                        featured3Uri = data.getData();
+                        ivFeatured3.setImageURI(featured3Uri);
+                    } else {
+                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+    );
+
+    private ActivityResultLauncher<Intent> featured4GalleryActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Intent data = result.getData();
+                        featured4Uri = data.getData();
+                        ivFeatured4.setImageURI(featured4Uri);
+                    } else {
+                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+    );
+
+    private ActivityResultLauncher<Intent> featured5GalleryActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Intent data = result.getData();
+                        featured5Uri = data.getData();
+                        ivFeatured5.setImageURI(featured5Uri);
                     } else {
                         Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
@@ -191,12 +334,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void openCamera(){
-
-        //Camera intent
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //intent.putExtra(Keys.KEY_PROFILE_IMAGE.name(), tempUri.toString());
         cameraActivityResultLauncher.launch(intent);
-
     }
 
     @Override
@@ -235,7 +374,6 @@ public class SettingsActivity extends AppCompatActivity {
             });
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
-        //inImage = Bitmap.createScaledBitmap(inImage, 400, 400, false);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
@@ -244,35 +382,141 @@ public class SettingsActivity extends AppCompatActivity {
 
     // For profile pic update
     private void updatePhoto(){
+        this.database = FirebaseDatabase.getInstance();
+        this.mAuth = FirebaseAuth.getInstance();
+        this.user = this.mAuth.getCurrentUser();
+        this.userId = this.user.getUid();
+
         String name = etName.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String description = etDescription.getText().toString().trim();
         String location = etLocation.getText().toString().trim();
 
-        User photoUser = new User(email, username, name, password, description, location);
-
+        currUser = new User(email, username, name, password, description, location);
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference imageRef = storageReference.child("profilepics/" + imageUri.getLastPathSegment());
-        UploadTask uploadTask = imageRef.putFile(imageUri);
 
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                StorageMetadata snapshotMetadata = taskSnapshot.getMetadata();
-                Task<Uri> downloadUrl = imageRef.getDownloadUrl();
-                downloadUrl.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        String profileUrl = uri.toString();
-                        photoUser.setProfilepicUrl(profileUrl);
-                        if(isValid(name, password)){
-                            User user = new User(email, username, name, password, description, location, profileUrl);
+        User user = new User(email, username, name, password, description, location, imageUrl, featured1Url, featured2Url, featured3Url, featured4Url, featured5Url);
+        updateUser(user);
+
+        if (imageUri != null){
+            StorageReference imageRef = storageReference.child("profilepics/" + imageUri.getLastPathSegment());
+            UploadTask uploadTask = imageRef.putFile(imageUri);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    StorageMetadata snapshotMetadata = taskSnapshot.getMetadata();
+                    Task<Uri> downloadUrl = imageRef.getDownloadUrl();
+                    downloadUrl.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            imageUrl = uri.toString();
+                            User user = new User(email, username, name, password, description, location, imageUrl, featured1Url, " ", " ", " ", " ");
                             updateUser(user);
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
+
+        if (featured1Uri != null){
+            StorageReference featuredRef = storageReference.child("featuredpics/" + featured1Uri.getLastPathSegment());
+            UploadTask uploadFeatured1 = featuredRef.putFile(featured1Uri);
+            uploadFeatured1.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    StorageMetadata snapshotMetadata = taskSnapshot.getMetadata();
+                    Task<Uri> downloadUrl = featuredRef.getDownloadUrl();
+                    downloadUrl.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            featured1Url = uri.toString();
+                            User user = new User(email, username, name, password, description, location, imageUrl, featured1Url, " ", " ", " ", " ");
+                            updateUser(user);
+                        }
+                    });
+                }
+            });
+        }
+
+        if (featured2Uri != null){
+            StorageReference featuredRef = storageReference.child("featuredpics/" + featured2Uri.getLastPathSegment());
+            UploadTask uploadFeatured2 = featuredRef.putFile(featured2Uri);
+            uploadFeatured2.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    StorageMetadata snapshotMetadata = taskSnapshot.getMetadata();
+                    Task<Uri> downloadUrl = featuredRef.getDownloadUrl();
+                    downloadUrl.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            featured2Url = uri.toString();
+                            User user = new User(email, username, name, password, description, location, imageUrl, featured1Url, featured2Url, featured3Url, featured4Url, featured5Url);
+                            updateUser(user);
+                        }
+                    });
+                }
+            });
+        }
+
+        if (featured3Uri != null){
+            StorageReference featuredRef = storageReference.child("featuredpics/" + featured3Uri.getLastPathSegment());
+            UploadTask uploadFeatured3 = featuredRef.putFile(featured3Uri);
+            uploadFeatured3.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    StorageMetadata snapshotMetadata = taskSnapshot.getMetadata();
+                    Task<Uri> downloadUrl = featuredRef.getDownloadUrl();
+                    downloadUrl.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            featured3Url = uri.toString();
+                            User user = new User(email, username, name, password, description, location, imageUrl, featured1Url, featured2Url, featured3Url, featured4Url, featured5Url);
+                            updateUser(user);
+                        }
+                    });
+                }
+            });
+        }
+
+        if (featured4Uri != null){
+            StorageReference featuredRef = storageReference.child("featuredpics/" + featured4Uri.getLastPathSegment());
+            UploadTask uploadFeatured4 = featuredRef.putFile(featured4Uri);
+            uploadFeatured4.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    StorageMetadata snapshotMetadata = taskSnapshot.getMetadata();
+                    Task<Uri> downloadUrl = featuredRef.getDownloadUrl();
+                    downloadUrl.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            featured4Url = uri.toString();
+                            User user = new User(email, username, name, password, description, location, imageUrl, featured1Url, featured2Url, featured3Url, featured4Url, featured5Url);
+                            updateUser(user);
+                        }
+                    });
+                }
+            });
+        }
+
+        if (featured5Uri != null){
+            StorageReference featuredRef = storageReference.child("featuredpics/" + featured5Uri.getLastPathSegment());
+            UploadTask uploadFeatured5 = featuredRef.putFile(featured5Uri);
+            uploadFeatured5.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    StorageMetadata snapshotMetadata = taskSnapshot.getMetadata();
+                    Task<Uri> downloadUrl = featuredRef.getDownloadUrl();
+                    downloadUrl.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            featured5Url = uri.toString();
+                            User user = new User(email, username, name, password, description, location, imageUrl, featured1Url, featured2Url, featured3Url, featured4Url, featured5Url);
+                            updateUser(user);
+                        }
+                    });
+                }
+            });
+        }
     }
 
     private void initFirebase(){
@@ -298,6 +542,41 @@ public class SettingsActivity extends AppCompatActivity {
                     ivProfile.setImageResource(R.drawable.icon_default_user);
                 } else {
                     Picasso.get().load(imageUrl).into(ivProfile);
+                }
+
+                featured1Url = snapshot.child("featured1").getValue().toString();
+                if (featured1Url.equals(" ")){
+                    ivFeatured1.setImageResource(R.drawable.icon_create_post);
+                } else {
+                    Picasso.get().load(featured1Url).into(ivFeatured1);
+                }
+
+                featured2Url = snapshot.child("featured2").getValue().toString();
+                if (featured2Url.equals(" ")){
+                    ivFeatured2.setImageResource(R.drawable.icon_create_post);
+                } else {
+                    Picasso.get().load(featured2Url).into(ivFeatured2);
+                }
+
+                featured3Url = snapshot.child("featured3").getValue().toString();
+                if (featured3Url.equals(" ")){
+                    ivFeatured3.setImageResource(R.drawable.icon_create_post);
+                } else {
+                    Picasso.get().load(featured3Url).into(ivFeatured3);
+                }
+
+                featured4Url = snapshot.child("featured4").getValue().toString();
+                if (featured4Url.equals(" ")){
+                    ivFeatured4.setImageResource(R.drawable.icon_create_post);
+                } else {
+                    Picasso.get().load(featured4Url).into(ivFeatured4);
+                }
+
+                featured5Url = snapshot.child("featured5").getValue().toString();
+                if (featured5Url.equals(" ")){
+                    ivFeatured5.setImageResource(R.drawable.icon_create_post);
+                } else {
+                    Picasso.get().load(featured5Url).into(ivFeatured5);
                 }
 
                 if (!description.equals(" ") && !description.isEmpty()) {

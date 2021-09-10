@@ -68,7 +68,7 @@ public class HomeUpdateActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String imageUrl = snapshot.child("profilepicUrl").getValue().toString();
-                if (imageUrl.equals(" ")){
+                if (imageUrl.equals(" ") || imageUrl.isEmpty()){
                     ivProfile.setImageResource(R.drawable.icon_default_user);
                 } else {
                     Picasso.get().load(imageUrl).into(ivProfile);

@@ -142,7 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
                 String location = snapshot.child("location").getValue().toString();
                 tvLocation.setText(location);
                 String imageUrl = snapshot.child("profilepicUrl").getValue().toString();
-                if (imageUrl.equals(" ")){
+                if (imageUrl.equals(" ") || imageUrl.equals(null)){
                     ivProfile.setImageResource(R.drawable.icon_default_user);
                 } else {
                     Picasso.get().load(imageUrl).into(ivProfile);

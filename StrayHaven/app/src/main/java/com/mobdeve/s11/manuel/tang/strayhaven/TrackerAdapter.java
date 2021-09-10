@@ -1,6 +1,7 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,8 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
     private void updateFirebase(TrackerViewHolder trackerViewHolder, boolean isChecked){
         this.database = FirebaseDatabase.getInstance();
         DatabaseReference trackerReference = database.getReference(Collections.request.name());
+        DatabaseReference notifReference = database.getReference(Collections.notifs.name());
+        DatabaseReference likeReference = database.getReference(Collections.likes.name());
 
         String postKey = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getPostKey();
         String posterKey = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getPosterKey();
@@ -78,23 +81,49 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
         String postUsername = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getUsername();
         String postDate = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getDate();
         String isDone;
+        String currDate = new CustomDate().toStringFull();
+
 
         if (isChecked){
             isDone = "false";
             Feed feed = new Feed(posterKey, postUsername, postProfileUrl, postUrl, postType, postLocation, postCaption, postDate, isDone);
-            database.getReference(Collections.request.name()).child(postKey).setValue(feed);
+            trackerReference.child(postKey).setValue(feed);
         } else {
             isDone = "true";
             Feed feed = new Feed(posterKey, postUsername, postProfileUrl, postUrl, postType, postLocation, postCaption, postDate, isDone);
-            database.getReference(Collections.request.name()).child(postKey).setValue(feed);
+            trackerReference.child(postKey).setValue(feed);
+
+            likeReference.child(postKey).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot dss: snapshot.getChildren()){
+                        String currLiker = dss.getKey();
+                        Notif notif = new Notif(postUsername, postUrl, currDate);
+                        notifReference.child(currLiker).push().setValue(notif);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
         }
     }
 
     private void deleteRequest(TrackerViewHolder trackerViewHolder){
         this.database = FirebaseDatabase.getInstance();
         DatabaseReference trackerReference = database.getReference(Collections.request.name());
+        DatabaseReference likeReference = database.getReference(Collections.likes.name());
+        DatabaseReference notifReference = database.getReference(Collections.notifs.name());
+
         //curr post key
         String postKey = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getPostKey();
+
+        // notify user
+
+        // delete
         trackerReference.child(postKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

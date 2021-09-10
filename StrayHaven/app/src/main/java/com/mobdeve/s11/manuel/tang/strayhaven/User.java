@@ -25,6 +25,11 @@ public class User {
         this.description = " ";
         this.location = " ";
         this.profilepicUrl = " ";
+        this.featured1 = " ";
+        this.featured2 = " ";
+        this.featured3 = " ";
+        this.featured4 = " ";
+        this.featured5 = " ";
     }
 
 
@@ -37,7 +42,8 @@ public class User {
         this.location = location;
     }
 
-    public User(String email, String username, String profilename, String password, String description, String location, String profilepicUrl){
+    public User(String email, String username, String profilename, String password, String description, String location, String profilepicUrl,
+                String featured1, String featured2, String featured3, String featured4, String featured5){
         this.email = email;
         this.username = username;
         this.profilename = profilename;
@@ -45,6 +51,12 @@ public class User {
         this.description = description;
         this.location = location;
         this.profilepicUrl = profilepicUrl;
+        this.featured1 = featured1;
+        this.featured2 = featured2;
+        this.featured3 = featured3;
+        this.featured4 = featured4;
+        this.featured5 = featured5;
+
     }
 
     public String getEmail(){
@@ -70,15 +82,7 @@ public class User {
     public String getProfilename(){
         return this.profilename;
     }
-/*
-    public String getProfileKey(){
-        return this.profileKey;
-    }
 
-    public void setProfileKey(String key){
-        this.profileKey = key;
-    }
-*/
     public String getProfilepicUrl(){
         return this.profilepicUrl;
     }
