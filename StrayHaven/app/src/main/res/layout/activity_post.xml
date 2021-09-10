@@ -111,6 +111,14 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
+                <Spinner
+                    android:id="@+id/spin_post_request"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/pink"
+                    android:padding="8dp"
+                    tools:visibility="visible" />
+
                 <EditText
                     android:id="@+id/et_post_request"
                     android:layout_width="match_parent"
@@ -122,7 +130,8 @@
                     android:inputType="textPersonName"
                     android:padding="8dp"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:visibility="gone" />
 
             </LinearLayout>
 

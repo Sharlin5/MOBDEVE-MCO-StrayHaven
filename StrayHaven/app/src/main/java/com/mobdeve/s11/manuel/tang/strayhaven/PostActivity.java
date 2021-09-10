@@ -18,12 +18,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,10 +53,12 @@ public class PostActivity extends AppCompatActivity {
     private EditText etPostRequest, etPostLocation, etPostDescription;
     private ImageView ivPost;
     private ProgressBar pbPost;
+    private Spinner spinPostRequest;
 
     //Request type spinner
     private String[] requestType = {"Request Type", "Adopt", "Foster", "Update"};
     private ArrayAdapter requestArrayAdapter;
+    private String reqType;
 
     private static final int PERMISSION_CODE = 1000;
 
@@ -107,6 +112,39 @@ public class PostActivity extends AppCompatActivity {
         this.btnPost = findViewById(R.id.btn_post_done);
         this.ivPost = findViewById(R.id.iv_post_image);
         this.pbPost = findViewById(R.id.pb_post);
+        this.spinPostRequest = findViewById(R.id.spin_post_request);
+
+        requestArrayAdapter = new ArrayAdapter(PostActivity.this, R.layout.support_simple_spinner_dropdown_item, requestType);
+        spinPostRequest.setAdapter(requestArrayAdapter);
+        spinPostRequest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0: {
+                        etPostRequest.setText("");
+                        break;
+                    }
+                    case 1: {
+                        etPostRequest.setText("Adopt");
+                        break;
+                    }
+                    case 2: {
+                        etPostRequest.setText("Foster");
+                        break;
+                    }
+                    case 3:{
+                        reqType = "Update";
+                        etPostRequest.setText("Update");
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         ibBack.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +162,6 @@ public class PostActivity extends AppCompatActivity {
                     pbPost.setVisibility(View.VISIBLE);
                     storePost();
                 }
-
             }
         });
 
@@ -192,7 +229,7 @@ public class PostActivity extends AppCompatActivity {
     private boolean hasEmpty(String request, String location, String caption){
         boolean empty = false;
         if(request.isEmpty()){
-            this.etPostRequest.setError("Required Value");
+            Toast.makeText(this, "Please select request type", Toast.LENGTH_SHORT).show();
             empty = true;
         }
         if(location.isEmpty()){
