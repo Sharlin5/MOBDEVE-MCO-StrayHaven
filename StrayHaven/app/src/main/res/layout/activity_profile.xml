@@ -201,7 +201,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_profile_mesage"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_profile_no_content"
@@ -217,35 +217,75 @@
                 app:srcCompat="@drawable/icon_empty" />
         </LinearLayout>
 
-        <ScrollView
+        <HorizontalScrollView
             android:id="@+id/sv_profile_user_featured"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
             android:background="@drawable/border_top"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_profile_mesage"
-            tools:visibility="gone">
+            tools:ignore="SpeakableTextPresentCheck"
+            tools:visibility="visible">
 
             <LinearLayout
-                android:id="@+id/ll_profile_user_featured"
+                android:id="@+id/ll_profile_featured"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-                <GridView
-                    android:id="@+id/gv_profile_feature_gallery"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/border_top"
-                    android:visibility="visible"
-                    tools:visibility="visible">
+                <ImageView
+                    android:id="@+id/iv_profile_featured1"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight=".2"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/picture_feature4" />
 
-                </GridView>
+                <ImageView
+                    android:id="@+id/iv_profile_featured2"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight=".2"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/picture_feature1" />
+
+                <ImageView
+                    android:id="@+id/iv_profile_featured3"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight=".2"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/picture_feature3" />
+
+                <ImageView
+                    android:id="@+id/iv_profile_featured4"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight=".2"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/picture_feature5" />
+
+                <ImageView
+                    android:id="@+id/iv_profile_featured5"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_weight=".2"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/picture_feature2" />
+
             </LinearLayout>
-        </ScrollView>
+        </HorizontalScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

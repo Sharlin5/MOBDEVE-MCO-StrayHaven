@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,8 +28,10 @@ public class ProfileActivity extends AppCompatActivity {
     private FloatingActionButton fabPost;
     private ImageButton ibBack, ibSettings, ibHome, ibTracker, ibNotifications, ibMessages;
     private TextView tvUsername, tvLocation, tvDescription, tvProfilename;
-    private LinearLayout llLoc;
+    private LinearLayout llLoc, llNoContent;
+    private HorizontalScrollView svProfileFeatured;
     private ImageView ivProfile;
+    private ImageView ivFeatured1, ivFeatured2, ivFeatured3, ivFeatured4, ivFeatured5;
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -65,6 +69,13 @@ public class ProfileActivity extends AppCompatActivity {
         this.ibMessages = findViewById(R.id.ib_profile_messages);
         this.llLoc = findViewById(R.id.ll_profile_loc);
         this.ivProfile = findViewById(R.id.iv_profile_user_pic);
+        this.llNoContent = findViewById(R.id.ll_profile_no_content);
+        this.svProfileFeatured = findViewById(R.id.sv_profile_user_featured);
+        this.ivFeatured1 = findViewById(R.id.iv_profile_featured1);
+        this.ivFeatured2 = findViewById(R.id.iv_profile_featured2);
+        this.ivFeatured3 = findViewById(R.id.iv_profile_featured3);
+        this.ivFeatured4 = findViewById(R.id.iv_profile_featured4);
+        this.ivFeatured5 = findViewById(R.id.iv_profile_featured5);
 
         fabPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +157,55 @@ public class ProfileActivity extends AppCompatActivity {
                     ivProfile.setImageResource(R.drawable.icon_default_user);
                 } else {
                     Picasso.get().load(imageUrl).into(ivProfile);
+                }
+
+                String featured1Url = snapshot.child("featured1").getValue().toString();
+                String featured2Url = snapshot.child("featured2").getValue().toString();
+                String featured3Url = snapshot.child("featured3").getValue().toString();
+                String featured4Url = snapshot.child("featured4").getValue().toString();
+                String featured5Url = snapshot.child("featured5").getValue().toString();
+
+                if (featured1Url.equals(" ") && featured2Url.equals(" ") && featured3Url.equals(" ") && featured4Url.equals(" ") && featured5Url.equals(" ")){
+                    llNoContent.setVisibility(View.VISIBLE);
+                    svProfileFeatured.setVisibility(View.GONE);
+                } else {
+                    llNoContent.setVisibility(View.GONE);
+                    svProfileFeatured.setVisibility(View.VISIBLE);
+
+                    if (featured1Url.equals(" ")){
+                        ivFeatured1.setVisibility(View.GONE);
+                    } else {
+                        ivFeatured1.setVisibility(View.VISIBLE);
+                        Picasso.get().load(featured1Url).into(ivFeatured1);
+                    }
+
+                    if (featured2Url.equals(" ")){
+                        ivFeatured2.setVisibility(View.GONE);
+                    } else {
+                        ivFeatured2.setVisibility(View.VISIBLE);
+                        Picasso.get().load(featured2Url).into(ivFeatured2);
+                    }
+
+                    if (featured3Url.equals(" ")){
+                        ivFeatured3.setVisibility(View.GONE);
+                    } else {
+                        ivFeatured3.setVisibility(View.VISIBLE);
+                        Picasso.get().load(featured3Url).into(ivFeatured3);
+                    }
+
+                    if (featured4Url.equals(" ")){
+                        ivFeatured4.setVisibility(View.GONE);
+                    } else {
+                        ivFeatured4.setVisibility(View.VISIBLE);
+                        Picasso.get().load(featured4Url).into(ivFeatured4);
+                    }
+
+                    if (featured5Url.equals(" ")){
+                        ivFeatured5.setVisibility(View.GONE);
+                    } else {
+                        ivFeatured5.setVisibility(View.VISIBLE);
+                        Picasso.get().load(featured5Url).into(ivFeatured5);
+                    }
                 }
 
                 if (!location.equals(" ") && !location.isEmpty()) {
