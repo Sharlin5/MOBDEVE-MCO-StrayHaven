@@ -5,7 +5,6 @@ public class Notif {
     private String postKey;
     private String notifierName;
     private String notification;
-    private CustomDate customDate;
     private String date;
     private String notifUrl;
 /*
@@ -21,16 +20,20 @@ public class Notif {
         this.date = date;
     }
 
+    public Notif(String notifierName, String notifUrl, String notification, String date){
+        this.notifierName = notifierName;
+        this.notifUrl = notifUrl;
+        this.date = date;
+        this.notification = notification;
+    }
+
+
     public String getNotifierName() {
         return notifierName;
     }
 
     public String getNotification(){
         return this.notification;
-    }
-
-    public CustomDate getCustomDate(){
-        return this.customDate;
     }
 
     public String getDate() {
@@ -55,5 +58,9 @@ public class Notif {
 
     public void setNotifUrl(String notifUrl) {
         this.notifUrl = notifUrl;
+    }
+
+    public void setNotification(String notification) {
+        this.notification = notification;
     }
 }

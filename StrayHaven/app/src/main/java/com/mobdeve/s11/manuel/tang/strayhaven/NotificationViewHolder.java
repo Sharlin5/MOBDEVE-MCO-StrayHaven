@@ -14,12 +14,14 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder {
     public ImageView ivNotifPicture;
     public TextView tvUsername;
     public TextView tvDate;
+    public TextView tvNotif;
 
     public NotificationViewHolder(@NonNull View itemView) {
         super(itemView);
         this.ivNotifPicture = itemView.findViewById(R.id.iv_notif_icon_display);
         this.tvUsername = itemView.findViewById(R.id.tv_notif_text_name);
         this.tvDate = itemView.findViewById(R.id.tv_notif_text_date);
+        this.tvNotif = itemView.findViewById(R.id.tv_notif_text_row_2);
     }
 
     public void setIvNotifPicture(String picture) {
@@ -34,4 +36,7 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder {
         this.tvDate.setText(date);
     }
 
+    public void setTvNotif(String notification){
+        this.tvNotif.setText(notification);
+    }
 }

@@ -50,7 +50,9 @@
                     android:fontFamily="@font/karla"
                     android:text="seems to be"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    tools:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tv_notif_text_activity"
@@ -61,7 +63,9 @@
                     android:text="interested"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"
+                    android:visibility="gone"
+                    tools:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tv_notif_text_period"
@@ -72,18 +76,21 @@
                     android:fontFamily="@font/karla"
                     android:text="."
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    tools:visibility="gone" />
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/ll_notif_text_row_2"
+                android:id="@+id/tv_notif_text_row_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/karla"
                 android:text="Make sure to message them now!"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/tv_notif_text_date"

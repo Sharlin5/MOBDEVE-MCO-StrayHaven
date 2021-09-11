@@ -33,6 +33,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationViewHo
         holder.setTvUsername(currentNotif.getNotifierName());
         holder.setIvNotifPicture(currentNotif.getNotifUrl());
         holder.setTvDate(currentNotif.getDate());
+        holder.setTvNotif(currentNotif.getNotification());
     }
 
     @Override

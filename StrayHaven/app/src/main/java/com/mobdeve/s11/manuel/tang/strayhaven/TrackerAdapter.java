@@ -98,7 +98,7 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot dss: snapshot.getChildren()){
                         String currLiker = dss.getKey();
-                        Notif notif = new Notif(postUsername, postUrl, currDate);
+                        Notif notif = new Notif(postUsername, postUrl, "Set this request as done.", currDate);
                         notifReference.child(currLiker).push().setValue(notif);
                     }
                 }

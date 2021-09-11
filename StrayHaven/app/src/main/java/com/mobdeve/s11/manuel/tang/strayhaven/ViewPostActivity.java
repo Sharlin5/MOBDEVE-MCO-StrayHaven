@@ -196,7 +196,7 @@ public class ViewPostActivity extends AppCompatActivity {
                                         likeReference.child(postKey).child(userId).setValue(true);
                                         likechecker = false;
 
-                                        Notif notif = new Notif(postname, feedImage, currDate);
+                                        Notif notif = new Notif(postname, feedImage, "Liked your post!", currDate);
                                         notifReference.child(posterId).push().setValue(notif);
                                     }
                                 }
