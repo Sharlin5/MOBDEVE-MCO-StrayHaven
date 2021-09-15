@@ -112,7 +112,10 @@ public class HomeRequestActivity extends AppCompatActivity {
                         Feed request = new Feed(posterkey, postername, profileUrl, imageUrl, type, location, caption, date);
                         request.setPostKey(postKey);
                         dataFeed.add(request);
-                        //dataFeed.add(new Feed(postername, profileUrl, imageUrl, type, location, caption, date));
+
+                        rvFeed = findViewById(R.id.rv_home_req_feed);
+                        rvFeed.setLayoutManager(new LinearLayoutManager(HomeRequestActivity.this, LinearLayoutManager.VERTICAL, true));
+                        rvFeed.setAdapter(new FeedAdapter(dataFeed));
                 }
             }
             @Override
@@ -120,11 +123,6 @@ public class HomeRequestActivity extends AppCompatActivity {
 
             }
         });
-
-        //FeedAdapter feedAdapter = new FeedAdapter(dataFeed);
-        this.rvFeed = findViewById(R.id.rv_home_req_feed);
-        this.rvFeed.setLayoutManager(new LinearLayoutManager(HomeRequestActivity.this, LinearLayoutManager.VERTICAL, true));
-        this.rvFeed.setAdapter(new FeedAdapter(dataFeed));
     }
 
     @Override

@@ -102,6 +102,9 @@ public class HomeUpdateActivity extends AppCompatActivity {
                         Feed update = new Feed(posterkey, postername, profileUrl, imageUrl, type, location, caption, date);
                         update.setPostKey(postKey);
                         dataUpdate.add(update);
+                        rvUpdate = findViewById(R.id.rv_home_upd_feed);
+                        rvUpdate.setLayoutManager(new LinearLayoutManager(HomeUpdateActivity.this, LinearLayoutManager.VERTICAL, true));
+                        rvUpdate.setAdapter(new FeedAdapter(dataUpdate));
                 }
             }
 
@@ -110,11 +113,6 @@ public class HomeUpdateActivity extends AppCompatActivity {
 
             }
         });
-
-        //FeedAdapter feedAdapter = new FeedAdapter(dataUpdate);
-        this.rvUpdate = findViewById(R.id.rv_home_upd_feed);
-        this.rvUpdate.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
-        this.rvUpdate.setAdapter(new FeedAdapter(this.dataUpdate));
     }
 
     //Initialize objects

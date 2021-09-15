@@ -72,6 +72,10 @@ public class NotificationActivity extends AppCompatActivity {
                     String notification = dss.child("notification").getValue().toString();
                     Notif notif = new Notif(notifName, notifUrl, notification, date);
                     dataNotif.add(notif);
+
+                    rvNotif = findViewById(R.id.rv_notif_feed);
+                    rvNotif.setLayoutManager(new LinearLayoutManager(NotificationActivity.this, LinearLayoutManager.VERTICAL, false));
+                    rvNotif.setAdapter(new NotificationAdapter(dataNotif));
                 }
             }
 
@@ -80,10 +84,6 @@ public class NotificationActivity extends AppCompatActivity {
 
             }
         });
-
-        this.rvNotif = findViewById(R.id.rv_notif_feed);
-        this.rvNotif.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        this.rvNotif.setAdapter(new NotificationAdapter(this.dataNotif));
     }
 
     private void initProfilePic(){
