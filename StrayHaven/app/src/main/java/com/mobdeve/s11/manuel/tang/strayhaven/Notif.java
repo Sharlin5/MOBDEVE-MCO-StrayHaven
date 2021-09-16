@@ -7,13 +7,8 @@ public class Notif {
     private String notification;
     private String date;
     private String notifUrl;
-/*
-    public Notif(String profilename, int imageId, String notification, CustomDate date) {
-        this.profilname = profilename;
-        this.notification = notification;
-        this.customDate = date;
-    }
-*/
+    private String notifierKey;
+
     public Notif(String notifierName, String notifUrl, String date){
         this.notifierName = notifierName;
         this.notifUrl = notifUrl;
@@ -27,6 +22,13 @@ public class Notif {
         this.notification = notification;
     }
 
+    public Notif(String notifierName, String notifUrl, String notification, String date, String notifierKey){
+        this.notifierName = notifierName;
+        this.notifUrl = notifUrl;
+        this.date = date;
+        this.notification = notification;
+        this.notifierKey = notifierKey;
+    }
 
     public String getNotifierName() {
         return notifierName;
@@ -62,5 +64,13 @@ public class Notif {
 
     public void setNotification(String notification) {
         this.notification = notification;
+    }
+
+    public String getNotifierKey() {
+        return notifierKey;
+    }
+
+    public void setNotifierKey(String notifierKey) {
+        this.notifierKey = notifierKey;
     }
 }

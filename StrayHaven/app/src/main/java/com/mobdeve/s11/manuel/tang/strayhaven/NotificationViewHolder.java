@@ -39,4 +39,8 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder {
     public void setTvNotif(String notification){
         this.tvNotif.setText(notification);
     }
+
+    public TextView getTvUsername() {
+        return tvUsername;
+    }
 }

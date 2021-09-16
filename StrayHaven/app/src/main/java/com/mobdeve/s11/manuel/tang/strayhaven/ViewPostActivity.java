@@ -93,12 +93,7 @@ public class ViewPostActivity extends AppCompatActivity {
                 final String postKey = postId;
 
                 String feedImage = intent.getStringExtra(Keys.KEY_POST_IMAGE.name());
-                String userCaption = intent.getStringExtra(Keys.KEY_FEED_CAPTION.name());
-                String userLocation = intent.getStringExtra(Keys.KEY_FEED_LOCATION.name());
-                String profileUrl = intent.getStringExtra(Keys.KEY_POST_PROFILE.name());
-                String userFeedDate = intent.getStringExtra(Keys.KEY_FEED_DATE.name());
                 String currDate = new CustomDate().toStringFull();
-
 
                 // delete button visibility
                 if (postname.equals(userPost)){
@@ -196,7 +191,7 @@ public class ViewPostActivity extends AppCompatActivity {
                                         likeReference.child(postKey).child(userId).setValue(true);
                                         likechecker = false;
 
-                                        Notif notif = new Notif(postname, feedImage, "Liked your post!", currDate);
+                                        Notif notif = new Notif(postname, feedImage, "Liked your post!", currDate, userId);
                                         notifReference.child(posterId).push().setValue(notif);
                                     }
                                 }

@@ -70,7 +70,8 @@ public class NotificationActivity extends AppCompatActivity {
                     String date = dss.child("date").getValue().toString();
                     String notifUrl = dss.child("notifUrl").getValue().toString();
                     String notification = dss.child("notification").getValue().toString();
-                    Notif notif = new Notif(notifName, notifUrl, notification, date);
+                    String notifierKey = dss.child("notifierKey").getValue().toString();
+                    Notif notif = new Notif(notifName, notifUrl, notification, date, notifierKey);
                     dataNotif.add(notif);
 
                     rvNotif = findViewById(R.id.rv_notif_feed);

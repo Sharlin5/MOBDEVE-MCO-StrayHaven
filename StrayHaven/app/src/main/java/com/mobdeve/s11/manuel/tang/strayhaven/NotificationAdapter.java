@@ -1,6 +1,7 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
 import android.app.Notification;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,16 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationViewHo
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.notification_template, parent, false);
         NotificationViewHolder notifViewHolder = new NotificationViewHolder(itemView);
+
+        notifViewHolder.getTvUsername().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewPosterActivity.class);
+                intent.putExtra(Keys.KEY_POSTER_ID.name(), dataNotif.get(notifViewHolder.getBindingAdapterPosition()).getNotifierKey());
+                v.getContext().startActivity(intent);
+            }
+        });
+
         return notifViewHolder;
     }
 
