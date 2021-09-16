@@ -58,8 +58,9 @@ public class HomeRequestActivity extends AppCompatActivity {
         this.initRequest();
         this.initProfilePic();
 
-        if(!"activity_main".equals(getIntent().getStringExtra("from"))){
-            overridePendingTransition(0,0);
+
+        if (!"activity_main".equals(getIntent().getStringExtra("from"))) {
+            overridePendingTransition(0, 0);
             getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         }
 
