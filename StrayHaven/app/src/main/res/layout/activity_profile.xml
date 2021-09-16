@@ -18,86 +18,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_profile_user_pic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:padding="6dp"
-            android:src="@drawable/icon_default_user"
-            app:civ_border_color="@color/brown"
-            app:civ_border_width="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.07"
-            tools:ignore="SpeakableTextPresentCheck"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/tv_profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/days_one"
-            android:text="Profile Name"
-            android:textColor="@color/black"
-            android:textSize="28sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_profile_user_pic" />
-
-        <TextView
-            android:id="@+id/tv_profile_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/karla"
-            android:text="username"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_profile_name" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_profile_create_post"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            app:backgroundTint="@color/dark_pink"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/icon_create_post"
-            app:tint="@color/brown"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <ImageButton
-            android:id="@+id/ib_profile_back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:adjustViewBounds="true"
-            android:background="@null"
-            android:cropToPadding="true"
-            android:padding="8dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_back"
-            app:tint="@color/dark_pink" />
-
         <ImageButton
             android:id="@+id/ib_profile_settings"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
             android:adjustViewBounds="true"
             android:background="@null"
             android:cropToPadding="true"
@@ -108,184 +32,256 @@
             app:srcCompat="@drawable/icon_settings"
             app:tint="@color/dark_pink" />
 
-        <LinearLayout
-            android:id="@+id/ll_profile_desc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
+        <ImageButton
+            android:id="@+id/ib_profile_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:cropToPadding="true"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_profile_username">
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_back"
+            app:tint="@color/dark_pink" />
 
-            <TextView
-                android:id="@+id/tv_profile_user_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/karla"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:text="@string/lorem_ipsum_desc"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:visibility="gone"
-                tools:visibility="visible" />
-
-            <LinearLayout
-                android:id="@+id/ll_profile_loc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:paddingLeft="25dp"
-                android:paddingRight="25dp"
-                android:visibility="gone"
-                android:weightSum="1"
-                tools:visibility="visible">
-
-                <ImageView
-                    android:id="@+id/iv_profile_loc_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="8dp"
-                    android:adjustViewBounds="true"
-                    android:cropToPadding="true"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/icon_location"
-                    app:tint="@color/brown" />
-
-                <TextView
-                    android:id="@+id/tv_profile_user_loc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/def_loc"
-                    android:textColor="@color/brown" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_profile_mesage"
-            android:layout_width="0dp"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_profile_create_post"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:clickable="true"
+            app:backgroundTint="@color/dark_pink"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_profile_desc">
+            app:srcCompat="@drawable/icon_create_post"
+            app:tint="@color/brown"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-            <Button
-                android:id="@+id/btn_profile_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:backgroundTint="#A3CA7161"
-                android:text="Message"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                tools:visibility="visible" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_profile_no_content"
+        <ScrollView
+            android:id="@+id/sv_profile_content"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
             android:background="@drawable/border_top"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/fab_profile_create_post"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_profile_mesage"
-            tools:visibility="gone">
-
-            <TextView
-                android:id="@+id/tv_profile_no_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/no_content"
-                android:textColor="@color/black" />
-
-            <ImageView
-                android:id="@+id/iv_profile_no_content_icon"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                app:srcCompat="@drawable/icon_empty" />
-        </LinearLayout>
-
-        <HorizontalScrollView
-            android:id="@+id/sv_profile_user_featured"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/border_top"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_profile_mesage"
+            app:layout_constraintTop_toBottomOf="@+id/ib_profile_back"
             tools:ignore="SpeakableTextPresentCheck"
             tools:visibility="visible">
 
             <LinearLayout
-                android:id="@+id/ll_profile_featured"
+                android:id="@+id/ll_profile_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/iv_profile_featured1"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_weight=".2"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/picture_feature4" />
+                <LinearLayout
+                    android:id="@+id/ll_profile_user_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_bottom"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
 
-                <ImageView
-                    android:id="@+id/iv_profile_featured2"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_weight=".2"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/picture_feature1" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_profile_user_pic"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:padding="6dp"
+                        android:src="@drawable/icon_default_user"
+                        app:civ_border_color="@color/brown"
+                        app:civ_border_width="2dp"
+                        tools:ignore="SpeakableTextPresentCheck"
+                        tools:srcCompat="@tools:sample/avatars" />
 
-                <ImageView
-                    android:id="@+id/iv_profile_featured3"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_weight=".2"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/picture_feature3" />
+                    <TextView
+                        android:id="@+id/tv_profile_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/karla"
+                        android:text="username"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
 
-                <ImageView
-                    android:id="@+id/iv_profile_featured4"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_weight=".2"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/picture_feature5" />
+                    <LinearLayout
+                        android:id="@+id/ll_profile_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/iv_profile_featured5"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_weight=".2"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/picture_feature2" />
+                        <TextView
+                            android:id="@+id/tv_profile_user_desc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/karla"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp"
+                            android:text="@string/lorem_ipsum_desc"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_profile_loc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp"
+                            android:visibility="gone"
+                            android:weightSum="1"
+                            tools:visibility="visible">
+
+                            <ImageView
+                                android:id="@+id/iv_profile_loc_icon"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginEnd="8dp"
+                                android:adjustViewBounds="true"
+                                android:cropToPadding="true"
+                                android:scaleType="fitCenter"
+                                app:srcCompat="@drawable/icon_location"
+                                app:tint="@color/brown" />
+
+                            <TextView
+                                android:id="@+id/tv_profile_user_loc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/def_loc"
+                                android:textColor="@color/brown" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_profile_mesage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/btn_profile_message"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="24dp"
+                            android:backgroundTint="#A3CA7161"
+                            android:text="Message"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0"
+                            tools:visibility="visible" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_profile_no_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tv_profile_no_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no_content"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_profile_no_content_icon"
+                        android:layout_width="125dp"
+                        android:layout_height="125dp"
+                        app:srcCompat="@drawable/icon_empty" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_profile_featured"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iv_profile_featured1"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/light_gray"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/picture_feature4" />
+
+                    <ImageView
+                        android:id="@+id/iv_profile_featured2"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/light_gray"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/picture_feature1" />
+
+                    <ImageView
+                        android:id="@+id/iv_profile_featured3"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/light_gray"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/picture_feature3" />
+
+                    <ImageView
+                        android:id="@+id/iv_profile_featured4"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/light_gray"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/picture_feature5" />
+
+                    <ImageView
+                        android:id="@+id/iv_profile_featured5"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/light_gray"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/picture_feature2" />
+                </LinearLayout>
 
             </LinearLayout>
-        </HorizontalScrollView>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/tv_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/days_one"
+            android:text="Profile Name"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@+id/sv_profile_content"
+            app:layout_constraintEnd_toStartOf="@+id/ib_profile_settings"
+            app:layout_constraintStart_toEndOf="@+id/ib_profile_back"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

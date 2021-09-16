@@ -270,49 +270,94 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
-                    <ImageView
-                        android:id="@+id/iv_settings_featured_1"
+                    <FrameLayout
+                        android:id="@+id/fl_settings_featured_1"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginRight="8dp"
                         android:layout_weight=".2"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/picture_feature3" />
+                        android:background="@color/light_gray">
 
-                    <ImageView
-                        android:id="@+id/iv_settings_featured_2"
+                        <ImageView
+                            android:id="@+id/iv_settings_featured_1"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_weight=".2"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/icon_create_post" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fl_settings_featured_2"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginRight="8dp"
                         android:layout_weight=".2"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/picture_feature1" />
+                        android:background="@color/light_gray">
 
-                    <ImageView
-                        android:id="@+id/iv_settings_featured_3"
+                        <ImageView
+                            android:id="@+id/iv_settings_featured_2"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_weight=".2"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/icon_create_post" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fl_settings_featured_3"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginRight="8dp"
                         android:layout_weight=".2"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/picture_feature2" />
+                        android:background="@color/light_gray">
 
-                    <ImageView
-                        android:id="@+id/iv_settings_featured_4"
+                        <ImageView
+                            android:id="@+id/iv_settings_featured_3"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_weight=".2"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/icon_create_post" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fl_settings_featured_4"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_marginRight="8dp"
                         android:layout_weight=".2"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/picture_feature5" />
+                        android:background="@color/light_gray">
 
-                    <ImageView
-                        android:id="@+id/iv_settings_featured_5"
+                        <ImageView
+                            android:id="@+id/iv_settings_featured_4"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_weight=".2"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/icon_create_post" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fl_settings_featured_5"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_weight=".2"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/picture_feature4" />
+                        android:background="@color/light_gray">
+
+                        <ImageView
+                            android:id="@+id/iv_settings_featured_5"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_weight=".2"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/icon_create_post" />
+                    </FrameLayout>
 
                 </LinearLayout>
             </HorizontalScrollView>

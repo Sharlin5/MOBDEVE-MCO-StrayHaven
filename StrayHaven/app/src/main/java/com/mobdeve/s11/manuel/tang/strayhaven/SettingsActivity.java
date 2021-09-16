@@ -28,8 +28,10 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -60,6 +62,7 @@ public class SettingsActivity extends AppCompatActivity {
     private Button btnLogout, btnSave;
     private EditText etName, etDescription, etLocation, etPassword;
     private ImageView ivProfile, ivFeatured1, ivFeatured2, ivFeatured3, ivFeatured4, ivFeatured5;
+    private FrameLayout flFeatured1, flFeatured2, flFeatured3, flFeatured4, flFeatured5;
 
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
@@ -107,6 +110,11 @@ public class SettingsActivity extends AppCompatActivity {
         this.ivFeatured3 = findViewById(R.id.iv_settings_featured_3);
         this.ivFeatured4 = findViewById(R.id.iv_settings_featured_4);
         this.ivFeatured5 = findViewById(R.id.iv_settings_featured_5);
+        this.flFeatured1 = findViewById(R.id.fl_settings_featured_1);
+        this.flFeatured2 = findViewById(R.id.fl_settings_featured_2);
+        this.flFeatured3 = findViewById(R.id.fl_settings_featured_3);
+        this.flFeatured4 = findViewById(R.id.fl_settings_featured_4);
+        this.flFeatured5 = findViewById(R.id.fl_settings_featured_5);
 
 
         ibBack.setOnClickListener(new View.OnClickListener() {
@@ -147,35 +155,35 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        ivFeatured1.setOnClickListener(new View.OnClickListener() {
+        flFeatured1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImageFromGallery("Featured1");
             }
         });
 
-        ivFeatured2.setOnClickListener(new View.OnClickListener() {
+        flFeatured2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImageFromGallery("Featured2");
             }
         });
 
-        ivFeatured3.setOnClickListener(new View.OnClickListener() {
+        flFeatured3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImageFromGallery("Featured3");
             }
         });
 
-        ivFeatured4.setOnClickListener(new View.OnClickListener() {
+        flFeatured4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImageFromGallery("Featured4");
             }
         });
 
-        ivFeatured5.setOnClickListener(new View.OnClickListener() {
+        flFeatured5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImageFromGallery("Featured5");
@@ -242,6 +250,9 @@ public class SettingsActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         featured1Uri = data.getData();
                         ivFeatured1.setImageURI(featured1Uri);
+                        ivFeatured1.requestLayout();
+                        ivFeatured1.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                        ivFeatured1.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
                     } else {
                         Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
@@ -258,6 +269,9 @@ public class SettingsActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         featured2Uri = data.getData();
                         ivFeatured2.setImageURI(featured2Uri);
+                        ivFeatured2.requestLayout();
+                        ivFeatured2.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                        ivFeatured2.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
                     } else {
                         Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
@@ -274,6 +288,9 @@ public class SettingsActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         featured3Uri = data.getData();
                         ivFeatured3.setImageURI(featured3Uri);
+                        ivFeatured3.requestLayout();
+                        ivFeatured3.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                        ivFeatured3.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
                     } else {
                         Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
@@ -290,6 +307,9 @@ public class SettingsActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         featured4Uri = data.getData();
                         ivFeatured4.setImageURI(featured4Uri);
+                        ivFeatured4.requestLayout();
+                        ivFeatured4.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                        ivFeatured4.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
                     } else {
                         Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
@@ -306,6 +326,9 @@ public class SettingsActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         featured5Uri = data.getData();
                         ivFeatured5.setImageURI(featured5Uri);
+                        ivFeatured5.requestLayout();
+                        ivFeatured5.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                        ivFeatured5.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
                     } else {
                         Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
@@ -548,38 +571,43 @@ public class SettingsActivity extends AppCompatActivity {
                 }
 
                 featured1Url = snapshot.child("featured1").getValue().toString();
-                if (featured1Url.equals(" ")){
-                    ivFeatured1.setImageResource(R.drawable.icon_create_post);
-                } else {
+                if (!featured1Url.equals(" ")){
                     Picasso.get().load(featured1Url).into(ivFeatured1);
+                    ivFeatured1.requestLayout();
+                    ivFeatured1.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                    ivFeatured1.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
                 }
 
                 featured2Url = snapshot.child("featured2").getValue().toString();
-                if (featured2Url.equals(" ")){
-                    ivFeatured2.setImageResource(R.drawable.icon_create_post);
-                } else {
+                if (!featured2Url.equals(" ")){
                     Picasso.get().load(featured2Url).into(ivFeatured2);
+                    ivFeatured2.requestLayout();
+                    ivFeatured2.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                    ivFeatured2.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
                 }
 
                 featured3Url = snapshot.child("featured3").getValue().toString();
-                if (featured3Url.equals(" ")){
-                    ivFeatured3.setImageResource(R.drawable.icon_create_post);
-                } else {
+                if (!featured3Url.equals(" ")){
                     Picasso.get().load(featured3Url).into(ivFeatured3);
+                    ivFeatured3.requestLayout();
+                    ivFeatured3.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                    ivFeatured3.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
                 }
 
                 featured4Url = snapshot.child("featured4").getValue().toString();
-                if (featured4Url.equals(" ")){
-                    ivFeatured4.setImageResource(R.drawable.icon_create_post);
-                } else {
+                if (!featured4Url.equals(" ")){
                     Picasso.get().load(featured4Url).into(ivFeatured4);
+                    ivFeatured4.requestLayout();
+                    ivFeatured4.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                    ivFeatured4.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
                 }
 
                 featured5Url = snapshot.child("featured5").getValue().toString();
-                if (featured5Url.equals(" ")){
-                    ivFeatured5.setImageResource(R.drawable.icon_create_post);
-                } else {
+                if (!featured5Url.equals(" ")){
                     Picasso.get().load(featured5Url).into(ivFeatured5);
+                    ivFeatured5.requestLayout();
+                    ivFeatured5.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                    ivFeatured5.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
                 }
 
                 if (!description.equals(" ") && !description.isEmpty()) {

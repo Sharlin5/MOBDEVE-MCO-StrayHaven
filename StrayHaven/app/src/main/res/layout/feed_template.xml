@@ -86,7 +86,7 @@
         <ImageView
             android:id="@+id/iv_feed_picture"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="350dp"
             android:clickable="true"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"

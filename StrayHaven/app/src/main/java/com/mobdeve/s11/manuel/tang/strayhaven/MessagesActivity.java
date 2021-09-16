@@ -52,7 +52,6 @@ public class MessagesActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        this.dataMessage = new MessageDataHelper().loadMessageData();
         this.rvMessage = findViewById(R.id.rv_message_feed);
         this.rvMessage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         this.rvMessage.setAdapter(new MessageAdapter(this.dataMessage));

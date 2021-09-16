@@ -40,6 +40,7 @@ public class ViewPostActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private String userId;
     private String postId;
+    private String posterId;
 
     private Boolean likechecker = false;
 
@@ -89,7 +90,7 @@ public class ViewPostActivity extends AppCompatActivity {
                 String userPost = intent.getStringExtra(Keys.KEY_FEED_USERNAME.name());
                 String userFeedType = intent.getStringExtra(Keys.KEY_FEED_TYPE.name());
                 String postId = intent.getStringExtra(Keys.KEY_POST_ID.name());
-                String posterId = intent.getStringExtra(Keys.KEY_POSTER_ID.name());
+                posterId = intent.getStringExtra(Keys.KEY_POSTER_ID.name());
                 final String postKey = postId;
 
                 String feedImage = intent.getStringExtra(Keys.KEY_POST_IMAGE.name());
@@ -191,7 +192,7 @@ public class ViewPostActivity extends AppCompatActivity {
                                         likeReference.child(postKey).child(userId).setValue(true);
                                         likechecker = false;
 
-                                        Notif notif = new Notif(postname, feedImage, "Liked your post!", currDate, userId);
+                                        Notif notif = new Notif(postname, feedImage, "seems to be interested! You can send a message by visiting their profile.", currDate, userId);
                                         notifReference.child(posterId).push().setValue(notif);
                                     }
                                 }
@@ -290,6 +291,24 @@ public class ViewPostActivity extends AppCompatActivity {
                 Intent intent = new Intent(ViewPostActivity.this, NotificationActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewPosterActivity.class);
+                intent.putExtra(Keys.KEY_POSTER_ID.name(),posterId);
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        tvUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewPosterActivity.class);
+                intent.putExtra(Keys.KEY_POSTER_ID.name(),posterId);
+                v.getContext().startActivity(intent);
             }
         });
     }

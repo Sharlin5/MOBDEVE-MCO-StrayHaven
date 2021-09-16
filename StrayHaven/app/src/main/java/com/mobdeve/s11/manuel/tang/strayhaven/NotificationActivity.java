@@ -72,7 +72,7 @@ public class NotificationActivity extends AppCompatActivity {
                     String notification = dss.child("notification").getValue().toString();
                     String notifierKey = dss.child("notifierKey").getValue().toString();
                     Notif notif = new Notif(notifName, notifUrl, notification, date, notifierKey);
-                    dataNotif.add(notif);
+                    dataNotif.add(0, notif);
 
                     rvNotif = findViewById(R.id.rv_notif_feed);
                     rvNotif.setLayoutManager(new LinearLayoutManager(NotificationActivity.this, LinearLayoutManager.VERTICAL, false));

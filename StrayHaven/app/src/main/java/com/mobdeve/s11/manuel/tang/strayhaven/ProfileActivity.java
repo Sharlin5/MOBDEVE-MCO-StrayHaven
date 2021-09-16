@@ -6,12 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.HorizontalScrollView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,10 +27,11 @@ import com.squareup.picasso.Picasso;
 public class ProfileActivity extends AppCompatActivity {
 
     private FloatingActionButton fabPost;
-    private ImageButton ibBack, ibSettings, ibHome, ibTracker, ibNotifications, ibMessages;
+    private ImageButton ibBack, ibSettings, ibHome, ibTracker, ibNotifications;
+    private Button btnMessage;
     private TextView tvUsername, tvLocation, tvDescription, tvProfilename;
     private LinearLayout llLoc, llNoContent;
-    private HorizontalScrollView svProfileFeatured;
+    private LinearLayout llProfileFeatured;
     private ImageView ivProfile;
     private ImageView ivFeatured1, ivFeatured2, ivFeatured3, ivFeatured4, ivFeatured5;
 
@@ -66,11 +68,11 @@ public class ProfileActivity extends AppCompatActivity {
         this.ibHome = findViewById(R.id.ib_profile_home);
         this.ibTracker = findViewById(R.id.ib_profile_tracker);
         this.ibNotifications = findViewById(R.id.ib_profile_notifications);
-        this.ibMessages = findViewById(R.id.ib_profile_messages);
+        this.btnMessage = findViewById(R.id.btn_profile_message);
         this.llLoc = findViewById(R.id.ll_profile_loc);
         this.ivProfile = findViewById(R.id.iv_profile_user_pic);
         this.llNoContent = findViewById(R.id.ll_profile_no_content);
-        this.svProfileFeatured = findViewById(R.id.sv_profile_user_featured);
+        this.llProfileFeatured = findViewById(R.id.ll_profile_featured);
         this.ivFeatured1 = findViewById(R.id.iv_profile_featured1);
         this.ivFeatured2 = findViewById(R.id.iv_profile_featured2);
         this.ivFeatured3 = findViewById(R.id.iv_profile_featured3);
@@ -124,11 +126,14 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        ibMessages.setOnClickListener(new View.OnClickListener() {
+        btnMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, MessagesActivity.class);
-                startActivity(intent);
+                Toast.makeText(ProfileActivity.this, "Messages", Toast.LENGTH_SHORT).show();
+
+                //Intent intent = new Intent(ProfileActivity.this, ViewMessageActivity.class);
+                //intent.putExtra("userId", userId);
+                //startActivity(intent);
             }
         });
     }
@@ -167,10 +172,10 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if (featured1Url.equals(" ") && featured2Url.equals(" ") && featured3Url.equals(" ") && featured4Url.equals(" ") && featured5Url.equals(" ")){
                     llNoContent.setVisibility(View.VISIBLE);
-                    svProfileFeatured.setVisibility(View.GONE);
+                    llProfileFeatured.setVisibility(View.GONE);
                 } else {
                     llNoContent.setVisibility(View.GONE);
-                    svProfileFeatured.setVisibility(View.VISIBLE);
+                    llProfileFeatured.setVisibility(View.VISIBLE);
 
                     if (featured1Url.equals(" ")){
                         ivFeatured1.setVisibility(View.GONE);

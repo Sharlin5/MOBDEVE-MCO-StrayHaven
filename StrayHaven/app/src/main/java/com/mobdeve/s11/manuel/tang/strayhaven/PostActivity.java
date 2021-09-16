@@ -24,9 +24,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -52,6 +54,8 @@ public class PostActivity extends AppCompatActivity {
     private Button btnPost;
     private EditText etPostRequest, etPostLocation, etPostDescription;
     private ImageView ivPost;
+    private TextView tvPost;
+    private LinearLayout llPost;
     private ProgressBar pbPost;
     private Spinner spinPostRequest;
 
@@ -111,6 +115,8 @@ public class PostActivity extends AppCompatActivity {
         this.ibBack = findViewById(R.id.ib_post_back);
         this.btnPost = findViewById(R.id.btn_post_done);
         this.ivPost = findViewById(R.id.iv_post_image);
+        this.tvPost = findViewById(R.id.tv_post_add_photo);
+        this.llPost = findViewById(R.id.ll_post_add_photo);
         this.pbPost = findViewById(R.id.pb_post);
         this.spinPostRequest = findViewById(R.id.spin_post_request);
 
@@ -165,7 +171,7 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-        ivPost.setOnClickListener(new View.OnClickListener() {
+        llPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImageFromGallery();
@@ -277,6 +283,10 @@ public class PostActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         imageUri = data.getData();
                         ivPost.setImageURI(imageUri);
+                        ivPost.requestLayout();
+                        ivPost.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
+                        ivPost.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+                        tvPost.setVisibility(View.GONE);
                     } else {
                         Toast.makeText(PostActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
@@ -341,10 +351,13 @@ public class PostActivity extends AppCompatActivity {
                     if(result.getResultCode() == Activity.RESULT_OK){
                         Bundle bundle = result.getData().getExtras();
                         Bitmap bitmap = (Bitmap) bundle.get("data");
-
                         Uri tempUri = getImageUri(getApplicationContext(), bitmap);
                         imageUri = tempUri;
                         ivPost.setImageURI(tempUri);
+                        ivPost.requestLayout();
+                        ivPost.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
+                        ivPost.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+                        tvPost.setVisibility(View.GONE);
                     } else {
                         Toast.makeText(PostActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }

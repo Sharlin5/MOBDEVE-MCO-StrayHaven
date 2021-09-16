@@ -25,16 +25,38 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <Switch
-                android:id="@+id/sw_tracker_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginRight="8dp"
                 android:layout_weight="1"
-                android:checked="false"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
-                android:splitTrack="false" />
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/karla"
+                    android:gravity="bottom|center_horizontal"
+                    android:text="Status:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/sw_tracker_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:gravity="center_horizontal|top"
+                    android:showText="true"
+                    android:splitTrack="false"
+                    android:switchTextAppearance="@style/SwitchTextAppearance"
+                    android:textOff="OPEN"
+                    android:textOn="DONE" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/iv_tracker_post"

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ViewMessageActivity extends AppCompatActivity {
 
@@ -22,8 +23,8 @@ public class ViewMessageActivity extends AppCompatActivity {
         this.initComponents();
 
         Intent intent = getIntent();
-        this.ivProfile.setImageResource(intent.getIntExtra(Keys.KEY_MESSAGE_IMAGE.name(), 0));
-        this.tvUsername.setText(intent.getStringExtra(Keys.KEY_MESSAGE_USERNAME.name()));
+        //this.ivProfile.setImageResource(intent.getIntExtra(Keys.KEY_MESSAGE_IMAGE.name(), 0));
+        //this.tvUsername.setText(intent.getStringExtra(Keys.KEY_MESSAGE_USERNAME.name()));
     }
 
     private void initComponents(){

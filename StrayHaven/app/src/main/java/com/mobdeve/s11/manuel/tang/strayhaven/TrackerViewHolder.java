@@ -47,9 +47,9 @@ public class TrackerViewHolder extends RecyclerView.ViewHolder {
 
     public void setSwStatus(String status) {
         if (status.equals("false")){
-            this.swStatus.setChecked(true);
-        } else {
             this.swStatus.setChecked(false);
+        } else {
+            this.swStatus.setChecked(true);
         }
     }
 

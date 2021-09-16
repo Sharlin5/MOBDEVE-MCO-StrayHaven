@@ -26,7 +26,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationViewHo
         View itemView = inflater.inflate(R.layout.notification_template, parent, false);
         NotificationViewHolder notifViewHolder = new NotificationViewHolder(itemView);
 
-        notifViewHolder.getTvUsername().setOnClickListener(new View.OnClickListener() {
+        notifViewHolder.getClNotif().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ViewPosterActivity.class);

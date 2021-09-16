@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,9 +57,8 @@ public class HomeRequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_request);
 
         this.initComponents();
-        this.initRequest();
         this.initProfilePic();
-
+        this.initRequest();
 
         if (!"activity_main".equals(getIntent().getStringExtra("from"))) {
             overridePendingTransition(0, 0);

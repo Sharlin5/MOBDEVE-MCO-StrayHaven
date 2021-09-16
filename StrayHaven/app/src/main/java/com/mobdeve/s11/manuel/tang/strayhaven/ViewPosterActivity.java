@@ -7,12 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,8 +30,7 @@ public class ViewPosterActivity extends AppCompatActivity {
     private Button btnMessage;
 
     private TextView tvUsername, tvLocation, tvDescription, tvProfilename;
-    private LinearLayout llLoc, llNoContent;
-    private HorizontalScrollView svProfileFeatured;
+    private LinearLayout llLoc, llNoContent, llProfileFeatured;
 
     private ImageView ivProfile;
     private ImageView ivFeatured1, ivFeatured2, ivFeatured3, ivFeatured4, ivFeatured5;
@@ -70,7 +68,7 @@ public class ViewPosterActivity extends AppCompatActivity {
         this.ivProfile = findViewById(R.id.iv_profile_user_pic);
         this.btnMessage = findViewById(R.id.btn_profile_message);
         this.llNoContent = findViewById(R.id.ll_profile_no_content);
-        this.svProfileFeatured = findViewById(R.id.sv_profile_user_featured);
+        this.llProfileFeatured = findViewById(R.id.ll_profile_featured);
         this.ivFeatured1 = findViewById(R.id.iv_profile_featured1);
         this.ivFeatured2 = findViewById(R.id.iv_profile_featured2);
         this.ivFeatured3 = findViewById(R.id.iv_profile_featured3);
@@ -175,10 +173,10 @@ public class ViewPosterActivity extends AppCompatActivity {
 
                 if (featured1Url.equals(" ") && featured2Url.equals(" ") && featured3Url.equals(" ") && featured4Url.equals(" ") && featured5Url.equals(" ")){
                     llNoContent.setVisibility(View.VISIBLE);
-                    svProfileFeatured.setVisibility(View.GONE);
+                    llProfileFeatured.setVisibility(View.GONE);
                 } else {
                     llNoContent.setVisibility(View.GONE);
-                    svProfileFeatured.setVisibility(View.VISIBLE);
+                    llProfileFeatured.setVisibility(View.VISIBLE);
 
                     if (featured1Url.equals(" ")){
                         ivFeatured1.setVisibility(View.GONE);

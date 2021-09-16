@@ -2,9 +2,11 @@ package com.mobdeve.s11.manuel.tang.strayhaven;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -15,6 +17,7 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder {
     public TextView tvUsername;
     public TextView tvDate;
     public TextView tvNotif;
+    public ConstraintLayout clNotif;
 
     public NotificationViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -22,6 +25,7 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder {
         this.tvUsername = itemView.findViewById(R.id.tv_notif_text_name);
         this.tvDate = itemView.findViewById(R.id.tv_notif_text_date);
         this.tvNotif = itemView.findViewById(R.id.tv_notif_text_row_2);
+        this.clNotif = itemView.findViewById(R.id.cl_notif_feed);
     }
 
     public void setIvNotifPicture(String picture) {
@@ -40,7 +44,7 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder {
         this.tvNotif.setText(notification);
     }
 
-    public TextView getTvUsername() {
-        return tvUsername;
+    public ConstraintLayout getClNotif() {
+        return clNotif;
     }
 }

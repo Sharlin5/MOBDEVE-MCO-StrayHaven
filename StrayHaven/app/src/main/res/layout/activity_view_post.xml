@@ -16,7 +16,7 @@
             android:id="@+id/iv_view_user_pic"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:clickable="true"
             android:src="@drawable/icon_default_user"
             app:civ_border_color="@color/brown"
@@ -97,14 +97,15 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_view_picture"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp">
+                    android:layout_height="350dp">
 
                     <ImageView
                         android:id="@+id/iv_view_picture"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@color/light_gray"
                         android:clickable="true"
+                        android:minHeight="400dp"
                         android:scaleType="fitCenter"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,7 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
 import android.content.Context;
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +33,8 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
     */
     private ArrayList<Feed> dataTracker;
     private Context context;
+    private Intent intent;
+
     public TrackerAdapter(ArrayList<Feed> dataTracker){
         this.dataTracker = dataTracker;
     }
@@ -52,7 +56,11 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
         trackerViewHolder.getIbTrackerDelete().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(context.getApplicationContext(), "Request Deleted", Toast.LENGTH_SHORT).show();
+
                 deleteRequest(trackerViewHolder);
+
+                context.startActivity(new Intent(context.getApplicationContext(), TrackerActivity.class));
             }
         });
 
@@ -71,6 +79,7 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
         DatabaseReference notifReference = database.getReference(Collections.notifs.name());
         DatabaseReference likeReference = database.getReference(Collections.likes.name());
 
+
         String postKey = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getPostKey();
         String posterKey = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getPosterKey();
         String postCaption = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getCaption();
@@ -85,10 +94,6 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
 
 
         if (isChecked){
-            isDone = "false";
-            Feed feed = new Feed(posterKey, postUsername, postProfileUrl, postUrl, postType, postLocation, postCaption, postDate, isDone);
-            trackerReference.child(postKey).setValue(feed);
-        } else {
             isDone = "true";
             Feed feed = new Feed(posterKey, postUsername, postProfileUrl, postUrl, postType, postLocation, postCaption, postDate, isDone);
             trackerReference.child(postKey).setValue(feed);
@@ -98,9 +103,10 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot dss: snapshot.getChildren()){
                         String currLiker = dss.getKey();
-                        Notif notif = new Notif(postUsername, postUrl, "Set this request as done.", currDate, posterKey);
+                        Notif notif = new Notif(postUsername, postUrl, "has fulfilled this request and wants to thank you for showing your interest!", currDate, posterKey);
                         notifReference.child(currLiker).push().setValue(notif);
                     }
+                    deleteRequest(trackerViewHolder);
                 }
 
                 @Override
@@ -108,6 +114,11 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
 
                 }
             });
+
+        } else {
+            isDone = "false";
+            Feed feed = new Feed(posterKey, postUsername, postProfileUrl, postUrl, postType, postLocation, postCaption, postDate, isDone);
+            trackerReference.child(postKey).setValue(feed);
 
         }
     }

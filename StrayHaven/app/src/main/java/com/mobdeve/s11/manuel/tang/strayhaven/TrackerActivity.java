@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -112,6 +113,7 @@ public class TrackerActivity extends AppCompatActivity {
 
             }
         });
+
         TrackerAdapter trackerAdapter = new TrackerAdapter(this.dataTracker);
         trackerAdapter.notifyDataSetChanged();
 
