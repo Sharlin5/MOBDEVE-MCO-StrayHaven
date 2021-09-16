@@ -1,0 +1,211 @@
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_02_PM__Default_Changelist_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_02_PM__Default_Changelist_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_02_PM__Default_Changelist_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_02_PM__Default_Changelist_.xml	(revision d8fa26a0baf54f641d2b13454713942725fa85e3)
++++ /dev/null	(revision d8fa26a0baf54f641d2b13454713942725fa85e3)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_27_08_2021_5_02_PM_[Default_Changelist]" date="1630054931317" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_02_PM_[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 27/08/2021 5:02 PM [Default Changelist]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_22_PM__Default_Changelist_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_22_PM__Default_Changelist_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_22_PM__Default_Changelist_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_22_PM__Default_Changelist_.xml	(revision d8fa26a0baf54f641d2b13454713942725fa85e3)
++++ /dev/null	(revision d8fa26a0baf54f641d2b13454713942725fa85e3)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_27_08_2021_5_22_PM_[Default_Changelist]" date="1630056177979" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_22_PM_[Default_Changelist]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 27/08/2021 5:22 PM [Default Changelist]" />
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_02_PM_[Default_Changelist]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_02_PM_[Default_Changelist]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_02_PM_[Default_Changelist]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_02_PM_[Default_Changelist]/shelved.patch	(revision d8fa26a0baf54f641d2b13454713942725fa85e3)
++++ /dev/null	(revision d8fa26a0baf54f641d2b13454713942725fa85e3)
+@@ -1,17 +0,0 @@
+-Index: app/src/main/res/layout/message_template.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/src/main/res/layout/message_template.xml b/app/src/main/res/layout/message_template.xml
+-new file mode 100644
+---- /dev/null	(date 1630051177713)
+-+++ b/app/src/main/res/layout/message_template.xml	(date 1630051177713)
+-@@ -0,0 +1,6 @@
+-+<?xml version="1.0" encoding="utf-8"?>
+-+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-+    android:layout_width="match_parent"
+-+    android:layout_height="match_parent">
+-+
+-+</androidx.constraintlayout.widget.ConstraintLayout>
+-\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_22_PM_[Default_Changelist]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_22_PM_[Default_Changelist]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_22_PM_[Default_Changelist]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_27_08_2021_5_22_PM_[Default_Changelist]/shelved.patch	(revision d8fa26a0baf54f641d2b13454713942725fa85e3)
++++ /dev/null	(revision d8fa26a0baf54f641d2b13454713942725fa85e3)
+@@ -1,118 +0,0 @@
+-Index: app/src/main/res/layout/message_template.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/app/src/main/res/layout/message_template.xml b/app/src/main/res/layout/message_template.xml
+-new file mode 100644
+---- /dev/null	(date 1630056132641)
+-+++ b/app/src/main/res/layout/message_template.xml	(date 1630056132641)
+-@@ -0,0 +1,107 @@
+-+<?xml version="1.0" encoding="utf-8"?>
+-+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-+    xmlns:app="http://schemas.android.com/apk/res-auto"
+-+    xmlns:tools="http://schemas.android.com/tools"
+-+    android:layout_width="match_parent"
+-+    android:layout_height="wrap_content"
+-+    android:orientation="vertical">
+-+
+-+    <androidx.constraintlayout.widget.ConstraintLayout
+-+        android:id="@+id/cl_chat_list"
+-+        android:layout_width="match_parent"
+-+        android:layout_height="match_parent"
+-+        android:layout_weight="1"
+-+        android:background="@drawable/border_bottom"
+-+        android:clickable="false">
+-+
+-+        <de.hdodenhof.circleimageview.CircleImageView
+-+            android:id="@+id/iv_chat_list_user_pic"
+-+            android:layout_width="70dp"
+-+            android:layout_height="70dp"
+-+            android:layout_marginLeft="8dp"
+-+            android:layout_weight="1"
+-+            android:clickable="true"
+-+            android:padding="6dp"
+-+            android:src="@drawable/icon_default_user"
+-+            app:civ_border_color="@color/brown"
+-+            app:civ_border_width="2dp"
+-+            app:layout_constraintBottom_toBottomOf="parent"
+-+            app:layout_constraintStart_toStartOf="parent"
+-+            app:layout_constraintTop_toTopOf="parent"
+-+            tools:ignore="SpeakableTextPresentCheck"
+-+            tools:srcCompat="@tools:sample/avatars" />
+-+
+-+        <LinearLayout
+-+            android:id="@+id/ll_chat_list_post_details"
+-+            android:layout_width="0dp"
+-+            android:layout_height="0dp"
+-+            android:layout_marginLeft="8dp"
+-+            android:layout_weight="1"
+-+            android:clickable="true"
+-+            android:gravity="center"
+-+            android:orientation="horizontal"
+-+            android:weightSum="1"
+-+            app:layout_constraintBottom_toBottomOf="parent"
+-+            app:layout_constraintEnd_toStartOf="@+id/ib_chat_list_delete"
+-+            app:layout_constraintStart_toEndOf="@+id/iv_chat_list_user_pic"
+-+            app:layout_constraintTop_toTopOf="parent">
+-+
+-+            <LinearLayout
+-+                android:id="@+id/ll_chat_list_label"
+-+                android:layout_width="wrap_content"
+-+                android:layout_height="wrap_content"
+-+                android:orientation="vertical">
+-+
+-+                <TextView
+-+                    android:id="@+id/tv_chat_list_name"
+-+                    android:layout_width="match_parent"
+-+                    android:layout_height="wrap_content"
+-+                    android:fontFamily="@font/karla"
+-+                    android:text="Profile Name"
+-+                    android:textColor="@color/black"
+-+                    android:textSize="16sp"
+-+                    android:textStyle="bold" />
+-+
+-+            </LinearLayout>
+-+
+-+            <LinearLayout
+-+                android:id="@+id/ll_chat_list_username"
+-+                android:layout_width="wrap_content"
+-+                android:layout_height="wrap_content"
+-+                android:layout_marginLeft="8dp"
+-+                android:layout_marginRight="8dp"
+-+                android:layout_weight="1"
+-+                android:orientation="vertical">
+-+
+-+                <TextView
+-+                    android:id="@+id/tv_tracker_type"
+-+                    android:layout_width="match_parent"
+-+                    android:layout_height="wrap_content"
+-+                    android:fontFamily="@font/karla"
+-+                    android:text="Username"
+-+                    android:textColor="@color/gray"
+-+                    android:textSize="16sp"
+-+                    android:textStyle="italic" />
+-+
+-+            </LinearLayout>
+-+
+-+        </LinearLayout>
+-+
+-+        <ImageButton
+-+            android:id="@+id/ib_chat_list_delete"
+-+            android:layout_width="50dp"
+-+            android:layout_height="50dp"
+-+            android:adjustViewBounds="true"
+-+            android:background="@null"
+-+            android:cropToPadding="true"
+-+            android:padding="8dp"
+-+            android:scaleType="fitCenter"
+-+            app:layout_constraintBottom_toBottomOf="parent"
+-+            app:layout_constraintEnd_toEndOf="parent"
+-+            app:layout_constraintTop_toTopOf="parent"
+-+            app:srcCompat="@drawable/icon_delete"
+-+            app:tint="@color/red"
+-+            tools:ignore="SpeakableTextPresentCheck" />
+-+    </androidx.constraintlayout.widget.ConstraintLayout>
+-+
+-+</LinearLayout>
+-\ No newline at end of file
+Index: .idea/deploymentTargetDropDown.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"deploymentTargetDropDown\">\r\n    <targetSelectedWithDropDown>\r\n      <Target>\r\n        <type value=\"QUICK_BOOT_TARGET\" />\r\n        <deviceKey>\r\n          <Key>\r\n            <type value=\"VIRTUAL_DEVICE_PATH\" />\r\n            <value value=\"C:\\Users\\Lary\\.android\\avd\\Pixel_3a_API_30_x86.avd\" />\r\n          </Key>\r\n        </deviceKey>\r\n      </Target>\r\n    </targetSelectedWithDropDown>\r\n    <timeTargetWasSelectedWithDropDown value=\"2021-08-27T10:38:46.846570500Z\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+--- a/.idea/deploymentTargetDropDown.xml	(revision d8fa26a0baf54f641d2b13454713942725fa85e3)
++++ b/.idea/deploymentTargetDropDown.xml	(date 1630564396065)
+@@ -13,5 +13,26 @@
+       </Target>
+     </targetSelectedWithDropDown>
+     <timeTargetWasSelectedWithDropDown value="2021-08-27T10:38:46.846570500Z" />
++    <multipleDevicesSelectedInDropDown value="true" />
++    <targetsSelectedWithDialog>
++      <Target>
++        <type value="QUICK_BOOT_TARGET" />
++        <deviceKey>
++          <Key>
++            <type value="VIRTUAL_DEVICE_PATH" />
++            <value value="C:\Users\Aika Manuel\.android\avd\Nexus_5_API_30.avd" />
++          </Key>
++        </deviceKey>
++      </Target>
++      <Target>
++        <type value="QUICK_BOOT_TARGET" />
++        <deviceKey>
++          <Key>
++            <type value="VIRTUAL_DEVICE_PATH" />
++            <value value="C:\Users\Aika Manuel\.android\avd\Pixel_3a_API_30.avd" />
++          </Key>
++        </deviceKey>
++      </Target>
++    </targetsSelectedWithDialog>
+   </component>
+ </project>
+\ No newline at end of file
