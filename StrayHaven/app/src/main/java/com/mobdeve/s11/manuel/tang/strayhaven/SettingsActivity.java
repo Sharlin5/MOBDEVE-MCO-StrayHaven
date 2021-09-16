@@ -119,6 +119,9 @@ public class SettingsActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(SettingsActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
