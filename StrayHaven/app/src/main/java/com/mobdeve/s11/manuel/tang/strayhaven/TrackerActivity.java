@@ -30,8 +30,10 @@ public class TrackerActivity extends AppCompatActivity {
     private ImageView ivProfile;
     private FloatingActionButton fabPost;
     private ImageButton ibSettings, ibHome, ibNotifications, ibMessages;
+
     private RecyclerView rvTracker;
     private ArrayList<Feed> dataTracker;
+
     private FirebaseDatabase database;
     private FirebaseAuth mAuth;
     private FirebaseUser user;

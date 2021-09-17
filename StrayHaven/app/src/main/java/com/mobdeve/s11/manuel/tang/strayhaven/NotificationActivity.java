@@ -28,7 +28,9 @@ public class NotificationActivity extends AppCompatActivity {
     private ImageView ivProfile;
     private FloatingActionButton fabPost;
     private ImageButton ibSettings, ibHome, ibTracker, ibMessages;
+
     private RecyclerView rvNotif;
+
     private ArrayList<Notif> dataNotif;
     private FirebaseDatabase database;
     private FirebaseAuth mAuth;

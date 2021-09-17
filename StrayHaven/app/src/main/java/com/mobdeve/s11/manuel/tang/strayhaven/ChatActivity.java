@@ -23,13 +23,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ChatActivity extends AppCompatActivity {
-
-    ChatAdapter chatAdapter;
-    ArrayList<Chat> dataChat;
 
     private ImageButton ibBack, ibSend;
     private ImageView ivProfile;
@@ -37,23 +35,32 @@ public class ChatActivity extends AppCompatActivity {
     private EditText etChat;
 
     private RecyclerView rvChat;
+    private ArrayList<Chat> dataChat;
 
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
     private FirebaseDatabase database;
-    private DatabaseReference reference;
-    private String userId, receiver, imageUrl;
-    private Intent intent;
+    private FirebaseAuth mAuth;
+    private FirebaseUser fUser;
+    private String currentUserId, receiverId, receiverImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        initFirebase();
         initComponents();
+        initFirebase();
+
+
         initRecyclerView();
 
+        overridePendingTransition(0,0);
+        getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
 
     private void initComponents() {
@@ -62,6 +69,7 @@ public class ChatActivity extends AppCompatActivity {
         this.ivProfile = findViewById(R.id.iv_chat_user_pic);
         this.tvUsername = findViewById(R.id.tv_chat_username);
         this.etChat = findViewById(R.id.et_chat_text_box);
+        this.rvChat = findViewById(R.id.rv_chat_messages);
 
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +83,8 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String chat = etChat.getText().toString();
                 if(!chat.equals("")) {
-                    sendMessage(userId, receiver, chat);
+                    //sendMessage(userId, receiver, chat);
+                    Toast.makeText(ChatActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(ChatActivity.this, "Message Empty", Toast.LENGTH_SHORT).show();
                 }
@@ -87,17 +96,32 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-    private void initRecyclerView() {
-        this.rvChat = findViewById(R.id.rv_chat_messages);
-        rvChat.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManager.setStackFromEnd(true);
-        rvChat.setLayoutManager(linearLayoutManager);
-
-    }
-
     private void initFirebase() {
+        this.database = FirebaseDatabase.getInstance();
         this.mAuth = FirebaseAuth.getInstance();
+        this.fUser = this.mAuth.getCurrentUser();
+        this.currentUserId = this.fUser.getUid();
+
+        DatabaseReference reference = database.getReference(Collections.users.name());
+        Intent intent = getIntent();
+        this.receiverId = intent.getStringExtra(Keys.KEY_POSTER_ID.name());
+
+        reference.child(receiverId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String str_receiverUname = snapshot.child("username").getValue().toString();
+                tvUsername.setText("@" + receiverUname);
+                String str_receiverImage = snapshot.child(Keys.KEY)
+                Toast.makeText(ChatActivity.this, "Receiver Key: " + receiverUname, Toast.LENGTH_LONG);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        /*this.mAuth = FirebaseAuth.getInstance();
         this.user = this.mAuth.getCurrentUser();
         this.userId = this.user.getUid();
         this.database = FirebaseDatabase.getInstance();
@@ -119,6 +143,34 @@ public class ChatActivity extends AppCompatActivity {
                 } else {
                     Picasso.get().load(imageUrl).into(ivProfile);
                 }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
+    }
+
+
+
+    private void initRecyclerView() {
+        /*database = FirebaseDatabase.getInstance();
+        dataChat = new ArrayList<>();
+
+        database.getReference().child(Collections.messages.name()).addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot dss : dataSnapshot.getChildren()) {
+                    String senderkey = dss.child("sender").getValue().toString();
+                    String receiverkey = dss.child("receiver").getValue().toString();
+                    String messagekey = dss.child("chat").getValue().toString();
+                    if(receiverkey.equals(userId) && senderkey.equals(receiver) ||
+                            receiverkey.equals(receiver) && senderkey.equals(userId)) {
+                        dataChat.add(dataChat.size(), new Chat(senderkey, receiverkey, messagekey));
+                    }
+                }
             }
 
             @Override
@@ -126,6 +178,12 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+
+        ChatAdapter chatAdapter = new ChatAdapter(this.dataChat);
+        chatAdapter.notifyDataSetChanged();
+
+        rvChat.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rvChat.setAdapter(new ChatAdapter(ChatActivity.this, this.dataChat, imageUrl));*/
     }
 
     private void sendMessage (String sender, String receiver, String chat) {
@@ -137,32 +195,5 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("chat", chat);
 
         reference.child("messages").push().setValue(hashMap);
-    }
-
-    private void readChat (String userId, String receiverId, String imageUrl) {
-        dataChat = new ArrayList<>();
-
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataChat.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Chat chat = snapshot.getValue(Chat.class);
-                    if(chat.getReceiver().equals(userId) && chat.getSender().equals(receiverId) ||
-                        chat.getReceiver().equals(receiverId) && chat.getSender().equals(userId)) {
-                        dataChat.add(chat);
-                    }
-
-                    chatAdapter = new ChatAdapter(ChatActivity.this, dataChat, imageUrl);
-                    rvChat.setAdapter(chatAdapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 }

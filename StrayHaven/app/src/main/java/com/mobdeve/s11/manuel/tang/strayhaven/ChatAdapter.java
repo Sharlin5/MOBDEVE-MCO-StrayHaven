@@ -17,11 +17,10 @@ import java.util.ArrayList;
 public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
 
     private ArrayList<Chat> dataChat;
-
     private Context context;
     private String imageUrl;
 
-    public ChatAdapter(ArrayList<Chat> dataChat){
+    public ChatAdapter(ArrayList<Chat> dataChat ){
         this.dataChat = dataChat;
     }
 
