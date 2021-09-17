@@ -86,9 +86,11 @@ public class ChatActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(ChatActivity.this, "Message Empty", Toast.LENGTH_SHORT).show();
                 }
-
                 etChat.setText("");
-
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
             }
         });
 

@@ -54,6 +54,14 @@ public class MessagesActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        this.initComponents();
+        this.initRecyclerView();
+        this.initProfilePic();
+    }
+
     private void initRecyclerView(){
         this.database = FirebaseDatabase.getInstance();
         this.mAuth = FirebaseAuth.getInstance();
