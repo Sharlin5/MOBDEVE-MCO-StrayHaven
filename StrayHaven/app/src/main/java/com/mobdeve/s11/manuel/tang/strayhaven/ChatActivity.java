@@ -117,7 +117,6 @@ public class ChatActivity extends AppCompatActivity {
                 } else {
                     Picasso.get().load(receiverImage).into(ivProfile);
                 }
-                //Toast.makeText(ChatActivity.this, "Receiver Key: " + receiverUname, Toast.LENGTH_LONG);
             }
 
             @Override
@@ -135,7 +134,6 @@ public class ChatActivity extends AppCompatActivity {
         this.dataChat = new ArrayList<Chat>();
 
         DatabaseReference chatReference = database.getReference(Collections.chats.name());
-        DatabaseReference userReference = database.getReference(Collections.users.name());
 
         Intent intent = getIntent();
         this.receiverId = intent.getStringExtra(Keys.KEY_POSTER_ID.name());
@@ -149,7 +147,6 @@ public class ChatActivity extends AppCompatActivity {
                     String message = dss.child("chat").getValue().toString();
                     Chat chat = new Chat(senderkey, receiverkey, message, receiverImage);
                     dataChat.add(chat);
-                    //Toast.makeText(ChatActivity.this, dataChat.get(dataChat.size()-1).getMessage(), Toast.LENGTH_SHORT).show();
                     rvChat = findViewById(R.id.rv_chat_messages);
                     rvChat.setLayoutManager(new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.VERTICAL, false));
                     rvChat.setAdapter(new ChatAdapter(ChatActivity.this, dataChat, senderId));

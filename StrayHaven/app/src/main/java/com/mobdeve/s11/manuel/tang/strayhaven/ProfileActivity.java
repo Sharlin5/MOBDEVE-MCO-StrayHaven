@@ -27,7 +27,7 @@ import com.squareup.picasso.Picasso;
 public class ProfileActivity extends AppCompatActivity {
 
     private FloatingActionButton fabPost;
-    private ImageButton ibBack, ibSettings, ibHome, ibTracker, ibNotifications;
+    private ImageButton ibBack, ibSettings, ibHome, ibTracker, ibNotifications, ibMessages;
     private Button btnMessage;
     private TextView tvUsername, tvLocation, tvDescription, tvProfilename;
     private LinearLayout llLoc, llNoContent;
@@ -68,6 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
         this.ibHome = findViewById(R.id.ib_profile_home);
         this.ibTracker = findViewById(R.id.ib_profile_tracker);
         this.ibNotifications = findViewById(R.id.ib_profile_notifications);
+        this.ibMessages = findViewById(R.id.ib_profile_messages);
         this.btnMessage = findViewById(R.id.btn_profile_message);
         this.llLoc = findViewById(R.id.ll_profile_loc);
         this.ivProfile = findViewById(R.id.iv_profile_user_pic);
@@ -126,14 +127,11 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        btnMessage.setOnClickListener(new View.OnClickListener() {
+        ibMessages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfileActivity.this, "Messages", Toast.LENGTH_SHORT).show();
-
-                //Intent intent = new Intent(ProfileActivity.this, ViewMessageActivity.class);
-                //intent.putExtra("userId", userId);
-                //startActivity(intent);
+                Intent intent = new Intent(ProfileActivity.this, MessagesActivity.class);
+                startActivity(intent);
             }
         });
     }

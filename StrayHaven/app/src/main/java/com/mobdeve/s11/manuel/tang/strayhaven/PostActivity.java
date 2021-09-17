@@ -337,12 +337,9 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void openCamera(){
-
         //Camera intent
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //intent.putExtra(Keys.KEY_PROFILE_IMAGE.name(), tempUri.toString());
         cameraActivityResultLauncher.launch(intent);
-
     }
 
     @Override

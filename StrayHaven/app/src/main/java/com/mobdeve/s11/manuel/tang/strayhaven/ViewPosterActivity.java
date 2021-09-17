@@ -134,9 +134,7 @@ public class ViewPosterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ChatActivity.class);
                 intent.putExtra(Keys.KEY_POSTER_ID.name(), posterKey);
-
-                //Toast.makeText(getApplicationContext(), "UserId: " + posterKey, Toast.LENGTH_SHORT).show();
-
+                
                 startActivity(intent);
             }
         });

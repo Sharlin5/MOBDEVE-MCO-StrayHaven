@@ -46,11 +46,6 @@ public class HomeRequestActivity extends AppCompatActivity {
     private FirebaseUser user;
     private String userId;
 
-    private ArrayList<String> userKeys;
-    private ArrayList<String> temppostername;
-    private ArrayList<String> tempprofileUrl;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
