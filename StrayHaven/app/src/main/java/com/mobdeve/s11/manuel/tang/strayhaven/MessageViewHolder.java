@@ -1,6 +1,7 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
     public TextView tvProfilename;
     public ConstraintLayout clMessage;
     public LinearLayout llMessage;
+    public ImageButton ibMessageDelete;
 
     public MessageViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -26,6 +28,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         this.tvProfilename = itemView.findViewById(R.id.tv_chat_list_name);
         this.clMessage = itemView.findViewById(R.id.cl_chat_list);
         this.llMessage = itemView.findViewById(R.id.ll_chat);
+        this.ibMessageDelete = itemView.findViewById(R.id.ib_chat_list_delete);
     }
 
     public void setIvMessagePicture(String picture) {
@@ -64,4 +67,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         return this.tvProfilename;
     }
 
+    public ImageButton getIbMessageDelete() {
+        return ibMessageDelete;
+    }
 }
