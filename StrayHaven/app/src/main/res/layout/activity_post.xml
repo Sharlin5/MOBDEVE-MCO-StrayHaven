@@ -92,23 +92,57 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/iv_post_image"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/icon_create_post" />
+                    android:id="@+id/iv_post_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/picture_feature1"
+                    tools:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/ll_post_buttons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <ImageButton
+                        android:id="@+id/ib_post_camera"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="65dp"
+                        android:adjustViewBounds="true"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+                        app:tint="@color/brown"
+                        app:srcCompat="@drawable/icon_custom_camera"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                    <ImageButton
+                        android:id="@+id/ib_post_gallery"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/icon_custom_gallery"
+                        app:tint="@color/brown"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_post_add_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/karla"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/days_one"
                     android:gravity="center"
                     android:text="Add Photo"
-                    android:textColor="@color/black"
+                    android:textColor="@color/brown"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="normal" />
             </LinearLayout>
 
             <LinearLayout

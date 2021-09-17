@@ -58,7 +58,7 @@ import java.security.Key;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private ImageButton ibBack;
+    private ImageButton ibBack, ibCamera, ibGallery;
     private Button btnLogout, btnSave;
     private EditText etName, etDescription, etLocation, etPassword;
     private ImageView ivProfile, ivFeatured1, ivFeatured2, ivFeatured3, ivFeatured4, ivFeatured5;
@@ -83,8 +83,8 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        this.initComponents();
         this.initFirebase();
+        this.initComponents();
         overridePendingTransition(0,0);
         getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
     }
@@ -98,6 +98,8 @@ public class SettingsActivity extends AppCompatActivity {
     //Initialize objects
     public void initComponents(){
         this.ibBack = findViewById(R.id.ib_settings_back);
+        this.ibCamera = findViewById(R.id.ib_settings_camera);
+        this.ibGallery = findViewById(R.id.ib_settings_gallery);
         this.btnLogout = findViewById(R.id.btn_settings_logout);
         this.etName = findViewById(R.id.et_settings_name);
         this.etDescription = findViewById(R.id.et_settings_desc);
@@ -147,11 +149,17 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        ivProfile.setOnClickListener(new View.OnClickListener() {
+        ibGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImageFromGallery("Profile");
-                //pickImageFromCamera();
+            }
+        });
+
+        ibCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickImageFromCamera();
             }
         });
 

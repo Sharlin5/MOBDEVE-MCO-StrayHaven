@@ -27,7 +27,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,12 +49,12 @@ import java.io.ByteArrayOutputStream;
 
 public class PostActivity extends AppCompatActivity {
 
-    private ImageButton ibBack;
+    private ImageButton ibBack, ibCamera, ibGallery;
     private Button btnPost;
     private EditText etPostRequest, etPostLocation, etPostDescription;
     private ImageView ivPost;
     private TextView tvPost;
-    private LinearLayout llPost;
+    private LinearLayout llPostBtns;
     private ProgressBar pbPost;
     private Spinner spinPostRequest;
 
@@ -113,10 +112,12 @@ public class PostActivity extends AppCompatActivity {
         this.etPostDescription = findViewById(R.id.et_post_caption);
         this.etPostLocation = findViewById(R.id.et_post_loc);
         this.ibBack = findViewById(R.id.ib_post_back);
+        this.ibCamera = findViewById(R.id.ib_post_camera);
+        this.ibGallery = findViewById(R.id.ib_post_gallery);
         this.btnPost = findViewById(R.id.btn_post_done);
-        this.ivPost = findViewById(R.id.iv_post_image);
+        this.ivPost = findViewById(R.id.iv_post_photo);
         this.tvPost = findViewById(R.id.tv_post_add_photo);
-        this.llPost = findViewById(R.id.ll_post_add_photo);
+        this.llPostBtns = findViewById(R.id.ll_post_buttons);
         this.pbPost = findViewById(R.id.pb_post);
         this.spinPostRequest = findViewById(R.id.spin_post_request);
 
@@ -171,10 +172,17 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-        llPost.setOnClickListener(new View.OnClickListener() {
+        ibGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImageFromGallery();
+            }
+        });
+
+        ibCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickImageFromCamera();
             }
         });
     }
@@ -295,6 +303,8 @@ public class PostActivity extends AppCompatActivity {
                         ivPost.requestLayout();
                         ivPost.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
                         ivPost.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+                        ivPost.setVisibility(View.VISIBLE);
+                        llPostBtns.setVisibility(View.GONE);
                         tvPost.setVisibility(View.GONE);
                     } else {
                         Toast.makeText(PostActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
@@ -346,7 +356,7 @@ public class PostActivity extends AppCompatActivity {
                 }
                 else {
                     //permission from popup was denied
-                    Toast.makeText(PostActivity.this, "Permission denied...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -366,6 +376,8 @@ public class PostActivity extends AppCompatActivity {
                         ivPost.requestLayout();
                         ivPost.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
                         ivPost.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+                        ivPost.setVisibility(View.VISIBLE);
+                        llPostBtns.setVisibility(View.GONE);
                         tvPost.setVisibility(View.GONE);
                     } else {
                         Toast.makeText(PostActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
