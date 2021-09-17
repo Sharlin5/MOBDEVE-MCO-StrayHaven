@@ -27,7 +27,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         this.tvUsername = itemView.findViewById(R.id.tv_chat_list_username);
         this.tvProfilename = itemView.findViewById(R.id.tv_chat_list_name);
         this.clMessage = itemView.findViewById(R.id.cl_chat_list);
-        this.llMessage = itemView.findViewById(R.id.ll_chat);
+        this.llMessage = itemView.findViewById(R.id.ll_chat_list_post_details);
         this.ibMessageDelete = itemView.findViewById(R.id.ib_chat_list_delete);
     }
 
