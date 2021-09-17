@@ -110,7 +110,11 @@ public class ChatActivity extends AppCompatActivity {
                 String receiverUname = snapshot.child("username").getValue().toString();
                 tvUsername.setText("@" + receiverUname);
                 String receiverImage = snapshot.child("profilepicUrl").getValue().toString();
-                Picasso.get().load(receiverImage).into(ivProfile);
+                if (receiverImage.equals(" ") || receiverImage.equals(null)){
+                    ivProfile.setImageResource(R.drawable.icon_default_user);
+                } else {
+                    Picasso.get().load(receiverImage).into(ivProfile);
+                }
                 Toast.makeText(ChatActivity.this, "Receiver Key: " + receiverUname, Toast.LENGTH_LONG);
             }
 
@@ -127,6 +131,7 @@ public class ChatActivity extends AppCompatActivity {
         this.fUser = this.mAuth.getCurrentUser();
         this.senderId = this.fUser.getUid();
         dataChat = new ArrayList<Chat>();
+
         DatabaseReference chatReference = database.getReference(Collections.chats.name());
         DatabaseReference userReference = database.getReference(Collections.users.name());
 
@@ -140,12 +145,13 @@ public class ChatActivity extends AppCompatActivity {
                     String senderkey = dss.child("sender").getValue().toString();
                     String receiverkey = dss.child("receiver").getValue().toString();
                     String message = dss.child("chat").getValue().toString();
-                    Chat chat = new Chat(senderkey, receiverkey, message);
+
                     userReference.child(senderkey).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             String profileUrl = snapshot.child("profilepicUrl").getValue().toString();
-                            chat.setProfilePic(profileUrl);
+                            Chat chat = new Chat(senderkey, receiverkey, message, profileUrl);
+                            Toast.makeText(ChatActivity.this, chat.getMessage(), Toast.LENGTH_SHORT).show();
                             dataChat.add(chat);
                             rvChat = findViewById(R.id.rv_chat_messages);
                             rvChat.setLayoutManager(new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.VERTICAL, false));

@@ -13,6 +13,13 @@ public class Chat {
         this.message = message;
     }
 
+    public Chat(String sender, String receiver, String message, String profilePic) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.message = message;
+        this.profilePic = profilePic;
+    }
+
     public String getSender() {
         return sender;
     }

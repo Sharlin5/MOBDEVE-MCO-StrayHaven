@@ -99,7 +99,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
                     }
                 });
-
                 context.startActivity(new Intent(context.getApplicationContext(), MessagesActivity.class));
             }
         });
