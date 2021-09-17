@@ -79,7 +79,6 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
         DatabaseReference notifReference = database.getReference(Collections.notifs.name());
         DatabaseReference likeReference = database.getReference(Collections.likes.name());
 
-
         String postKey = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getPostKey();
         String posterKey = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getPosterKey();
         String postCaption = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getCaption();
@@ -91,7 +90,6 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
         String postDate = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getDate();
         String isDone;
         String currDate = new CustomDate().toStringFull();
-
 
         if (isChecked){
             isDone = "true";

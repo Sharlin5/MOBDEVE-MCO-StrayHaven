@@ -1,9 +1,11 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,8 +23,14 @@ import java.util.ArrayList;
 public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     private ArrayList<Message> dataMessage;
+    private Context context;
 
     public MessageAdapter(ArrayList<Message> dataMessage){
+        this.dataMessage = dataMessage;
+    }
+
+    public MessageAdapter(Context context, ArrayList<Message> dataMessage){
+        this.context = context;
         this.dataMessage = dataMessage;
     }
 
@@ -77,12 +85,26 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
                 FirebaseUser user = mAuth.getCurrentUser();
                 String userId = user.getUid();
 
-                DatabaseReference messageReference = database.getReference(Collections.messages.name());
+                DatabaseReference chatReference = database.getReference(Collections.chats.name());
                 String receiverKey = dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUserKey();
 
-                messageReference.child(userId).child(receiverKey).removeValue();
+                chatReference.child(userId).child(receiverKey).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        snapshot.getRef().removeValue();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                context.startActivity(new Intent(context.getApplicationContext(), MessagesActivity.class));
             }
         });
+
+
         return messageViewHolder;
     }
 

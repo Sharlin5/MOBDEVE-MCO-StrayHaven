@@ -79,7 +79,7 @@ public class MessagesActivity extends AppCompatActivity {
                             dataMessage.add(message);
                             rvMessage = findViewById(R.id.rv_message_feed);
                             rvMessage.setLayoutManager(new LinearLayoutManager(MessagesActivity.this, LinearLayoutManager.VERTICAL, false));
-                            rvMessage.setAdapter(new MessageAdapter(dataMessage));
+                            rvMessage.setAdapter(new MessageAdapter(MessagesActivity.this, dataMessage));
                         }
 
                         @Override
