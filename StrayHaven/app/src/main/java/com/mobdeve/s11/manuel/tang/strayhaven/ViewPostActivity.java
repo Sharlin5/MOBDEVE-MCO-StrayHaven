@@ -61,7 +61,6 @@ public class ViewPostActivity extends AppCompatActivity {
         } else {
             Picasso.get().load(imageUrl).into(ivProfile);
         }
-        //this.ivPicture.setImageResource(intent.getIntExtra(Keys.KEY_FEED_IMAGE.name(), 0));
         this.tvUsername.setText(intent.getStringExtra(Keys.KEY_FEED_USERNAME.name()));
         this.tvCaption.setText(intent.getStringExtra(Keys.KEY_FEED_CAPTION.name()));
         this.tvLocation.setText(intent.getStringExtra(Keys.KEY_FEED_LOCATION.name()));
@@ -219,14 +218,6 @@ public class ViewPostActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void successLike(){
-        Toast.makeText(this, "Liked post", Toast.LENGTH_SHORT).show();
-    }
-
-    private void failedLike(){
-        Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
     }
 
     private void successfulDelete(){

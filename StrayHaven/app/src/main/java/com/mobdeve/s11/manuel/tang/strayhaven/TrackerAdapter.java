@@ -24,13 +24,7 @@ import java.util.ArrayList;
 public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
 
     private FirebaseDatabase database;
-    /*
-    private String username;
-    private String postUrl;
-    private String type;
-    private String date;
-    private String isdone;
-    */
+
     private ArrayList<Feed> dataTracker;
     private Context context;
     private Intent intent;
@@ -51,7 +45,6 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.tracker_template, parent, false);
         TrackerViewHolder trackerViewHolder = new TrackerViewHolder(itemView);
-        //String postKey = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getPostKey();
 
         trackerViewHolder.getIbTrackerDelete().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,13 +117,9 @@ public class TrackerAdapter extends RecyclerView.Adapter<TrackerViewHolder> {
     private void deleteRequest(TrackerViewHolder trackerViewHolder){
         this.database = FirebaseDatabase.getInstance();
         DatabaseReference trackerReference = database.getReference(Collections.request.name());
-        DatabaseReference likeReference = database.getReference(Collections.likes.name());
-        DatabaseReference notifReference = database.getReference(Collections.notifs.name());
 
         //curr post key
         String postKey = dataTracker.get(trackerViewHolder.getBindingAdapterPosition()).getPostKey();
-
-        // notify user
 
         // delete
         trackerReference.child(postKey).addValueEventListener(new ValueEventListener() {

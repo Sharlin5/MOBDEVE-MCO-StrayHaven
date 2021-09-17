@@ -35,7 +35,6 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setIvFeedPicture(int picture){
-        //Picasso.get().load(picture).into(ivFeedPicture);
         this.ivFeedPicture.setImageResource(picture);
     }
 

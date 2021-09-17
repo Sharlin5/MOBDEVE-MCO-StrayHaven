@@ -19,7 +19,6 @@ public class ChatViewHolder extends RecyclerView.ViewHolder {
         this.tvChatLeft = itemView.findViewById(R.id.tv_left_chat_message);
         this.tvChatRight = itemView.findViewById(R.id.tv_right_chat_message);
         this.ivProfilePictureLeft = itemView.findViewById(R.id.iv_chat_left_user_pic);
-        //this.ivProfilePictureRight = itemView.findViewById(R.id.iv_chat_right_user_pic);
     }
 
     public void setTvChat(String tvChat, int viewType) {

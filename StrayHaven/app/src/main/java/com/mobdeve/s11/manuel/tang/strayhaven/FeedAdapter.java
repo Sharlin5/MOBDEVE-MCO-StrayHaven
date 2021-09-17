@@ -84,7 +84,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
         holder.setTvFeedLocation(currentFeed.getLocation());
         holder.setTvFeedType(currentFeed.getType());
         holder.setIvFeedPicture(currentFeed.getPostUrl());
-        //holder.setIvFeedPicture(R.drawable.picture_feature1);
         holder.setIvFeedProfile(currentFeed.getProfileUrl());
     }
 

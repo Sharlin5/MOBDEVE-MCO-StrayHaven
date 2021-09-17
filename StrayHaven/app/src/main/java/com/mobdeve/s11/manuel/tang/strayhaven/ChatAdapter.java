@@ -55,9 +55,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
         return chatViewHolder;
     }
 
-    //Toast.makeText(context, dataChat.get(chatViewHolder.getBindingAdapterPosition()).getMessage(), Toast.LENGTH_SHORT).show();
-
-
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         Chat chat = dataChat.get(position);
@@ -67,8 +64,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
         if(!userId.equals(chat.getSender())) {
             holder.setIvProfilePicture(chat.getProfilePic());
         }
-
-        //chat.getMessage()
     }
 
     @Override
