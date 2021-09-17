@@ -41,8 +41,8 @@ public class MessagesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
         this.initComponents();
-        //this.initRecyclerView();
-        //this.initProfilePic();
+        this.initRecyclerView();
+        this.initProfilePic();
 
         overridePendingTransition(0,0);
         getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -55,9 +55,48 @@ public class MessagesActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        this.rvMessage = findViewById(R.id.rv_message_feed);
-        this.rvMessage.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        this.rvMessage.setAdapter(new MessageAdapter(this.dataMessage));
+        this.database = FirebaseDatabase.getInstance();
+        this.mAuth = FirebaseAuth.getInstance();
+        this.user = this.mAuth.getCurrentUser();
+        this.userId = this.user.getUid();
+        this.dataMessage = new ArrayList<Message>();
+
+        DatabaseReference chatReference = database.getReference(Collections.chats.name());
+        DatabaseReference userReference = database.getReference(Collections.users.name());
+
+        chatReference.child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dss: snapshot.getChildren()){
+                    String friendKey = dss.getKey();
+                    userReference.child(friendKey).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String username = snapshot.child("username").getValue().toString();
+                            String profilename = snapshot.child("profilename").getValue().toString();
+                            String imageId = snapshot.child("profilepicUrl").getValue().toString();
+                            Message message = new Message(username, profilename, imageId, friendKey);
+                            dataMessage.add(message);
+                            rvMessage = findViewById(R.id.rv_message_feed);
+                            rvMessage.setLayoutManager(new LinearLayoutManager(MessagesActivity.this, LinearLayoutManager.VERTICAL, false));
+                            rvMessage.setAdapter(new MessageAdapter(dataMessage));
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
     private void initProfilePic(){

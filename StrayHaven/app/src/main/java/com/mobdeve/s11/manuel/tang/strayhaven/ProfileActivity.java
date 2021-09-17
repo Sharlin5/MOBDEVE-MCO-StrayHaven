@@ -58,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void initComponents(){
-        /*this.tvUsername = findViewById(R.id.tv_profile_username);
+        this.tvUsername = findViewById(R.id.tv_profile_username);
         this.tvDescription = findViewById(R.id.tv_profile_user_desc);
         this.tvLocation = findViewById(R.id.tv_profile_user_loc);
         this.tvProfilename = findViewById(R.id.tv_profile_name);
@@ -135,11 +135,11 @@ public class ProfileActivity extends AppCompatActivity {
                 //intent.putExtra("userId", userId);
                 //startActivity(intent);
             }
-        });*/
+        });
     }
 
     private void initFirebase(){
-        /*this.mAuth = FirebaseAuth.getInstance();
+        this.mAuth = FirebaseAuth.getInstance();
         this.user = this.mAuth.getCurrentUser();
         this.userId = this.user.getUid();
         this.database = FirebaseDatabase.getInstance();
@@ -231,7 +231,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });*/
+        });
 
     }
 }

@@ -29,10 +29,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ChatActivity.class);
-
-                intent.putExtra(Keys.KEY_MESSAGE_IMAGE.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getImageId());
-                intent.putExtra(Keys.KEY_MESSAGE_USERNAME.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUsername());
-
+                intent.putExtra(Keys.KEY_POSTER_ID.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUserKey());
                 v.getContext().startActivity(intent);
             }
         });
@@ -41,10 +38,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ChatActivity.class);
-
-                intent.putExtra(Keys.KEY_MESSAGE_IMAGE.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getImageId());
-                intent.putExtra(Keys.KEY_MESSAGE_USERNAME.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUsername());
-
+                intent.putExtra(Keys.KEY_POSTER_ID.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUserKey());
                 v.getContext().startActivity(intent);
             }
         });
@@ -53,10 +47,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ChatActivity.class);
-
-                intent.putExtra(Keys.KEY_MESSAGE_IMAGE.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getImageId());
-                intent.putExtra(Keys.KEY_MESSAGE_USERNAME.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUsername());
-
+                intent.putExtra(Keys.KEY_POSTER_ID.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUserKey());
                 v.getContext().startActivity(intent);
             }
         });
@@ -65,10 +56,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ChatActivity.class);
-
-                intent.putExtra(Keys.KEY_MESSAGE_IMAGE.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getImageId());
-                intent.putExtra(Keys.KEY_MESSAGE_USERNAME.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUsername());
-
+                intent.putExtra(Keys.KEY_POSTER_ID.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUserKey());
                 v.getContext().startActivity(intent);
             }
         });

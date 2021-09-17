@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 public class MessageViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView ivMessagePicture;
@@ -26,8 +28,12 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         this.llMessage = itemView.findViewById(R.id.ll_chat);
     }
 
-    public void setIvMessagePicture(int picture) {
-        this.ivMessagePicture.setImageResource(picture);
+    public void setIvMessagePicture(String picture) {
+        if (picture.equals(" ")){
+            ivMessagePicture.setImageResource(R.drawable.icon_default_user);
+        } else {
+            Picasso.get().load(picture).into(ivMessagePicture);
+        }
     }
 
     public void setTvUsername(String username){

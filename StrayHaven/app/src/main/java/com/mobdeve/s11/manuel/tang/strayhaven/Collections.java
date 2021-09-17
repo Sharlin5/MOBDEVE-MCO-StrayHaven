@@ -7,5 +7,6 @@ public enum Collections {
     request,
     update,
     likes,
-    notifs
+    notifs,
+    chats
 }

@@ -5,6 +5,7 @@ public class Chat {
     private String sender;
     private String receiver;
     private String message;
+    private String profilePic;
 
     public Chat(String sender, String receiver, String message) {
         this.sender = sender;
@@ -36,4 +37,11 @@ public class Chat {
         this.message = message;
     }
 
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
 }

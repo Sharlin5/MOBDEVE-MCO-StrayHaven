@@ -1,13 +1,13 @@
 package com.mobdeve.s11.manuel.tang.strayhaven;
 
 public class Message {
-    private String username, profilename;
-    private int imageId;
+    private String username,profilename, imageId, userKey;
 
-    public Message(String username, String profilename, int imageId) {
+    public Message(String username, String profilename, String imageId, String userKey) {
         this.username = username;
         this.imageId = imageId;
         this.profilename = profilename;
+        this.userKey = userKey;
     }
 
     public String getUsername(){
@@ -18,9 +18,11 @@ public class Message {
         return this.profilename;
     }
 
-    public int getImageId(){
+    public String getImageId(){
         return this.imageId;
     }
 
-
+    public String getUserKey() {
+        return userKey;
+    }
 }

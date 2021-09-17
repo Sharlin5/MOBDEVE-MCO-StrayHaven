@@ -40,7 +40,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private FirebaseAuth mAuth;
     private FirebaseUser fUser;
-    private String currentUserId, receiverId, receiverImage;
+    private String senderId, receiverId, receiverImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +49,6 @@ public class ChatActivity extends AppCompatActivity {
 
         initComponents();
         initFirebase();
-
-
         initRecyclerView();
 
         overridePendingTransition(0,0);
@@ -83,7 +81,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String chat = etChat.getText().toString();
                 if(!chat.equals("")) {
-                    //sendMessage(userId, receiver, chat);
+                    sendMessage(senderId, receiverId, chat);
                     Toast.makeText(ChatActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(ChatActivity.this, "Message Empty", Toast.LENGTH_SHORT).show();
@@ -100,7 +98,7 @@ public class ChatActivity extends AppCompatActivity {
         this.database = FirebaseDatabase.getInstance();
         this.mAuth = FirebaseAuth.getInstance();
         this.fUser = this.mAuth.getCurrentUser();
-        this.currentUserId = this.fUser.getUid();
+        this.senderId = this.fUser.getUid();
 
         DatabaseReference reference = database.getReference(Collections.users.name());
         Intent intent = getIntent();
@@ -109,9 +107,10 @@ public class ChatActivity extends AppCompatActivity {
         reference.child(receiverId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String str_receiverUname = snapshot.child("username").getValue().toString();
+                String receiverUname = snapshot.child("username").getValue().toString();
                 tvUsername.setText("@" + receiverUname);
-                String str_receiverImage = snapshot.child(Keys.KEY)
+                String receiverImage = snapshot.child("profilepicUrl").getValue().toString();
+                Picasso.get().load(receiverImage).into(ivProfile);
                 Toast.makeText(ChatActivity.this, "Receiver Key: " + receiverUname, Toast.LENGTH_LONG);
             }
 
@@ -120,56 +119,45 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-
-        /*this.mAuth = FirebaseAuth.getInstance();
-        this.user = this.mAuth.getCurrentUser();
-        this.userId = this.user.getUid();
-        this.database = FirebaseDatabase.getInstance();
-
-        DatabaseReference reference = database.getReference(Collections.users.name());
-        Intent intent = getIntent();
-        String receiverId = intent.getStringExtra(Keys.KEY_POSTER_ID.name());
-
-        this.receiver = receiverId;
-
-        reference.child(receiverId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String username = snapshot.child("username").getValue().toString();
-                tvUsername.setText("@" + username);
-                imageUrl = snapshot.child("profilepicUrl").getValue().toString();
-                if (imageUrl.equals(" ")){
-                    ivProfile.setImageResource(R.drawable.icon_default_user);
-                } else {
-                    Picasso.get().load(imageUrl).into(ivProfile);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
     }
 
-
-
     private void initRecyclerView() {
-        /*database = FirebaseDatabase.getInstance();
-        dataChat = new ArrayList<>();
+        database = FirebaseDatabase.getInstance();
+        this.mAuth = FirebaseAuth.getInstance();
+        this.fUser = this.mAuth.getCurrentUser();
+        this.senderId = this.fUser.getUid();
+        dataChat = new ArrayList<Chat>();
+        DatabaseReference chatReference = database.getReference(Collections.chats.name());
+        DatabaseReference userReference = database.getReference(Collections.users.name());
 
-        database.getReference().child(Collections.messages.name()).addValueEventListener( new ValueEventListener() {
+        Intent intent = getIntent();
+        this.receiverId = intent.getStringExtra(Keys.KEY_POSTER_ID.name());
+
+        chatReference.child(this.senderId).child(this.receiverId).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot dss : dataSnapshot.getChildren()) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dss : snapshot.getChildren()) {
                     String senderkey = dss.child("sender").getValue().toString();
                     String receiverkey = dss.child("receiver").getValue().toString();
-                    String messagekey = dss.child("chat").getValue().toString();
-                    if(receiverkey.equals(userId) && senderkey.equals(receiver) ||
-                            receiverkey.equals(receiver) && senderkey.equals(userId)) {
-                        dataChat.add(dataChat.size(), new Chat(senderkey, receiverkey, messagekey));
-                    }
+                    String message = dss.child("chat").getValue().toString();
+                    Chat chat = new Chat(senderkey, receiverkey, message);
+                    userReference.child(senderkey).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String profileUrl = snapshot.child("profilepicUrl").getValue().toString();
+                            chat.setProfilePic(profileUrl);
+                            dataChat.add(chat);
+                            rvChat = findViewById(R.id.rv_chat_messages);
+                            rvChat.setLayoutManager(new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.VERTICAL, false));
+                            rvChat.setAdapter(new ChatAdapter(ChatActivity.this, dataChat));
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 }
             }
 
@@ -178,14 +166,9 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-
-        ChatAdapter chatAdapter = new ChatAdapter(this.dataChat);
-        chatAdapter.notifyDataSetChanged();
-
-        rvChat.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvChat.setAdapter(new ChatAdapter(ChatActivity.this, this.dataChat, imageUrl));*/
     }
 
+    //save message
     private void sendMessage (String sender, String receiver, String chat) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
@@ -194,6 +177,7 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("receiver", receiver);
         hashMap.put("chat", chat);
 
-        reference.child("messages").push().setValue(hashMap);
+        reference.child("chats").child(receiver).child(sender).push().setValue(hashMap);
+        reference.child("chats").child(sender).child(receiver).push().setValue(hashMap);
     }
 }
