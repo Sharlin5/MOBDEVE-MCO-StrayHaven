@@ -14,7 +14,7 @@ public class RightChatViewHolder extends RecyclerView.ViewHolder {
 
     public RightChatViewHolder(@NonNull View itemView) {
         super(itemView);
-        ivProfile = itemView.findViewById(R.id.iv_chat_right_user_pic);
+        //ivProfile = itemView.findViewById(R.id.iv_chat_right_user_pic);
         tvChat = itemView.findViewById(R.id.tv_right_chat_message);
     }
 

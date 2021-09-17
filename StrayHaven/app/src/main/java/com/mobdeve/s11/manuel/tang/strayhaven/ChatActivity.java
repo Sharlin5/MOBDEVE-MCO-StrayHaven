@@ -109,13 +109,13 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String receiverUname = snapshot.child("username").getValue().toString();
                 tvUsername.setText("@" + receiverUname);
-                String receiverImage = snapshot.child("profilepicUrl").getValue().toString();
+                receiverImage = snapshot.child("profilepicUrl").getValue().toString();
                 if (receiverImage.equals(" ") || receiverImage.equals(null)){
                     ivProfile.setImageResource(R.drawable.icon_default_user);
                 } else {
                     Picasso.get().load(receiverImage).into(ivProfile);
                 }
-                Toast.makeText(ChatActivity.this, "Receiver Key: " + receiverUname, Toast.LENGTH_LONG);
+                //Toast.makeText(ChatActivity.this, "Receiver Key: " + receiverUname, Toast.LENGTH_LONG);
             }
 
             @Override
@@ -145,12 +145,12 @@ public class ChatActivity extends AppCompatActivity {
                     String senderkey = dss.child("sender").getValue().toString();
                     String receiverkey = dss.child("receiver").getValue().toString();
                     String message = dss.child("chat").getValue().toString();
-                    Chat chat = new Chat(senderkey, receiverkey, message);
+                    Chat chat = new Chat(senderkey, receiverkey, message, receiverImage);
                     dataChat.add(chat);
-                    Toast.makeText(ChatActivity.this, dataChat.get(dataChat.size()-1).getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ChatActivity.this, dataChat.get(dataChat.size()-1).getMessage(), Toast.LENGTH_SHORT).show();
                     rvChat = findViewById(R.id.rv_chat_messages);
                     rvChat.setLayoutManager(new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.VERTICAL, false));
-                    rvChat.setAdapter(new ChatAdapter(ChatActivity.this, dataChat));
+                    rvChat.setAdapter(new ChatAdapter(ChatActivity.this, dataChat, senderId));
                 }
             }
 

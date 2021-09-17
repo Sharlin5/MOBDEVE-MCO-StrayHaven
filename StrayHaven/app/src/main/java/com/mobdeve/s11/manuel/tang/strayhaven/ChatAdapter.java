@@ -25,22 +25,32 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
 
     private ArrayList<Chat> dataChat;
     private Context context;
+    private String userId;
 
-    public ChatAdapter(ArrayList<Chat> dataChat ){
+    public ChatAdapter(ArrayList<Chat> dataChat) {
         this.dataChat = dataChat;
     }
 
-    public ChatAdapter(ChatActivity context, ArrayList<Chat> dataChat) {
+    public ChatAdapter(ChatActivity context, ArrayList<Chat> dataChat, String userId) {
         this.dataChat = dataChat;
         this.context = context;
+        this.userId = userId;
     }
 
     @NonNull
     @Override
     public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.chat_item_left, parent, false);
-        ChatViewHolder chatViewHolder = new ChatViewHolder(itemView);
+        View itemView;
+        ChatViewHolder chatViewHolder;
+
+        if(viewType == 0) {
+            itemView = inflater.inflate(R.layout.chat_item_left, parent, false);
+            chatViewHolder = new ChatViewHolder(itemView);
+        } else {
+            itemView = inflater.inflate(R.layout.chat_item_right, parent, false);
+            chatViewHolder = new ChatViewHolder(itemView);
+        }
 
         return chatViewHolder;
     }
@@ -51,8 +61,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         Chat chat = dataChat.get(position);
-        holder.setIvProfilePicture(" ");
-        holder.setTvChat(chat.getMessage());
+
+        holder.setTvChat(chat.getMessage(), getItemViewType(position));
+
+        if(!userId.equals(chat.getSender())) {
+            holder.setIvProfilePicture(chat.getProfilePic());
+        }
+
         //chat.getMessage()
     }
 
@@ -61,9 +76,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
         return this.dataChat.size();
     }
 
-}
-
-/*
     @Override
     public int getItemViewType(int position) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -73,13 +85,5 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
         } else { //Right message, user
             return 1;
         }
-    }*/
-/*
-        if (viewType == 1) {
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            View itemView = inflater.inflate(R.layout.chat_item_right, parent, false);
-            ChatViewHolder chatViewHolder = new ChatViewHolder(itemView, 1);
-            return chatViewHolder;
-        } else {
-
-        }*/
+    }
+}
