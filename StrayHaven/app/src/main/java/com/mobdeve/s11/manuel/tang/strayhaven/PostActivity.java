@@ -207,7 +207,7 @@ public class PostActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        successfulPost();
+                                        successfulPost("Foster/Adopt");
                                     } else {
                                         failedPost();
                                     }
@@ -219,7 +219,7 @@ public class PostActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        successfulPost();
+                                        successfulPost("Update");
                                     } else {
                                         failedPost();
                                     }
@@ -254,8 +254,17 @@ public class PostActivity extends AppCompatActivity {
         return empty;
     }
 
-    private void successfulPost(){
+    private void successfulPost(String request){
         Toast.makeText(this, "Post Successful", Toast.LENGTH_SHORT).show();
+        if(request.equals("Update")) {
+            Intent intent = new Intent(PostActivity.this, HomeUpdateActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = new Intent(PostActivity.this, HomeRequestActivity.class);
+            startActivity(intent);
+            finish();
+        }
         Intent intent = new Intent(PostActivity.this, HomeRequestActivity.class);
         startActivity(intent);
         finish();

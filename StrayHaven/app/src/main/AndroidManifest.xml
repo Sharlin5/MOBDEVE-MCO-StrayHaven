@@ -18,7 +18,7 @@
             android:name=".ViewPosterActivity"
             android:exported="true" />
         <activity
-            android:name=".ViewMessageActivity"
+            android:name=".ChatActivity"
             android:exported="true" />
         <activity
             android:name=".HomeUpdateActivity"

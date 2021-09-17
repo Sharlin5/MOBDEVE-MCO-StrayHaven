@@ -28,7 +28,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         messageViewHolder.getLlMessage().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ViewMessageActivity.class);
+                Intent intent = new Intent(v.getContext(), ChatActivity.class);
 
                 intent.putExtra(Keys.KEY_MESSAGE_IMAGE.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getImageId());
                 intent.putExtra(Keys.KEY_MESSAGE_USERNAME.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUsername());
@@ -40,7 +40,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         messageViewHolder.getIvMessagePicture().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ViewMessageActivity.class);
+                Intent intent = new Intent(v.getContext(), ChatActivity.class);
 
                 intent.putExtra(Keys.KEY_MESSAGE_IMAGE.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getImageId());
                 intent.putExtra(Keys.KEY_MESSAGE_USERNAME.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUsername());
@@ -52,7 +52,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         messageViewHolder.getTvProfilename().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ViewMessageActivity.class);
+                Intent intent = new Intent(v.getContext(), ChatActivity.class);
 
                 intent.putExtra(Keys.KEY_MESSAGE_IMAGE.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getImageId());
                 intent.putExtra(Keys.KEY_MESSAGE_USERNAME.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUsername());
@@ -64,7 +64,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         messageViewHolder.getTvUsername().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ViewMessageActivity.class);
+                Intent intent = new Intent(v.getContext(), ChatActivity.class);
 
                 intent.putExtra(Keys.KEY_MESSAGE_IMAGE.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getImageId());
                 intent.putExtra(Keys.KEY_MESSAGE_USERNAME.name(), dataMessage.get(messageViewHolder.getBindingAdapterPosition()).getUsername());

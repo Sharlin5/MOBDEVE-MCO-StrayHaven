@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,7 +39,7 @@ public class ViewPosterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private FirebaseDatabase database;
-    private String userId;
+    private String userId, posterKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +128,18 @@ public class ViewPosterActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ChatActivity.class);
+                intent.putExtra(Keys.KEY_POSTER_ID.name(), posterKey);
+
+                //Toast.makeText(getApplicationContext(), "UserId: " + posterKey, Toast.LENGTH_SHORT).show();
+
+                startActivity(intent);
+            }
+        });
     }
 
     private void initFirebase() {
@@ -139,7 +150,7 @@ public class ViewPosterActivity extends AppCompatActivity {
 
         DatabaseReference reference = database.getReference(Collections.users.name());
         Intent intent = getIntent();
-        String posterKey = intent.getStringExtra(Keys.KEY_POSTER_ID.name());
+        this.posterKey = intent.getStringExtra(Keys.KEY_POSTER_ID.name());
 
         if(!posterKey.equals(userId)){
             btnMessage.setVisibility(View.VISIBLE);

@@ -191,9 +191,14 @@ public class ViewPostActivity extends AppCompatActivity {
                                     } else {
                                         likeReference.child(postKey).child(userId).setValue(true);
                                         likechecker = false;
+                                        if (userFeedType.equals("Update")) {
+                                            Notif notif = new Notif(postname, feedImage, "likes the update! Thank you for your hard work!", currDate, userId);
+                                            notifReference.child(posterId).push().setValue(notif);
+                                        } else {
+                                            Notif notif = new Notif(postname, feedImage, "seems to be interested! You can send a message by visiting their profile.", currDate, userId);
+                                            notifReference.child(posterId).push().setValue(notif);
+                                        }
 
-                                        Notif notif = new Notif(postname, feedImage, "seems to be interested! You can send a message by visiting their profile.", currDate, userId);
-                                        notifReference.child(posterId).push().setValue(notif);
                                     }
                                 }
                             }

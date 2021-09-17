@@ -27,8 +27,10 @@ public class MessagesActivity extends AppCompatActivity {
 
     private ImageView ivProfile;
     private ImageButton ibSettings, ibHome, ibTracker, ibNotifications;
+
     private RecyclerView rvMessage;
     private ArrayList<Message> dataMessage;
+
     private FirebaseDatabase database;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -39,8 +41,9 @@ public class MessagesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
         this.initComponents();
-        this.initRecyclerView();
-        this.initProfilePic();
+        //this.initRecyclerView();
+        //this.initProfilePic();
+
         overridePendingTransition(0,0);
         getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
     }
