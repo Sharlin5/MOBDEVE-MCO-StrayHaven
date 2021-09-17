@@ -42,21 +42,26 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
         View itemView = inflater.inflate(R.layout.chat_item_left, parent, false);
         ChatViewHolder chatViewHolder = new ChatViewHolder(itemView);
 
-        //Toast.makeText(context, dataChat.get(chatViewHolder.getBindingAdapterPosition()).getMessage(), Toast.LENGTH_SHORT).show();
         return chatViewHolder;
     }
+
+    //Toast.makeText(context, dataChat.get(chatViewHolder.getBindingAdapterPosition()).getMessage(), Toast.LENGTH_SHORT).show();
+
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         Chat chat = dataChat.get(position);
-        holder.setIvProfilePicture(chat.getProfilePic());
+        holder.setIvProfilePicture(" ");
         holder.setTvChat(chat.getMessage());
+        //chat.getMessage()
     }
 
     @Override
     public int getItemCount() {
-        return dataChat.size();
+        return this.dataChat.size();
     }
+
+}
 
 /*
     @Override
@@ -69,8 +74,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
             return 1;
         }
     }*/
-}
-
 /*
         if (viewType == 1) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());

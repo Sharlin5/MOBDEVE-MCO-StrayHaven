@@ -130,7 +130,7 @@ public class ChatActivity extends AppCompatActivity {
         this.mAuth = FirebaseAuth.getInstance();
         this.fUser = this.mAuth.getCurrentUser();
         this.senderId = this.fUser.getUid();
-        dataChat = new ArrayList<Chat>();
+        this.dataChat = new ArrayList<Chat>();
 
         DatabaseReference chatReference = database.getReference(Collections.chats.name());
         DatabaseReference userReference = database.getReference(Collections.users.name());
@@ -145,25 +145,12 @@ public class ChatActivity extends AppCompatActivity {
                     String senderkey = dss.child("sender").getValue().toString();
                     String receiverkey = dss.child("receiver").getValue().toString();
                     String message = dss.child("chat").getValue().toString();
-
-                    userReference.child(senderkey).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String profileUrl = snapshot.child("profilepicUrl").getValue().toString();
-                            Chat chat = new Chat(senderkey, receiverkey, message, profileUrl);
-                            Toast.makeText(ChatActivity.this, chat.getMessage(), Toast.LENGTH_SHORT).show();
-                            dataChat.add(chat);
-                            rvChat = findViewById(R.id.rv_chat_messages);
-                            rvChat.setLayoutManager(new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.VERTICAL, false));
-                            rvChat.setAdapter(new ChatAdapter(ChatActivity.this, dataChat));
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
+                    Chat chat = new Chat(senderkey, receiverkey, message);
+                    dataChat.add(chat);
+                    Toast.makeText(ChatActivity.this, dataChat.get(dataChat.size()-1).getMessage(), Toast.LENGTH_SHORT).show();
+                    rvChat = findViewById(R.id.rv_chat_messages);
+                    rvChat.setLayoutManager(new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.VERTICAL, false));
+                    rvChat.setAdapter(new ChatAdapter(ChatActivity.this, dataChat));
                 }
             }
 
