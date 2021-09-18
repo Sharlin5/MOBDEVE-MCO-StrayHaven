@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".PostActivity">
+    tools:context=".post.PostActivity">
 
     <ProgressBar
         android:id="@+id/pb_post"
@@ -96,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    app:srcCompat="@drawable/picture_feature1"
+                    app:srcCompat="@drawable/icon_default_user"
                     tools:visibility="gone" />
 
                 <LinearLayout

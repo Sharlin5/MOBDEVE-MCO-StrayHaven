@@ -92,7 +92,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_feed_user_details"
-            app:srcCompat="@drawable/picture_request1"
+            app:srcCompat="@drawable/icon_default_user"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView

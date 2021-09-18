@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeRequestActivity">
+    tools:context=".home.HomeRequestActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_home_req_top_nav_bar"

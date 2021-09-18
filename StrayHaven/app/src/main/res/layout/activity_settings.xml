@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
+    tools:context=".settings.SettingsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_settings_top_nav_bar"
@@ -318,6 +318,19 @@
                             android:layout_weight=".2"
                             android:scaleType="centerCrop"
                             app:srcCompat="@drawable/icon_create_post" />
+
+                        <ImageButton
+                            android:id="@+id/ib_settings_delete_1"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="right|top"
+                            android:adjustViewBounds="true"
+                            android:background="@null"
+                            android:cropToPadding="true"
+                            android:padding="8dp"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/icon_delete"
+                            app:tint="@color/red" />
                     </FrameLayout>
 
                     <FrameLayout
@@ -336,6 +349,19 @@
                             android:layout_weight=".2"
                             android:scaleType="centerCrop"
                             app:srcCompat="@drawable/icon_create_post" />
+
+                        <ImageButton
+                            android:id="@+id/ib_settings_delete_2"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="right|top"
+                            android:adjustViewBounds="true"
+                            android:background="@null"
+                            android:cropToPadding="true"
+                            android:padding="8dp"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/icon_delete"
+                            app:tint="@color/red" />
                     </FrameLayout>
 
                     <FrameLayout
@@ -354,6 +380,19 @@
                             android:layout_weight=".2"
                             android:scaleType="centerCrop"
                             app:srcCompat="@drawable/icon_create_post" />
+
+                        <ImageButton
+                            android:id="@+id/ib_settings_delete_3"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="right|top"
+                            android:adjustViewBounds="true"
+                            android:background="@null"
+                            android:cropToPadding="true"
+                            android:padding="8dp"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/icon_delete"
+                            app:tint="@color/red" />
                     </FrameLayout>
 
                     <FrameLayout
@@ -372,6 +411,19 @@
                             android:layout_weight=".2"
                             android:scaleType="centerCrop"
                             app:srcCompat="@drawable/icon_create_post" />
+
+                        <ImageButton
+                            android:id="@+id/ib_settings_delete_4"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="right|top"
+                            android:adjustViewBounds="true"
+                            android:background="@null"
+                            android:cropToPadding="true"
+                            android:padding="8dp"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/icon_delete"
+                            app:tint="@color/red" />
                     </FrameLayout>
 
                     <FrameLayout
@@ -389,6 +441,19 @@
                             android:layout_weight=".2"
                             android:scaleType="centerCrop"
                             app:srcCompat="@drawable/icon_create_post" />
+
+                        <ImageButton
+                            android:id="@+id/ib_settings_delete_5"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="right|top"
+                            android:adjustViewBounds="true"
+                            android:background="@null"
+                            android:cropToPadding="true"
+                            android:padding="8dp"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/icon_delete"
+                            app:tint="@color/red" />
                     </FrameLayout>
 
                 </LinearLayout>

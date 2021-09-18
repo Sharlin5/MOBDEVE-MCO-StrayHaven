@@ -15,37 +15,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StrayHaven">
         <activity
-            android:name=".ViewPosterActivity"
+            android:name=".profile.ViewPosterActivity"
             android:exported="true" />
         <activity
-            android:name=".ChatActivity"
+            android:name=".chat.ChatActivity"
             android:exported="true" />
         <activity
-            android:name=".HomeUpdateActivity"
+            android:name=".home.HomeUpdateActivity"
             android:exported="true" />
         <activity
-            android:name=".ViewPostActivity"
+            android:name=".post.ViewPostActivity"
             android:exported="true" />
         <activity
-            android:name=".MessagesActivity"
+            android:name=".message.MessagesActivity"
             android:exported="true" />
         <activity
-            android:name=".NotificationActivity"
+            android:name=".notification.NotificationActivity"
             android:exported="true" />
         <activity
-            android:name=".TrackerActivity"
+            android:name=".tracker.TrackerActivity"
             android:exported="true" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".settings.SettingsActivity"
             android:exported="true" />
         <activity
-            android:name=".PostActivity"
+            android:name=".post.PostActivity"
             android:exported="true" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".profile.ProfileActivity"
             android:exported="true" />
         <activity
-            android:name=".HomeRequestActivity"
+            android:name=".home.HomeRequestActivity"
             android:exported="true" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity">

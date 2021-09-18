@@ -64,7 +64,7 @@
                 android:layout_height="80dp"
                 android:clickable="true"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/picture_feature1"
+                app:srcCompat="@drawable/icon_default_user"
                 tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
 

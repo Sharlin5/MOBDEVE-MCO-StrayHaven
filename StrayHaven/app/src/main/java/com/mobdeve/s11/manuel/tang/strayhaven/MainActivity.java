@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.mobdeve.s11.manuel.tang.strayhaven.home.HomeRequestActivity;
 
 public class MainActivity extends AppCompatActivity {
 

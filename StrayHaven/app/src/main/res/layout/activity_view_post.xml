@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewPostActivity">
+    tools:context=".post.ViewPostActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_view_view_post"
@@ -111,7 +111,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/picture_request2"
+                        app:srcCompat="@drawable/icon_default_user"
                         tools:ignore="SpeakableTextPresentCheck" />
 
                     <TextView

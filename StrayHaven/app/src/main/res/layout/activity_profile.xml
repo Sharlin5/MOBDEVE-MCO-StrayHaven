@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".profile.ProfileActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_profile"
@@ -153,14 +153,14 @@
                                 android:cropToPadding="true"
                                 android:scaleType="fitCenter"
                                 app:srcCompat="@drawable/icon_location"
-                                app:tint="@color/brown" />
+                                app:tint="@color/red" />
 
                             <TextView
                                 android:id="@+id/tv_profile_user_loc"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/def_loc"
-                                android:textColor="@color/brown" />
+                                android:textColor="@color/red" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -228,7 +228,7 @@
                         android:layout_marginBottom="20dp"
                         android:background="@color/light_gray"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/picture_feature4" />
+                        app:srcCompat="@drawable/icon_default_user" />
 
                     <ImageView
                         android:id="@+id/iv_profile_featured2"
@@ -237,7 +237,7 @@
                         android:layout_marginBottom="20dp"
                         android:background="@color/light_gray"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/picture_feature1" />
+                        app:srcCompat="@drawable/icon_default_user" />
 
                     <ImageView
                         android:id="@+id/iv_profile_featured3"
@@ -246,7 +246,7 @@
                         android:layout_marginBottom="20dp"
                         android:background="@color/light_gray"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/picture_feature3" />
+                        app:srcCompat="@drawable/icon_default_user" />
 
                     <ImageView
                         android:id="@+id/iv_profile_featured4"
@@ -255,7 +255,7 @@
                         android:layout_marginBottom="20dp"
                         android:background="@color/light_gray"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/picture_feature5" />
+                        app:srcCompat="@drawable/icon_default_user" />
 
                     <ImageView
                         android:id="@+id/iv_profile_featured5"
@@ -264,7 +264,7 @@
                         android:layout_marginBottom="20dp"
                         android:background="@color/light_gray"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/picture_feature2" />
+                        app:srcCompat="@drawable/icon_default_user" />
                 </LinearLayout>
 
             </LinearLayout>
