@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.mobdeve.s11.manuel.tang.strayhaven.misc.Collections;
 import com.mobdeve.s11.manuel.tang.strayhaven.misc.Keys;
 import com.mobdeve.s11.manuel.tang.strayhaven.R;
+import com.mobdeve.s11.manuel.tang.strayhaven.post.PostActivity;
+import com.mobdeve.s11.manuel.tang.strayhaven.profile.ProfileActivity;
+import com.mobdeve.s11.manuel.tang.strayhaven.profile.ViewPosterActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,7 +46,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private FirebaseAuth mAuth;
     private FirebaseUser fUser;
-    private String senderId, receiverId, receiverImage;
+    private String senderId, receiverId, chatId, receiverImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +100,24 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewPosterActivity.class);
+                intent.putExtra(Keys.KEY_POSTER_ID.name(),chatId);
+                v.getContext().startActivity(intent);
+            }
+        });
+
+        tvUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewPosterActivity.class);
+                intent.putExtra(Keys.KEY_POSTER_ID.name(),chatId);
+                v.getContext().startActivity(intent);
+            }
+        });
+
     }
 
     private void initFirebase() {
@@ -107,6 +129,7 @@ public class ChatActivity extends AppCompatActivity {
         DatabaseReference reference = database.getReference(Collections.users.name());
         Intent intent = getIntent();
         this.receiverId = intent.getStringExtra(Keys.KEY_POSTER_ID.name());
+        this.chatId = intent.getStringExtra(Keys.KEY_POSTER_ID.name());
 
         reference.child(receiverId).addValueEventListener(new ValueEventListener() {
             @Override

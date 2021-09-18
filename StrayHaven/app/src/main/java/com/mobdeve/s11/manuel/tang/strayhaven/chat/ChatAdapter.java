@@ -1,6 +1,7 @@
 package com.mobdeve.s11.manuel.tang.strayhaven.chat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mobdeve.s11.manuel.tang.strayhaven.R;
+import com.mobdeve.s11.manuel.tang.strayhaven.misc.Keys;
+import com.mobdeve.s11.manuel.tang.strayhaven.profile.ViewPosterActivity;
 
 import java.util.ArrayList;
 

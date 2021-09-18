@@ -40,6 +40,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.mobdeve.s11.manuel.tang.strayhaven.message.MessagesActivity;
 import com.mobdeve.s11.manuel.tang.strayhaven.misc.Collections;
 import com.mobdeve.s11.manuel.tang.strayhaven.MainActivity;
 import com.mobdeve.s11.manuel.tang.strayhaven.R;
@@ -72,6 +73,7 @@ public class SettingsActivity extends AppCompatActivity {
     private String email, username;
     private String imageUrl;
     private String featured1Url, featured2Url, featured3Url, featured4Url, featured5Url;
+    private boolean isChange1, isChange2, isChange3, isChange4, isChange5;
     private User currUser;
 
     @Override
@@ -141,6 +143,8 @@ public class SettingsActivity extends AppCompatActivity {
         this.ibFeatured5Camera = findViewById(R.id.ib_settings_camera_5);
         this.ibFeatured5Gallery = findViewById(R.id.ib_settings_gallery_5);
         this.ibFeatured5Delete = findViewById(R.id.ib_settings_delete_5);
+
+        isChange1 = false; isChange2 = false; isChange3 = false; isChange4 = false; isChange5 = false;
 
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,6 +238,19 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        ibFeatured1Delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ibFeatured1Delete.setVisibility(View.GONE);
+                isChange1 = true;
+                ivFeatured1.setImageResource(R.drawable.icon_create_post);
+                ivFeatured1.requestLayout();
+                ivFeatured1.getLayoutParams().height = (int)getResources().getDimension(R.dimen.height);
+                ivFeatured1.getLayoutParams().width = (int)getResources().getDimension(R.dimen.width);
+                Toast.makeText(SettingsActivity.this, "Removed Featured Photo", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         flFeatured2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -278,6 +295,19 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 photoType = "Featured2";
                 pickImageFromCamera();
+            }
+        });
+
+        ibFeatured2Delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ibFeatured2Delete.setVisibility(View.GONE);
+                isChange2 = true;
+                ivFeatured2.setImageResource(R.drawable.icon_create_post);
+                ivFeatured2.requestLayout();
+                ivFeatured2.getLayoutParams().height = (int)getResources().getDimension(R.dimen.height);
+                ivFeatured2.getLayoutParams().width = (int)getResources().getDimension(R.dimen.width);
+                Toast.makeText(SettingsActivity.this, "Removed Featured Photo", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -328,6 +358,19 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        ibFeatured3Delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ibFeatured3Delete.setVisibility(View.GONE);
+                isChange3 = true;
+                ivFeatured3.setImageResource(R.drawable.icon_create_post);
+                ivFeatured3.requestLayout();
+                ivFeatured3.getLayoutParams().height = (int)getResources().getDimension(R.dimen.height);
+                ivFeatured3.getLayoutParams().width = (int)getResources().getDimension(R.dimen.width);
+                Toast.makeText(SettingsActivity.this, "Removed Featured Photo", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         flFeatured4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -375,6 +418,19 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        ibFeatured4Delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ibFeatured4Delete.setVisibility(View.GONE);
+                isChange4 = true;
+                ivFeatured4.setImageResource(R.drawable.icon_create_post);
+                ivFeatured4.requestLayout();
+                ivFeatured4.getLayoutParams().height = (int)getResources().getDimension(R.dimen.height);
+                ivFeatured4.getLayoutParams().width = (int)getResources().getDimension(R.dimen.width);
+                Toast.makeText(SettingsActivity.this, "Removed Featured Photo", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         flFeatured5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -419,6 +475,19 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 photoType = "Featured5";
                 pickImageFromCamera();
+            }
+        });
+
+        ibFeatured5Delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ibFeatured5Delete.setVisibility(View.GONE);
+                isChange5 = true;
+                ivFeatured5.setImageResource(R.drawable.icon_create_post);
+                ivFeatured5.requestLayout();
+                ivFeatured5.getLayoutParams().height = (int)getResources().getDimension(R.dimen.height);
+                ivFeatured5.getLayoutParams().width = (int)getResources().getDimension(R.dimen.width);
+                Toast.makeText(SettingsActivity.this, "Removed Featured Photo", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -784,6 +853,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         currUser = new User(email, username, name, password, description, location);
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+
+        if (isChange1) { featured1Url = " "; }
+        if (isChange2) { featured2Url = " "; }
+        if (isChange3) { featured3Url = " "; }
+        if (isChange4) { featured4Url = " "; }
+        if (isChange5) { featured5Url = " "; }
 
         User user = new User(email, username, name, password, description, location, imageUrl, featured1Url, featured2Url, featured3Url, featured4Url, featured5Url);
         updateUser(user);
