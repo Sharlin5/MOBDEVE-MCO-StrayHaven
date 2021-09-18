@@ -93,6 +93,8 @@ public class HomeRequestActivity extends AppCompatActivity {
         this.database = FirebaseDatabase.getInstance();
         this.dataFeed = new ArrayList<Feed>();
 
+        DatabaseReference userReference = database.getReference(Collections.users.name());
+
         database.getReference().child(Collections.request.name()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -104,16 +106,29 @@ public class HomeRequestActivity extends AppCompatActivity {
                         String date = dss.child("date").getValue(String.class);
                         String imageUrl = dss.child("postUrl").getValue(String.class);
                         String postername = dss.child("username").getValue(String.class);
-                        String profileUrl = dss.child("profileUrl").getValue(String.class);
+                        //String profileUrl = dss.child("profileUrl").getValue(String.class);
                         String postKey = dss.getKey();
 
-                        Feed request = new Feed(posterkey, postername, profileUrl, imageUrl, type, location, caption, date);
-                        request.setPostKey(postKey);
-                        dataFeed.add(request);
+                        userReference.child(posterkey).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String profileUrl = snapshot.child("profilepicUrl").getValue().toString();
+                                Feed request = new Feed(posterkey, postername, profileUrl, imageUrl, type, location, caption, date);
+                                request.setPostKey(postKey);
+                                dataFeed.add(request);
 
-                        rvFeed = findViewById(R.id.rv_home_req_feed);
-                        rvFeed.setLayoutManager(new LinearLayoutManager(HomeRequestActivity.this, LinearLayoutManager.VERTICAL, true));
-                        rvFeed.setAdapter(new FeedAdapter(dataFeed));
+                                rvFeed = findViewById(R.id.rv_home_req_feed);
+                                rvFeed.setLayoutManager(new LinearLayoutManager(HomeRequestActivity.this, LinearLayoutManager.VERTICAL, true));
+                                rvFeed.setAdapter(new FeedAdapter(dataFeed));
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
                 }
             }
             @Override

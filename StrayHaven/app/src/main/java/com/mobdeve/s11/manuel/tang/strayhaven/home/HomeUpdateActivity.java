@@ -95,6 +95,7 @@ public class HomeUpdateActivity extends AppCompatActivity {
     private void initUpdate(){
         this.database = FirebaseDatabase.getInstance();
         this.dataUpdate = new ArrayList<Feed>();
+        DatabaseReference userReference = database.getReference(Collections.users.name());
 
         database.getReference().child(Collections.update.name()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -107,14 +108,26 @@ public class HomeUpdateActivity extends AppCompatActivity {
                         String date = dss.child("date").getValue(String.class);
                         String imageUrl = dss.child("postUrl").getValue(String.class);
                         String postername = dss.child("username").getValue(String.class);
-                        String profileUrl = dss.child("profileUrl").getValue(String.class);
                         String postKey = dss.getKey();
-                        Feed update = new Feed(posterkey, postername, profileUrl, imageUrl, type, location, caption, date);
-                        update.setPostKey(postKey);
-                        dataUpdate.add(update);
-                        rvUpdate = findViewById(R.id.rv_home_upd_feed);
-                        rvUpdate.setLayoutManager(new LinearLayoutManager(HomeUpdateActivity.this, LinearLayoutManager.VERTICAL, true));
-                        rvUpdate.setAdapter(new FeedAdapter(dataUpdate));
+
+                        userReference.child(posterkey).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String profileUrl = snapshot.child("profilepicUrl").getValue().toString();
+                                Feed update = new Feed(posterkey, postername, profileUrl, imageUrl, type, location, caption, date);
+                                update.setPostKey(postKey);
+                                dataUpdate.add(update);
+                                
+                                rvUpdate = findViewById(R.id.rv_home_upd_feed);
+                                rvUpdate.setLayoutManager(new LinearLayoutManager(HomeUpdateActivity.this, LinearLayoutManager.VERTICAL, true));
+                                rvUpdate.setAdapter(new FeedAdapter(dataUpdate));
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                 }
             }
 
