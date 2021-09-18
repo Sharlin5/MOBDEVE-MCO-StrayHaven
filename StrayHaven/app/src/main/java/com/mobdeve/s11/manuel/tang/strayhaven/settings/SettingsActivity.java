@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,11 +50,15 @@ import java.io.ByteArrayOutputStream;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private ImageButton ibBack, ibCamera, ibGallery;
+    private ImageButton ibBack, ibProfileCamera, ibProfileGallery;
     private Button btnLogout, btnSave;
     private EditText etName, etDescription, etLocation, etPassword;
     private ImageView ivProfile, ivFeatured1, ivFeatured2, ivFeatured3, ivFeatured4, ivFeatured5;
     private FrameLayout flFeatured1, flFeatured2, flFeatured3, flFeatured4, flFeatured5;
+    private LinearLayout llFeatured1Btns, llFeatured2Btns, llFeatured3Btns, llFeatured4Btns, llFeatured5Btns;
+    private ImageButton ibFeatured1Camera, ibFeatured2Camera, ibFeatured3Camera, ibFeatured4Camera, ibFeatured5Camera;
+    private ImageButton ibFeatured1Gallery, ibFeatured2Gallery, ibFeatured3Gallery, ibFeatured4Gallery, ibFeatured5Gallery;
+    private ImageButton ibFeatured1Delete, ibFeatured2Delete, ibFeatured3Delete, ibFeatured4Delete, ibFeatured5Delete;
 
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
@@ -63,8 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
-    private FirebaseStorage storage;
-    private String userId;
+    private String userId, photoType;
     private String email, username;
     private String imageUrl;
     private String featured1Url, featured2Url, featured3Url, featured4Url, featured5Url;
@@ -89,26 +93,54 @@ public class SettingsActivity extends AppCompatActivity {
     //Initialize objects
     public void initComponents(){
         this.ibBack = findViewById(R.id.ib_settings_back);
-        this.ibCamera = findViewById(R.id.ib_settings_camera);
-        this.ibGallery = findViewById(R.id.ib_settings_gallery);
+        this.ibProfileCamera = findViewById(R.id.ib_settings_camera);
+        this.ibProfileGallery = findViewById(R.id.ib_settings_gallery);
+
         this.btnLogout = findViewById(R.id.btn_settings_logout);
+        this.btnSave = findViewById(R.id.btn_settings_save);
+
         this.etName = findViewById(R.id.et_settings_name);
         this.etDescription = findViewById(R.id.et_settings_desc);
         this.etLocation = findViewById(R.id.et_settings_loc);
         this.etPassword = findViewById(R.id.et_settings_pass);
-        this.btnSave = findViewById(R.id.btn_settings_save);
+
         this.ivProfile = findViewById(R.id.iv_settings_user_pic);
         this.ivFeatured1 = findViewById(R.id.iv_settings_featured_1);
         this.ivFeatured2 = findViewById(R.id.iv_settings_featured_2);
         this.ivFeatured3 = findViewById(R.id.iv_settings_featured_3);
         this.ivFeatured4 = findViewById(R.id.iv_settings_featured_4);
         this.ivFeatured5 = findViewById(R.id.iv_settings_featured_5);
+
         this.flFeatured1 = findViewById(R.id.fl_settings_featured_1);
         this.flFeatured2 = findViewById(R.id.fl_settings_featured_2);
         this.flFeatured3 = findViewById(R.id.fl_settings_featured_3);
         this.flFeatured4 = findViewById(R.id.fl_settings_featured_4);
         this.flFeatured5 = findViewById(R.id.fl_settings_featured_5);
 
+        this.llFeatured1Btns = findViewById(R.id.ll_settings_featured_buttons_1);
+        this.ibFeatured1Camera = findViewById(R.id.ib_settings_camera_1);
+        this.ibFeatured1Gallery = findViewById(R.id.ib_settings_gallery_1);
+        this.ibFeatured1Delete = findViewById(R.id.ib_settings_delete_1);
+
+        this.llFeatured2Btns = findViewById(R.id.ll_settings_featured_buttons_2);
+        this.ibFeatured2Camera = findViewById(R.id.ib_settings_camera_2);
+        this.ibFeatured2Gallery = findViewById(R.id.ib_settings_gallery_2);
+        this.ibFeatured2Delete = findViewById(R.id.ib_settings_delete_2);
+
+        this.llFeatured3Btns = findViewById(R.id.ll_settings_featured_buttons_3);
+        this.ibFeatured3Camera = findViewById(R.id.ib_settings_camera_3);
+        this.ibFeatured3Gallery = findViewById(R.id.ib_settings_gallery_3);
+        this.ibFeatured3Delete = findViewById(R.id.ib_settings_delete_3);
+
+        this.llFeatured4Btns = findViewById(R.id.ll_settings_featured_buttons_4);
+        this.ibFeatured4Camera = findViewById(R.id.ib_settings_camera_4);
+        this.ibFeatured4Gallery = findViewById(R.id.ib_settings_gallery_4);
+        this.ibFeatured4Delete = findViewById(R.id.ib_settings_delete_4);
+
+        this.llFeatured5Btns = findViewById(R.id.ll_settings_featured_buttons_5);
+        this.ibFeatured5Camera = findViewById(R.id.ib_settings_camera_5);
+        this.ibFeatured5Gallery = findViewById(R.id.ib_settings_gallery_5);
+        this.ibFeatured5Delete = findViewById(R.id.ib_settings_delete_5);
 
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,16 +172,17 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        ibGallery.setOnClickListener(new View.OnClickListener() {
+        ibProfileGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImageFromGallery("Profile");
             }
         });
 
-        ibCamera.setOnClickListener(new View.OnClickListener() {
+        ibProfileCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                photoType = "Profile";
                 pickImageFromCamera();
             }
         });
@@ -157,37 +190,238 @@ public class SettingsActivity extends AppCompatActivity {
         flFeatured1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(llFeatured1Btns.getVisibility() == View.GONE) {
+                    llFeatured1Btns.setVisibility(View.VISIBLE);
+                    if(!featured1Url.equals(" ")) { ibFeatured1Delete.setVisibility(View.VISIBLE); }
+
+                    llFeatured2Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured2Delete.setVisibility(View.GONE);
+                    llFeatured3Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured3Delete.setVisibility(View.GONE);
+                    llFeatured4Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured4Delete.setVisibility(View.GONE);
+                    llFeatured5Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured5Delete.setVisibility(View.GONE);
+                }
+                else {
+                    llFeatured1Btns.setVisibility(View.GONE);
+                    ibFeatured1Delete.setVisibility(View.GONE);
+
+                    llFeatured2Btns.setVisibility(View.GONE);
+                    ibFeatured2Delete.setVisibility(View.GONE);
+                    llFeatured3Btns.setVisibility(View.GONE);
+                    ibFeatured3Delete.setVisibility(View.GONE);
+                    llFeatured4Btns.setVisibility(View.GONE);
+                    ibFeatured4Delete.setVisibility(View.GONE);
+                    llFeatured5Btns.setVisibility(View.GONE);
+                    ibFeatured5Delete.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        ibFeatured1Gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 pickImageFromGallery("Featured1");
+            }
+        });
+
+        ibFeatured1Camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photoType = "Featured1";
+                pickImageFromCamera();
             }
         });
 
         flFeatured2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(llFeatured2Btns.getVisibility() == View.GONE) {
+                    llFeatured2Btns.setVisibility(View.VISIBLE);
+                    if(!featured2Url.equals(" ")) { ibFeatured2Delete.setVisibility(View.VISIBLE); }
+
+                    llFeatured1Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured1Delete.setVisibility(View.GONE);
+                    llFeatured3Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured3Delete.setVisibility(View.GONE);
+                    llFeatured4Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured4Delete.setVisibility(View.GONE);
+                    llFeatured5Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured5Delete.setVisibility(View.GONE);
+                }
+                else {
+                    llFeatured2Btns.setVisibility(View.GONE);
+                    ibFeatured2Delete.setVisibility(View.GONE);
+
+                    llFeatured1Btns.setVisibility(View.GONE);
+                    ibFeatured1Delete.setVisibility(View.GONE);
+                    llFeatured3Btns.setVisibility(View.GONE);
+                    ibFeatured3Delete.setVisibility(View.GONE);
+                    llFeatured4Btns.setVisibility(View.GONE);
+                    ibFeatured4Delete.setVisibility(View.GONE);
+                    llFeatured5Btns.setVisibility(View.GONE);
+                    ibFeatured5Delete.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        ibFeatured2Gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 pickImageFromGallery("Featured2");
+            }
+        });
+
+        ibFeatured2Camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photoType = "Featured2";
+                pickImageFromCamera();
             }
         });
 
         flFeatured3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(llFeatured3Btns.getVisibility() == View.GONE) {
+                    llFeatured3Btns.setVisibility(View.VISIBLE);
+                    if(!featured3Url.equals(" ")) { ibFeatured3Delete.setVisibility(View.VISIBLE); }
+
+                    llFeatured1Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured1Delete.setVisibility(View.INVISIBLE);
+                    llFeatured2Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured2Delete.setVisibility(View.INVISIBLE);
+                    llFeatured4Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured4Delete.setVisibility(View.INVISIBLE);
+                    llFeatured5Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured5Delete.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    llFeatured3Btns.setVisibility(View.GONE);
+                    ibFeatured3Delete.setVisibility(View.GONE);
+
+                    llFeatured1Btns.setVisibility(View.GONE);
+                    ibFeatured1Delete.setVisibility(View.GONE);
+                    llFeatured2Btns.setVisibility(View.GONE);
+                    ibFeatured2Delete.setVisibility(View.GONE);
+                    llFeatured4Btns.setVisibility(View.GONE);
+                    ibFeatured4Delete.setVisibility(View.GONE);
+                    llFeatured5Btns.setVisibility(View.GONE);
+                    ibFeatured5Delete.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        ibFeatured3Gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 pickImageFromGallery("Featured3");
+            }
+        });
+
+        ibFeatured3Camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photoType = "Featured3";
+                pickImageFromCamera();
             }
         });
 
         flFeatured4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(llFeatured4Btns.getVisibility() == View.GONE) {
+                    llFeatured4Btns.setVisibility(View.VISIBLE);
+                    if(!featured4Url.equals(" ")) { ibFeatured4Delete.setVisibility(View.VISIBLE); }
+
+                    llFeatured1Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured1Delete.setVisibility(View.GONE);
+                    llFeatured2Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured2Delete.setVisibility(View.GONE);
+                    llFeatured3Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured3Delete.setVisibility(View.GONE);
+                    llFeatured5Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured5Delete.setVisibility(View.GONE);
+                }
+                else {
+                    llFeatured4Btns.setVisibility(View.GONE);
+                    ibFeatured4Delete.setVisibility(View.GONE);
+
+                    llFeatured1Btns.setVisibility(View.GONE);
+                    ibFeatured1Delete.setVisibility(View.GONE);
+                    llFeatured2Btns.setVisibility(View.GONE);
+                    ibFeatured2Delete.setVisibility(View.GONE);
+                    llFeatured3Btns.setVisibility(View.GONE);
+                    ibFeatured3Delete.setVisibility(View.GONE);
+                    llFeatured5Btns.setVisibility(View.GONE);
+                    ibFeatured5Delete.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        ibFeatured4Gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 pickImageFromGallery("Featured4");
+            }
+        });
+
+        ibFeatured4Camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photoType = "Featured4";
+                pickImageFromCamera();
             }
         });
 
         flFeatured5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(llFeatured5Btns.getVisibility() == View.GONE) {
+                    llFeatured5Btns.setVisibility(View.VISIBLE);
+                    if(!featured5Url.equals(" ")) { ibFeatured5Delete.setVisibility(View.VISIBLE); }
+
+                    llFeatured1Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured1Delete.setVisibility(View.GONE);
+                    llFeatured2Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured2Delete.setVisibility(View.GONE);
+                    llFeatured3Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured3Delete.setVisibility(View.GONE);
+                    llFeatured3Btns.setVisibility(View.INVISIBLE);
+                    ibFeatured4Delete.setVisibility(View.GONE);
+                }
+                else {
+                    llFeatured5Btns.setVisibility(View.GONE);
+                    ibFeatured5Delete.setVisibility(View.GONE);
+
+                    llFeatured1Btns.setVisibility(View.GONE);
+                    ibFeatured1Delete.setVisibility(View.GONE);
+                    llFeatured2Btns.setVisibility(View.GONE);
+                    ibFeatured2Delete.setVisibility(View.GONE);
+                    llFeatured3Btns.setVisibility(View.GONE);
+                    ibFeatured3Delete.setVisibility(View.GONE);
+                    llFeatured4Btns.setVisibility(View.GONE);
+                    ibFeatured4Delete.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        ibFeatured5Gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 pickImageFromGallery("Featured5");
             }
         });
+
+        ibFeatured5Camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photoType = "Featured5";
+                pickImageFromCamera();
+            }
+        });
+
     }
 
     //Get image from gallery
@@ -360,7 +594,33 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void openCamera(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraActivityResultLauncher.launch(intent);
+
+        switch (this.photoType){
+            case "Profile": {
+                profileCameraActivityResultLauncher.launch(intent);
+                break;
+            }
+            case "Featured1":{
+                featured1CameraActivityResultLauncher.launch(intent);
+                break;
+            }
+            case "Featured2":{
+                featured2CameraActivityResultLauncher.launch(intent);
+                break;
+            }
+            case "Featured3":{
+                featured3CameraActivityResultLauncher.launch(intent);
+                break;
+            }
+            case "Featured4":{
+                featured4CameraActivityResultLauncher.launch(intent);
+                break;
+            }
+            case "Featured5":{
+                featured5CameraActivityResultLauncher.launch(intent);
+                break;
+            }
+        }
     }
 
     @Override
@@ -374,13 +634,13 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 else {
                     //permission from popup was denied
-                    Toast.makeText(SettingsActivity.this, "Permission denied...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SettingsActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
                 }
             }
         }
     }
 
-    private ActivityResultLauncher<Intent> cameraActivityResultLauncher = registerForActivityResult(
+    private ActivityResultLauncher<Intent> profileCameraActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -392,6 +652,111 @@ public class SettingsActivity extends AppCompatActivity {
                         Uri tempUri = getImageUri(getApplicationContext(), bitmap);
                         imageUri = tempUri;
                         ivProfile.setImageURI(tempUri);
+                    } else {
+                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+    private ActivityResultLauncher<Intent> featured1CameraActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Bundle bundle = result.getData().getExtras();
+                        Bitmap bitmap = (Bitmap) bundle.get("data");
+
+                        Uri tempUri = getImageUri(getApplicationContext(), bitmap);
+                        featured1Uri = tempUri;
+                        ivFeatured1.setImageURI(tempUri);
+                        ivFeatured1.requestLayout();
+                        ivFeatured1.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                        ivFeatured1.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
+                    } else {
+                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+    private ActivityResultLauncher<Intent> featured2CameraActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Bundle bundle = result.getData().getExtras();
+                        Bitmap bitmap = (Bitmap) bundle.get("data");
+
+                        Uri tempUri = getImageUri(getApplicationContext(), bitmap);
+                        featured2Uri = tempUri;
+                        ivFeatured2.setImageURI(tempUri);
+                        ivFeatured2.requestLayout();
+                        ivFeatured2.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                        ivFeatured2.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
+                    } else {
+                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+    private ActivityResultLauncher<Intent> featured3CameraActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Bundle bundle = result.getData().getExtras();
+                        Bitmap bitmap = (Bitmap) bundle.get("data");
+
+                        Uri tempUri = getImageUri(getApplicationContext(), bitmap);
+                        featured3Uri = tempUri;
+                        ivFeatured3.setImageURI(tempUri);
+                        ivFeatured3.requestLayout();
+                        ivFeatured3.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                        ivFeatured3.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
+                    } else {
+                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+    private ActivityResultLauncher<Intent> featured4CameraActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Bundle bundle = result.getData().getExtras();
+                        Bitmap bitmap = (Bitmap) bundle.get("data");
+
+                        Uri tempUri = getImageUri(getApplicationContext(), bitmap);
+                        featured4Uri = tempUri;
+                        ivFeatured4.setImageURI(tempUri);
+                        ivFeatured4.requestLayout();
+                        ivFeatured4.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                        ivFeatured4.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
+                    } else {
+                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+    private ActivityResultLauncher<Intent> featured5CameraActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        Bundle bundle = result.getData().getExtras();
+                        Bitmap bitmap = (Bitmap) bundle.get("data");
+
+                        Uri tempUri = getImageUri(getApplicationContext(), bitmap);
+                        featured5Uri = tempUri;
+                        ivFeatured5.setImageURI(tempUri);
+                        ivFeatured5.requestLayout();
+                        ivFeatured5.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
+                        ivFeatured5.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
                     } else {
                         Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
