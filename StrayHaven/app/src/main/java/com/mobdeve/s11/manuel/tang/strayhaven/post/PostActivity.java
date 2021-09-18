@@ -249,7 +249,7 @@ public class PostActivity extends AppCompatActivity {
     private boolean hasEmpty(String request, String location, String caption){
         boolean empty = false;
         if(request.isEmpty()){
-            Toast.makeText(this, "Please select request type", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Select Request Type", Toast.LENGTH_SHORT).show();
             empty = true;
         }
         if(location.isEmpty()){
@@ -312,8 +312,6 @@ public class PostActivity extends AppCompatActivity {
                         ivPost.setVisibility(View.VISIBLE);
                         llPostBtns.setVisibility(View.GONE);
                         tvPost.setVisibility(View.GONE);
-                    } else {
-                        Toast.makeText(PostActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -382,8 +380,6 @@ public class PostActivity extends AppCompatActivity {
                         ivPost.setVisibility(View.VISIBLE);
                         llPostBtns.setVisibility(View.GONE);
                         tvPost.setVisibility(View.GONE);
-                    } else {
-                        Toast.makeText(PostActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

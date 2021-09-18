@@ -535,8 +535,6 @@ public class SettingsActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         imageUri = data.getData();
                         ivProfile.setImageURI(imageUri);
-                    } else {
-                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -555,8 +553,6 @@ public class SettingsActivity extends AppCompatActivity {
                         ivFeatured1.requestLayout();
                         ivFeatured1.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
                         ivFeatured1.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
-                    } else {
-                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -574,9 +570,8 @@ public class SettingsActivity extends AppCompatActivity {
                         ivFeatured2.requestLayout();
                         ivFeatured2.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
                         ivFeatured2.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
-                    } else {
-                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
+
                 }
             }
     );
@@ -593,8 +588,6 @@ public class SettingsActivity extends AppCompatActivity {
                         ivFeatured3.requestLayout();
                         ivFeatured3.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
                         ivFeatured3.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
-                    } else {
-                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -612,8 +605,6 @@ public class SettingsActivity extends AppCompatActivity {
                         ivFeatured4.requestLayout();
                         ivFeatured4.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
                         ivFeatured4.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
-                    } else {
-                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -631,8 +622,6 @@ public class SettingsActivity extends AppCompatActivity {
                         ivFeatured5.requestLayout();
                         ivFeatured5.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
                         ivFeatured5.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
-                    } else {
-                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -721,8 +710,6 @@ public class SettingsActivity extends AppCompatActivity {
                         Uri tempUri = getImageUri(getApplicationContext(), bitmap);
                         imageUri = tempUri;
                         ivProfile.setImageURI(tempUri);
-                    } else {
-                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -742,8 +729,6 @@ public class SettingsActivity extends AppCompatActivity {
                         ivFeatured1.requestLayout();
                         ivFeatured1.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
                         ivFeatured1.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
-                    } else {
-                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -763,8 +748,6 @@ public class SettingsActivity extends AppCompatActivity {
                         ivFeatured2.requestLayout();
                         ivFeatured2.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
                         ivFeatured2.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
-                    } else {
-                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -784,8 +767,6 @@ public class SettingsActivity extends AppCompatActivity {
                         ivFeatured3.requestLayout();
                         ivFeatured3.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
                         ivFeatured3.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
-                    } else {
-                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -805,8 +786,6 @@ public class SettingsActivity extends AppCompatActivity {
                         ivFeatured4.requestLayout();
                         ivFeatured4.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
                         ivFeatured4.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
-                    } else {
-                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -826,8 +805,6 @@ public class SettingsActivity extends AppCompatActivity {
                         ivFeatured5.requestLayout();
                         ivFeatured5.getLayoutParams().height = FrameLayout.LayoutParams.MATCH_PARENT;
                         ivFeatured5.getLayoutParams().width = FrameLayout.LayoutParams.MATCH_PARENT;
-                    } else {
-                        Toast.makeText(SettingsActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
