@@ -191,7 +191,6 @@ public class HomeRequestActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeRequestActivity.this, TrackerActivity.class);
                 startActivity(intent);
-
             }
         });
 

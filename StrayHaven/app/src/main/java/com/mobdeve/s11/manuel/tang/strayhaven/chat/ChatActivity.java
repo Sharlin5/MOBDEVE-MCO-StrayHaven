@@ -93,10 +93,7 @@ public class ChatActivity extends AppCompatActivity {
                     Toast.makeText(ChatActivity.this, "Message Empty", Toast.LENGTH_SHORT).show();
                 }
                 etChat.setText("");
-                finish();
-                overridePendingTransition(0, 0);
-                startActivity(getIntent());
-                overridePendingTransition(0, 0);
+                initRecyclerView();
             }
         });
 
@@ -175,6 +172,7 @@ public class ChatActivity extends AppCompatActivity {
                     rvChat = findViewById(R.id.rv_chat_messages);
                     rvChat.setLayoutManager(new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.VERTICAL, false));
                     rvChat.setAdapter(new ChatAdapter(ChatActivity.this, dataChat, senderId));
+                    rvChat.smoothScrollToPosition(dataChat.size() - 1);
                 }
             }
 
