@@ -852,7 +852,7 @@ public class SettingsActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             imageUrl = uri.toString();
-                            User user = new User(email, username, name, password, description, location, imageUrl, featured1Url, " ", " ", " ", " ");
+                            User user = new User(email, username, name, password, description, location, imageUrl, featured1Url, featured2Url, featured3Url, featured4Url, featured5Url);
                             updateUser(user);
                         }
                     });
@@ -872,7 +872,7 @@ public class SettingsActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             featured1Url = uri.toString();
-                            User user = new User(email, username, name, password, description, location, imageUrl, featured1Url, " ", " ", " ", " ");
+                            User user = new User(email, username, name, password, description, location, imageUrl, featured1Url, featured2Url, featured3Url, featured4Url, featured5Url);
                             updateUser(user);
                         }
                     });
